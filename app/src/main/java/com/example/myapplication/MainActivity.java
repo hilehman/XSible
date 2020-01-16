@@ -54,18 +54,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a new Places client instance.
         final PlacesClient placesClient = Places.createClient(this);
+        PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
 
+        final Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
+                .setHint(("הכנס שם עסק לבדיקת נגישות")).build(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-   
-            /*    Intent mainToMap = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(mainToMap);*/
 
-                PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
-                Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
-                        .build(MainActivity.this); // QQQ what exactly does it do??
+          /*      Intent mainToMap = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(mainToMap);*/
 
                 startActivityForResult(autocompleteIntent,23 );
 
@@ -90,17 +89,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
 
-        Toast.makeText(MainActivity.this,"1111111111",Toast.LENGTH_LONG).show();
+
 
         super.onActivityResult(requestCode, resultCode, intent);
-        Intent mainToMap = new Intent(MainActivity.this, MapsActivity.class);
-        Toast.makeText(MainActivity.this,"2222222222",Toast.LENGTH_LONG).show();
+
 
         if (requestCode==23) {
-            Toast.makeText(MainActivity.this,"TETTTTTT",Toast.LENGTH_LONG).show();
-
-            //  Place place = Autocomplete.getPlaceFromIntent(intent);
-            startActivity(mainToMap);
+            Place place = Autocomplete.getPlaceFromIntent(intent);
+            Toast.makeText(MainActivity.this,place.getName(),Toast.LENGTH_LONG).show();
+            place.getId();
 
 //                 place.getName()//
 //                 place.getAddress();
