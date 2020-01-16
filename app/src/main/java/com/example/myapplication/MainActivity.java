@@ -31,10 +31,11 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable {
 
 
     @Override
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);//get id of button 1
 
         String apiKey = getString(R.string.api_key);
+
+
+
+
 
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
@@ -96,11 +101,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode==23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
-            Toast.makeText(MainActivity.this,place.getName(),Toast.LENGTH_LONG).show();
-            place.getId();
 
-//                 place.getName()//
-//                 place.getAddress();
+
+            Toast.makeText(MainActivity.this,place.getName(),Toast.LENGTH_LONG).show();
+            String placeId = place.getId();
+            Intent toMap = new Intent(this, MapsActivity2.class);
+            toMap.putExtra("place",placeId);
+            startActivity(toMap);
+//
         } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
 
             Status status = Autocomplete.getStatusFromIntent(intent);
