@@ -99,17 +99,29 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onActivityResult(requestCode, resultCode, intent);
 
 
-        if (requestCode==23) {
+        if(requestCode==23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
+//            Intent toPlace = new Intent(this, placeDisplayActivity.class);
+//            PlaceHolder newPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
+//            toPlace.putExtra("id",place.getId());
+//            toPlace.putExtra("name",place.getName());
+//            toPlace.putExtra("address",place.getAddress());
+//            startActivity(toPlace);
+
+        }
 
 
+
+      /*  if (requestCode==23) { //sends to the place on google maps
+            Place place = Autocomplete.getPlaceFromIntent(intent);
             Toast.makeText(MainActivity.this,place.getName(),Toast.LENGTH_LONG).show();
-            String placeId = place.getId();
-            Intent toMap = new Intent(this, MapsActivity2.class);
-            toMap.putExtra("place",placeId);
-            startActivity(toMap);
+            LatLng latLng = place.getLatLng();
+            Intent toMap = new Intent(this, MapsActivity.class);
+            toMap.putExtra("lat",place.getLatLng().latitude);
+            toMap.putExtra("lng",place.getLatLng().longitude);
+            startActivity(toMap);*/
 //
-        } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+         else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
 
             Status status = Autocomplete.getStatusFromIntent(intent);
         } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {

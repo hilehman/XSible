@@ -47,26 +47,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
 
-
-
         Intent toMap = getIntent(); // gets the previously created intent
-        String placeId = toMap.getStringExtra("place");
+        Bundle b = getIntent().getExtras();
+        double lat = b.getDouble("lat");
+        double lng = b.getDouble("lng");
 
-        if(placeId !=null) {
-            // Add a marker in Sydney and move the camera
-            Place place = Place.builder().getCla
-            }
-            LatLng result = place.getLatLng();
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(result));
-            mMap.addMarker(new MarkerOptions().position(result).title("Marker in Sydney"));
-            Toast.makeText(MapsActivity.this, "TEST1", Toast.LENGTH_LONG).show();
-        }
-        else {
-
-            LatLng sydney = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        }
-
+        // Add a marker in Sydney and move the camera
+        LatLng result = new LatLng(lat,lng);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(result));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(result, 30), 200, null);
     }
 }
