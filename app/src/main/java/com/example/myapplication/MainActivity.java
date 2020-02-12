@@ -101,12 +101,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         if(requestCode==23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
-//            Intent toPlace = new Intent(this, placeDisplayActivity.class);
-//            PlaceHolder newPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
-//            toPlace.putExtra("id",place.getId());
-//            toPlace.putExtra("name",place.getName());
-//            toPlace.putExtra("address",place.getAddress());
-//            startActivity(toPlace);
+            Intent toPlace = new Intent(this, placeDisplayActivity.class);
+            PlaceHolder chosenPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
+            toPlace.putExtra("CHOSEN_PLACE", chosenPlace);
+            startActivity(toPlace);
 
         }
 
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             toMap.putExtra("lng",place.getLatLng().longitude);
             startActivity(toMap);*/
 //
-         else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+        else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
 
             Status status = Autocomplete.getStatusFromIntent(intent);
         } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             // The user canceled the operation.
         }
         else
-        Toast.makeText(MainActivity.this, "PIPIPI", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "PIPIPI", Toast.LENGTH_LONG).show();
 
 
     }

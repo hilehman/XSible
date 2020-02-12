@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class placeDisplayActivity extends AppCompatActivity {
 
 
@@ -17,7 +20,19 @@ public class placeDisplayActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_display);
-        Bundle b = getIntent().getExtras();
+        PlaceHolder chosenPlace = (PlaceHolder)  getIntent().getSerializableExtra("MyClass");
+        Map<String, Object>chosenPlaceMap = new HashMap<>();
+        chosenPlaceMap.put("id", chosenPlace.getPlaceId());
+        chosenPlaceMap.put("name", chosenPlace.getName());
+        chosenPlaceMap.put("address", chosenPlace.getAddress());
+
+
+
+
+
+
+
+
 //        String id = b.getString("ld");
 //        String name = b.getString("name");
 //        String address = b.getString("address");

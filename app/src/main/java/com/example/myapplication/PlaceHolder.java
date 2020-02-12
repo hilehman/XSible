@@ -1,8 +1,9 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class PlaceHolder {
+public class PlaceHolder implements Serializable {
 
 
     final String placeId;
