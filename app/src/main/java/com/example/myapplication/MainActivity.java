@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(MainActivity.this, "ברוכים הבאים!", Toast.LENGTH_LONG).show();
-        Button button;
         super.onCreate(savedInstanceState);
+        Toast.makeText(MainActivity.this, "ברוכים הבאים!", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
+        Button button;
         button = findViewById(R.id.button);//get id of button 1
 
         String apiKey = getString(R.string.api_key);
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         }
 
         // Create a new Places client instance.
-        final PlacesClient placesClient = Places.createClient(this); //todo is it doing anything?
         PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
 
         final Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
