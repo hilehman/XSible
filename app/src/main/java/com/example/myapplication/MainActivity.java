@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         }
 
         // Create a new Places client instance.
-        final PlacesClient placesClient = Places.createClient(this);
+        final PlacesClient placesClient = Places.createClient(this); //todo is it doing anything?
         PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
 
         final Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
@@ -67,45 +67,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-          /*      Intent mainToMap = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(mainToMap);*/
-
                 startActivityForResult(autocompleteIntent,23 );
-
-//________________________________________________________________________________
-
-/*                int AUTOCOMPLETE_REQUEST_CODE = 1;
-
-// Set the fields to specify which types of place data to
-// return after the user has made a selection.
-                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
-
-// Start the autocomplete intent.
-                Intent intent = new Autocomplete.IntentBuilder(
-                        AutocompleteActivityMode.FULLSCREEN, fields)
-                        .build(this);
-                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);*/
-
             }
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
 
-
-
         super.onActivityResult(requestCode, resultCode, intent);
-
 
         if(requestCode==23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
+            String chosenPlaceId = place.getId();
             Intent toPlace = new Intent(this, placeDisplayActivity.class);
-            PlaceHolder chosenPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
-            toPlace.putExtra("CHOSEN_PLACE", chosenPlace);
+           // PlaceHolder chosenPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
+           // Toast.makeText(MainActivity.this, place.getAddress(), Toast.LENGTH_LONG).show();
+            toPlace.putExtra("chosenPlaceId", chosenPlaceId);
             startActivity(toPlace);
-
         }
 
 
