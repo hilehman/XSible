@@ -24,8 +24,10 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.SetOptions;
 
 import java.io.Serializable;
@@ -98,15 +100,11 @@ public class placeDisplayActivity extends AppCompatActivity implements Serializa
                     db.collection("places").document(chosenPlaceId).set(tempMap, SetOptions.merge());
                     Toast.makeText(placeDisplayActivity.this, "SAVED", Toast.LENGTH_LONG).show();
 
-                }
-                else{
+                } else {
                     Toast.makeText(placeDisplayActivity.this, "FAILED", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-        Toast.makeText(placeDisplayActivity.this, "HIHI", Toast.LENGTH_LONG).show();
-
 
     }
 
