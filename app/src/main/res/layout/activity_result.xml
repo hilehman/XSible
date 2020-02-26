@@ -25,22 +25,9 @@
 
 
 
-    ]]>
 
-    <EditText
-        android:id="@+id/enter_opinion"
-        android:layout_width="396dp"
-        android:layout_height="76dp"
-        android:ems="10"
-        android:hint="אנא פרט על רמת הנגישות"
-        android:inputType="textPersonName"
-        android:text="הכנס ביקורת"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
+
+    ]]>
 
     <TextView
         android:id="@+id/place_name"
@@ -57,6 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
+
     <TextView
         android:id="@+id/place_address"
         android:layout_width="409dp"
@@ -64,27 +52,34 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textColor="#6B66FF"
-        android:textSize="25sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_name"
+        app:layout_constraintVertical_bias="0.057" />
 
     <Button
-        android:id="@+id/save_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="שמירה"
+        android:id="@+id/add_review_intent"
+        style="@style/Base.AlertDialog.AppCompat.Light"
+        android:layout_width="264dp"
+        android:layout_height="75dp"
+        android:background="#6B66FF"
+        android:fontFamily="@font/bubblegum_sans"
+        android:text="הכנס ביקורת"
+        android:textColor="#F5F4F4"
+        android:textIsSelectable="false"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/no_reviews_yet"
         android:layout_width="412dp"
         android:layout_height="40dp"
         android:text="אין עדיין ביקורות זמינות. הנה הזדמנות להתחיל :)"
@@ -93,7 +88,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.628" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
