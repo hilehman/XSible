@@ -3,37 +3,22 @@ package com.example.myapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompletePrediction;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
 
@@ -44,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         Toast.makeText(MainActivity.this, "ברוכים הבאים!", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
+        getWindow().getDecorView().setBackgroundColor(0xffa7a9d6);
         Button button;
         button = findViewById(R.id.button);//get id of button 1
 
@@ -80,21 +66,11 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         if(requestCode==23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
             String chosenPlaceId = place.getId();
-            Intent toPlace = new Intent(this, placeDisplayActivity.class);
+            Intent toPlace = new Intent(this, ResultActivity.class);
             toPlace.putExtra("chosenPlaceId", chosenPlaceId);
             startActivity(toPlace);
         }
 
-
-
-      /*  if (requestCode==23) { //sends to the place on google maps
-            Place place = Autocomplete.getPlaceFromIntent(intent);
-            Toast.makeText(MainActivity.this,place.getName(),Toast.LENGTH_LONG).show();
-            LatLng latLng = place.getLatLng();
-            Intent toMap = new Intent(this, MapsActivity.class);
-            toMap.putExtra("lat",place.getLatLng().latitude);
-            toMap.putExtra("lng",place.getLatLng().longitude);
-            startActivity(toMap);*/
 //
         else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
 

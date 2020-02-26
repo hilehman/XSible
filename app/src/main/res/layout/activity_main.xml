@@ -12,31 +12,42 @@
         android:layout_height="60dp"
         android:text="פשוט - נגישות"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.985" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="189dp"
         android:layout_height="81dp"
-        android:text="Click me for accessible places!"
+        android:background="#6B66FF"
+        android:fontFamily="@font/bubblegum_sans"
+        android:text="חיפוש"
+        android:textColor="#F5F4F4"
+        android:textIsSelectable="false"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.223" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="234dp"
-        android:layout_height="130dp"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/caveat_brush"
+        android:text="XSible"
+        android:textColor="#6B66FF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:radius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintVertical_bias="0.895" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
