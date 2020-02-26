@@ -15,6 +15,12 @@
 
 
 
+
+
+
+
+
+
     ]]>
 
     <EditText
@@ -30,23 +36,22 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <TextView
         android:id="@+id/place_id"
         android:layout_width="409dp"
         android:layout_height="51dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="85dp"
         android:gravity="center"
-        android:text="BLA BLA BLA"
+        android:textColor="#4CAF50"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <Button
         android:id="@+id/save_b"

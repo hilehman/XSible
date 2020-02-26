@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             Place place = Autocomplete.getPlaceFromIntent(intent);
             String chosenPlaceId = place.getId();
             Intent toPlace = new Intent(this, placeDisplayActivity.class);
-           // PlaceHolder chosenPlace = new PlaceHolder(place.getId(), place.getName(), place.getAddress());
-           // Toast.makeText(MainActivity.this, place.getAddress(), Toast.LENGTH_LONG).show();
             toPlace.putExtra("chosenPlaceId", chosenPlaceId);
             startActivity(toPlace);
         }
