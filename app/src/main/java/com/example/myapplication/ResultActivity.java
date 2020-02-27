@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -86,9 +87,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         setContentView(R.layout.activity_result); //set the layout
-        getWindow().getDecorView().setBackgroundColor(0xffa7a9d6);
+        getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
-       /* final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
+        final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
         Intent toAddReview = new Intent(this, AddReviewActivity.class);
         toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
 
@@ -97,11 +98,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
                startActivity(toAddReview);
             }
-        });*/
+        });
 
 
 
-      /*  db.collection("places").document(chosenPlaceId).collection("reviews").get()
+        db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -122,7 +123,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ResultActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                     }
-                });*/
+                });
 
     }
 
@@ -162,24 +163,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
 
 
-        /*db.collection("places")
-                .whereEqualTo("capital", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
 
-
-*/
     }
 
 
