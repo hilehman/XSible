@@ -155,6 +155,10 @@
                     android:text="שמירה"
                     tools:layout_editor_absoluteY="12dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.hsalf.smilerating.SmileRating
+                android:id="@+id/smile_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +15,16 @@ import android.widget.Toast;
 import com.google.android.libraries.places.api.Places;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.hsalf.smilerating.BaseRating;
+import com.hsalf.smilerating.SmileRating;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AddReviewActivity extends AppCompatActivity {
+
+    private int rating = 0;
+    String TAG = "AddReviewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +62,14 @@ public class AddReviewActivity extends AppCompatActivity {
         EditText extra_s = findViewById(R.id.extra_s);
 
         Intent toResult = new Intent(this, ResultActivity.class);
-
+        SmileRating smileRating = (SmileRating) findViewById(R.id.smile_rating);
         //takes the review and saves in on the database
         Button saveButton;
         saveButton = findViewById(R.id.save_button);//get the id for button
+
+
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,13 +95,36 @@ public class AddReviewActivity extends AppCompatActivity {
                 Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
                 toResult.putExtra("chosenPlaceId", chosenPlaceId);
                 startActivity(toResult);
+
+
             }
         });
 
-
-
-
-
+        smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
+            @Override
+            public void onSmileySelected(@BaseRating.Smiley int smiley, boolean reselected) {
+                // reselected is false when user selects different smiley that previously selected one
+                // true when the same smiley is selected.
+                // Except if it first time, then the value will be false.
+                switch (smiley) {
+                    case SmileRating.BAD:
+                        rating = 1;
+                        break;
+                    case SmileRating.GOOD:
+                        rating = 2;
+                        break;
+                    case SmileRating.GREAT:
+                        rating = 3;
+                        break;
+                    case SmileRating.OKAY:
+                        rating = 4;
+                        break;
+                    case SmileRating.TERRIBLE:
+                        rating = 5;
+                        break;
+                }
+            }
+        });
 
     }
 }
