@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <TextView
                 android:id="@+id/parking_text"
                 android:layout_width="match_parent"
@@ -23,21 +24,13 @@
                 android:gravity="center"
                 android:text="חנייה נגישה" />
 
-            <EditText
-                android:id="@+id/parking_s"
-                android:layout_width="365dp"
-                android:layout_height="63dp"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@+id/textView2"
-                android:background="#CCCCCC"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:scrollbars="horizontal">
+            <com.suke.widget.SwitchButton
+                android:id="@+id/parking_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                <requestFocus />
-            </EditText>
+            <requestFocus />
+
 
             <TextView
                 android:id="@+id/accessibility_text"
@@ -46,24 +39,13 @@
                 android:gravity="center|center_horizontal"
                 android:text="נגישות כללית" />
 
-            <EditText
-                android:id="@+id/accessibility_s"
-                android:layout_width="364dp"
-                android:layout_height="62dp"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@+id/textView2"
-                android:background="#CCCCCC"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:scrollbars="horizontal"
-
-
-                >
+        <com.suke.widget.SwitchButton
+            android:id="@+id/accessibility_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
                 <requestFocus />
-            </EditText>
+
 
             <TextView
                 android:id="@+id/toilet_text"
@@ -72,24 +54,13 @@
                 android:gravity="center"
                 android:text="שירותים נגישים" />
 
-            <EditText
-                android:id="@+id/toilet_s"
-                android:layout_width="365dp"
-                android:layout_height="60dp"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@+id/textView2"
-                android:background="#CCCCCC"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:scrollbars="horizontal"
-
-
-                >
+            <com.suke.widget.SwitchButton
+                android:id="@+id/toilet_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
                 <requestFocus />
-            </EditText>
+
 
             <TextView
                 android:id="@+id/service_text"
@@ -98,23 +69,13 @@
                 android:gravity="center"
                 android:text="תודעת שירות" />
 
-            <EditText
-                android:id="@+id/service_s"
-                android:layout_width="367dp"
-                android:layout_height="64dp"
-                android:layout_alignBottom="@+id/textView2"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toRightOf="@+id/textView2"
-                android:background="#CCCCCC"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:scrollbars="horizontal"
-
-                >
+            <com.suke.widget.SwitchButton
+                android:id="@+id/service_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
                 <requestFocus />
-            </EditText>
+
 
             <TextView
                 android:id="@+id/extra_text"
@@ -126,7 +87,7 @@
             <EditText
                 android:id="@+id/extra_s"
                 android:layout_width="366dp"
-                android:layout_height="131dp"
+                android:layout_height="186dp"
                 android:layout_alignBottom="@+id/textView2"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -148,17 +109,24 @@
                 tools:context=".AddReviewActivity">
 
 
-                <Button
-                    android:id="@+id/save_button"
+                <TextView
+                    android:id="@+id/extra_text2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="שמירה"
-                    tools:layout_editor_absoluteY="12dp" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="ציון כללי לנגישות המקום:" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.hsalf.smilerating.SmileRating
                 android:id="@+id/smile_rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="שמירה" />
         </LinearLayout>
     </ScrollView>
 

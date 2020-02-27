@@ -23,6 +23,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.suke.widget.SwitchButton;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -101,12 +102,12 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
 
-
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(queryDocumentSnapshots.isEmpty()){
+                            add_review_intent.setText("אין עדיין ביקורות זמינות. הנה הזדמנות להתחיל :) ");
                             add_review_intent.setVisibility(View.VISIBLE);
 
                         }

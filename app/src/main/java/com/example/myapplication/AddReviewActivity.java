@@ -7,19 +7,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.libraries.places.api.Places;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.hsalf.smilerating.BaseRating;
 import com.hsalf.smilerating.SmileRating;
+import com.suke.widget.SwitchButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class AddReviewActivity extends AppCompatActivity {
 
@@ -48,17 +53,15 @@ public class AddReviewActivity extends AppCompatActivity {
             Places.initialize(getApplicationContext(), apiKey);
         }
 
-        TextView parking_b = findViewById(R.id.parking_text);
-        TextView accessibility_b = findViewById(R.id.accessibility_text);
-        TextView toilet_b = findViewById(R.id.toilet_text);
-        TextView service_b = findViewById(R.id.service_text);
+        TextView parking_t = findViewById(R.id.parking_text);
+        TextView accessibility_t = findViewById(R.id.accessibility_text);
+        TextView toilet_t = findViewById(R.id.toilet_text);
+        TextView service_t = findViewById(R.id.service_text);
 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
-        EditText parking_s = findViewById(R.id.parking_s);
-        EditText accessibility_s = findViewById(R.id.accessibility_s);
-        EditText toilet_s = findViewById(R.id.toilet_s);
-        EditText service_s = findViewById(R.id.service_s);
+
+        //takes user input ("extra details")
         EditText extra_s = findViewById(R.id.extra_s);
 
         Intent toResult = new Intent(this, ResultActivity.class);
@@ -68,28 +71,66 @@ public class AddReviewActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.save_button);//get the id for button
 
 
+        //parking switch
+        com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton)
+                findViewById(R.id.parking_b);
+        parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                //TODO do your job
+            }
+        });
+
+        //accessibility switch
+        com.suke.widget.SwitchButton accessibility_b = (com.suke.widget.SwitchButton)
+                findViewById(R.id.accessibility_b);
+
+        accessibility_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                //TODO do your job
+            }
+        });
+
+        com.suke.widget.SwitchButton toilet_b = (com.suke.widget.SwitchButton)
+                findViewById(R.id.toilet_b);
+
+        toilet_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                //TODO do your job
+            }
+        });
+
+        com.suke.widget.SwitchButton service_b = (com.suke.widget.SwitchButton)
+                findViewById(R.id.service_b);
+
+        service_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
+                //TODO do your job
+            }
+        });
+
+
+
+
+
+
+
+
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (parking_s.getText().toString() != null) {
-                    reviewsMap.put("parking", parking_s.getText().toString());
-                }
 
-                if (accessibility_s.getText().toString() != null) {
-                    reviewsMap.put("accessibility", accessibility_s.getText().toString());
-                }
-                if (toilet_s.getText().toString() != null) {
-                    reviewsMap.put("toilet", toilet_s.getText().toString());
-                }
-                if (service_s.getText().toString() != null) {
-                    reviewsMap.put("service", service_s.getText().toString());
-                }
-                if (extra_s.getText().toString() != null) {
-                    reviewsMap.put("extra", extra_s.getText().toString());
-                }
+
                 db.collection("places").document(chosenPlaceId).collection("reviews").document().
                         set(reviewsMap, SetOptions.merge());
                 Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
@@ -99,6 +140,9 @@ public class AddReviewActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
         smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
             @Override
