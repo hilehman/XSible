@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,14 +24,24 @@ import com.hsalf.smilerating.BaseRating;
 import com.hsalf.smilerating.SmileRating;
 import com.suke.widget.SwitchButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Calendar;
 
 public class AddReviewActivity extends AppCompatActivity {
 
+    //fields
     private int rating = 0;
+    private boolean parkingValue = false;
+    private boolean accessibilityValue = false;
+    private boolean toiletValue = false;
+    private boolean serviceValue = false;
+    private String extraInfo = "";
+
     String TAG = "AddReviewActivity";
 
     @Override
@@ -36,6 +49,7 @@ public class AddReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_review);
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
+
         // takes the chosen place's id from ResultACtivity
         String chosenPlaceId;
         if (savedInstanceState == null) {
@@ -54,7 +68,7 @@ public class AddReviewActivity extends AppCompatActivity {
         }
 
         TextView parking_t = findViewById(R.id.parking_text);
-        TextView accessibility_t = findViewById(R.id.accessibility_text);
+        TextView accessibility_t = findViewById(R.id.accessibility_t);
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
 
@@ -77,8 +91,12 @@ public class AddReviewActivity extends AppCompatActivity {
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
-                //TODO do your job
+                parkingValue = isChecked;
+                if (isChecked) {
+                    parking_t.setBackground(greenWhite());
+                } else {
+                    parking_t.setBackground(redWhite());
+                }
             }
         });
 
@@ -89,8 +107,12 @@ public class AddReviewActivity extends AppCompatActivity {
         accessibility_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
-                //TODO do your job
+                parkingValue = isChecked;
+                if (isChecked) {
+                    accessibility_t.setBackground(greenWhite());
+                } else {
+                    accessibility_t.setBackground(redWhite());
+                }
             }
         });
 
@@ -100,8 +122,12 @@ public class AddReviewActivity extends AppCompatActivity {
         toilet_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
-                //TODO do your job
+                parkingValue = isChecked;
+                if (isChecked) {
+                   toilet_t.setBackground(greenWhite());
+                } else {
+                   toilet_t.setBackground(redWhite());
+                }
             }
         });
 
@@ -111,26 +137,28 @@ public class AddReviewActivity extends AppCompatActivity {
         service_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Toast.makeText(AddReviewActivity.this, "YAY", Toast.LENGTH_SHORT).show();
-                //TODO do your job
+                parkingValue = isChecked;
+                if (isChecked) {
+                    service_t.setBackground(greenWhite());
+                } else {
+                    service_t.setBackground(redWhite());
+                }
             }
         });
-
-
-
-
-
-
-
-
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+                String currentDateandTime = sdf.format(new Date());
+                reviewsMap.put("rating",rating);
+                reviewsMap.put("parking",parkingValue);
+                reviewsMap.put("accessibility",accessibilityValue);
+                reviewsMap.put("toilet",toiletValue);
+                reviewsMap.put("service",serviceValue);
+                reviewsMap.put("extraInfo",extraInfo);
+                reviewsMap.put("time",currentDateandTime);
                 db.collection("places").document(chosenPlaceId).collection("reviews").document().
                         set(reviewsMap, SetOptions.merge());
                 Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
@@ -140,8 +168,6 @@ public class AddReviewActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
         smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
@@ -171,4 +197,28 @@ public class AddReviewActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public GradientDrawable redWhite() {
+
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.RIGHT_LEFT,
+                new int[]{ContextCompat.getColor(this,R.color.redLight),
+                        ContextCompat.getColor(this, R.color.quantum_white_100)
+                });
+        return gradientDrawable;
+    }
+
+    public GradientDrawable greenWhite() {
+
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.RIGHT_LEFT,
+                new int[]{ContextCompat.getColor(this,R.color.greenLight),
+                        ContextCompat.getColor(this, R.color.quantum_white_100)
+                });
+        return gradientDrawable;
+    }
+
+
+
 }

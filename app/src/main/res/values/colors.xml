@@ -16,4 +16,7 @@
 
     <color name="colorSwitchColor">#FF2371FA</color>
 
+    <color name = "redLight"> #ef9a9a </color>
+
+    <color name = "greenLight"> #ccffdd</color>
 </resources>

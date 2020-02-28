@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(MainActivity.this, "ברוכים הבאים!", Toast.LENGTH_LONG).show();
-
 
         /* create a full screen window */
         requestWindowFeature(Window.FEATURE_NO_TITLE);

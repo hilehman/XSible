@@ -11,34 +11,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.497" />
+   ]]>
 
+    <ImageView
+        android:id="@+id/main_background_light"
+        android:layout_width="440dp"
+        android:layout_height="739dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_background_light" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ]]>
 
     <TextView
         android:id="@+id/place_name"
@@ -46,7 +31,7 @@
         android:layout_height="88dp"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="#3F51B5"
+        android:textColor="#202647"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,36 +46,39 @@
         android:layout_height="63dp"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:textColor="#3F51B5"
+        android:textColor="#293468"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintVertical_bias="0.121" />
 
     <Button
         android:id="@+id/add_review_intent"
         style="@style/Base.AlertDialog.AppCompat.Light"
-        android:layout_width="187dp"
-        android:layout_height="53dp"
+        android:layout_width="190dp"
+        android:layout_height="54dp"
         android:background="@drawable/button"
+        android:backgroundTint="#6A90A3C4"
         android:fadeScrollbars="true"
         android:text="הוסף ביקורת"
-        android:textColor="#79000000"
+        android:textColor="#D73A3A3A"
         android:textIsSelectable="false"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262" />
+        app:layout_constraintVertical_bias="0.234" />
 
     <TextView
         android:id="@+id/no_reviews_yet"
-        android:layout_width="387dp"
-        android:layout_height="50dp"
+        android:layout_width="356dp"
+        android:layout_height="66dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

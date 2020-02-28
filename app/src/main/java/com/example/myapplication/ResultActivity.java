@@ -4,11 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +51,30 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
+
+        /* create a full screen window */
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_result);
+
+        /* adapt the image to the size of the display */
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+                getResources(),R.drawable.main_background_light),size.x,size.y,true);
+
+        /* fill the background ImageView with the resized image */
+        ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
+        iv_background.setImageBitmap(bmp);
+
+
+
+
+
+
+
 
         // takes the chosen place's id from MainACtivity
         String chosenPlaceId;
@@ -101,19 +132,18 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             }
         });
 
+        final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
 
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(queryDocumentSnapshots.isEmpty()){
-                            add_review_intent.setText("אין עדיין ביקורות זמינות. הנה הזדמנות להתחיל :) ");
-                            add_review_intent.setVisibility(View.VISIBLE);
+                            no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
+                            no_reviews_yet.setVisibility(View.VISIBLE);
 
                         }
                         else{
-                            final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
-                            add_review_intent.setVisibility(View.VISIBLE);
                             no_reviews_yet.setVisibility(View.GONE);
 
                         }
