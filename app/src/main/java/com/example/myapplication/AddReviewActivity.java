@@ -107,7 +107,7 @@ public class AddReviewActivity extends AppCompatActivity {
         accessibility_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                parkingValue = isChecked;
+                accessibilityValue = isChecked;
                 if (isChecked) {
                     accessibility_t.setBackground(greenWhite());
                 } else {
@@ -122,7 +122,7 @@ public class AddReviewActivity extends AppCompatActivity {
         toilet_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                parkingValue = isChecked;
+                toiletValue = isChecked;
                 if (isChecked) {
                    toilet_t.setBackground(greenWhite());
                 } else {
@@ -137,7 +137,7 @@ public class AddReviewActivity extends AppCompatActivity {
         service_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                parkingValue = isChecked;
+                serviceValue = isChecked;
                 if (isChecked) {
                     service_t.setBackground(greenWhite());
                 } else {
@@ -152,6 +152,7 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                 String currentDateandTime = sdf.format(new Date());
+                extraInfo = extra_s.getText().toString();
                 reviewsMap.put("rating",rating);
                 reviewsMap.put("parking",parkingValue);
                 reviewsMap.put("accessibility",accessibilityValue);
@@ -178,19 +179,19 @@ public class AddReviewActivity extends AppCompatActivity {
                 // Except if it first time, then the value will be false.
                 switch (smiley) {
                     case SmileRating.BAD:
-                        rating = 1;
-                        break;
-                    case SmileRating.GOOD:
                         rating = 2;
                         break;
-                    case SmileRating.GREAT:
-                        rating = 3;
-                        break;
-                    case SmileRating.OKAY:
+                    case SmileRating.GOOD:
                         rating = 4;
                         break;
-                    case SmileRating.TERRIBLE:
+                    case SmileRating.GREAT:
                         rating = 5;
+                        break;
+                    case SmileRating.OKAY:
+                        rating = 3;
+                        break;
+                    case SmileRating.TERRIBLE:
+                        rating = 1;
                         break;
                 }
             }

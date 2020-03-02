@@ -136,15 +136,15 @@
             <TextView
                 android:id="@+id/extra_text2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="69dp"
+                android:gravity="bottom"
                 android:text="ציון כללי לנגישות המקום:"
                 android:textSize="18sp" />
 
             <com.hsalf.smilerating.SmileRating
                 android:id="@+id/smile_rating"
                 android:layout_width="match_parent"
-                android:layout_height="39dp" />
+                android:layout_height="92dp" />
 
             <Button
                 android:id="@+id/save_button"

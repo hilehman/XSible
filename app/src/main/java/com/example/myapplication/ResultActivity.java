@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -20,19 +21,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.suke.widget.SwitchButton;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +49,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     String chosenPlaceName = "";
     String chosenPlaceaddress = "";
     String chosenPlaceOpenHours = "";
-
+    List<Map<String, Object>> reviewsList;
     //  public Place chosenPlace;
 
     @Override
@@ -63,17 +69,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         Point size = new Point();
         display.getSize(size);
         Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                getResources(),R.drawable.main_background_light),size.x,size.y,true);
+                getResources(), R.drawable.main_background_light), size.x, size.y, true);
 
         /* fill the background ImageView with the resized image */
         ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
         iv_background.setImageBitmap(bmp);
-
-
-
-
-
-
 
 
         // takes the chosen place's id from MainACtivity
@@ -128,7 +128,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         add_review_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(toAddReview);
+                startActivity(toAddReview);
             }
         });
 
@@ -138,35 +138,57 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty()){
+                        if (queryDocumentSnapshots.isEmpty()) {
                             no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
                             no_reviews_yet.setVisibility(View.VISIBLE);
 
-                        }
-                        else{
+                        } else {
                             no_reviews_yet.setVisibility(View.GONE);
+                            reviewsList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                Map<String, Object> tempMap = document.getData();
+                                reviewsList.add(tempMap);
+                                TextView test = findViewById(R.id.test);
+                                if(reviewsList.isEmpty())
 
+                                {
+                                    test.setText("empty");
+                                } else test.setText((String) reviewsList.get(0).get("extraInfo"));
+                            }
                         }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ResultActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
-                    }
+
+
+
                 });
 
+
+        //   Toast.makeText(ResultActivity.this,docList.size() , Toast.LENGTH_SHORT).show();
+
+                            /*for (DocumentSnapshot doc : docList) {
+                                Map<String, Object> currMap = doc.getData();*/
+                                /*reviewsList.add(new Review((int)currMap.get("rating"), (boolean)currMap.get("parking"),
+                                        (boolean) currMap.get("accessibility"), (boolean) currMap.get("toilet"),
+                                        (boolean) currMap.get("service"), (String) currMap.get("extraInfo"),
+                                        (String) currMap.get("time")));*/
+        // Toast.makeText(ResultActivity.this, reviewsList.size(), Toast.LENGTH_SHORT).show();
     }
 
-
-
-
-
+}
 
 /*
+                })
+                        .addOnFailureListener(new OnFailureListener(){
+@Override
+public void onFailure(@NonNull Exception e){
+        Toast.makeText(ResultActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
+        }
+        });
 
+        }
+*/
 
-
+/*
 
         final EditText enterOpinion = (EditText) findViewById(R.id.enter_opinion);//get the id for edit text
         Button saveButton;
@@ -190,12 +212,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 */
 
 
-
-
-
-
-
-    }
 
 
 
