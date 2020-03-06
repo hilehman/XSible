@@ -9,9 +9,10 @@ public class Review {
     private boolean serviceValue;
     private String extraInfo;
     private String time;
+    private String id;
 
     public Review(int rating, boolean parkingValue, boolean accessibilityValue, boolean toiletValue,
-                  boolean serviceValue, String extraInfo, String time) {
+                  boolean serviceValue, String extraInfo, String time, String id) {
 
         this.rating = rating;
         this.parkingValue = parkingValue;
@@ -20,6 +21,7 @@ public class Review {
         this.serviceValue = serviceValue;
         this.extraInfo = extraInfo;
         this.time = time;
+        this.id = id;
     }
 
     public int getRating() {
@@ -48,6 +50,10 @@ public class Review {
 
     public String getTime() {
         return time;
+    }
+
+    public String getTId() {
+        return id;
     }
 
 

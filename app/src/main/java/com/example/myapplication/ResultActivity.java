@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +16,12 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,11 +51,31 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity implements Serializable {
 
-    String chosenPlaceName = "";
-    String chosenPlaceaddress = "";
-    String chosenPlaceOpenHours = "";
-    List<Map<String, Object>> reviewsList;
+    private String chosenPlaceName = "";
+    private String chosenPlaceaddress = "";
+    private String chosenPlaceOpenHours = "";
+    private List<Map<String, Object>> reviewsList;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     //  public Place chosenPlace;
+
+
+    ListView list;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +89,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_result);
 
+
+
+
+
+
         /* adapt the image to the size of the display */
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -74,6 +104,12 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         /* fill the background ImageView with the resized image */
         ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
         iv_background.setImageBitmap(bmp);
+
+
+
+
+
+
 
 
         // takes the chosen place's id from MainACtivity
@@ -121,6 +157,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
+
+
+
+
         final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
         Intent toAddReview = new Intent(this, AddReviewActivity.class);
         toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
@@ -133,6 +173,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
+
 
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -148,70 +189,26 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
                                 reviewsList.add(tempMap);
-                                TextView test = findViewById(R.id.test);
-                                if(reviewsList.isEmpty())
-
-                                {
-                                    test.setText("empty");
-                                } else test.setText((String) reviewsList.get(0).get("extraInfo"));
+                            }
+                            TextView test = findViewById(R.id.no_reviews_yet);
+                            if(reviewsList.isEmpty()) {
+                                test.setText("empty");
+                            } else {
+                                String[] maintitle = new String[reviewsList.size()];
+                                int counter = 0;
+                                for (Map<String, Object> currMap: reviewsList) {
+                                maintitle[counter] = (String) currMap.get("extraInfo");
+                                counter++;
+                                }
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, maintitle);
+                                list=(ListView)findViewById(R.id.list);
+                                list.setAdapter(adapter);
                             }
                         }
                     }
-
-
-
                 });
 
-
-        //   Toast.makeText(ResultActivity.this,docList.size() , Toast.LENGTH_SHORT).show();
-
-                            /*for (DocumentSnapshot doc : docList) {
-                                Map<String, Object> currMap = doc.getData();*/
-                                /*reviewsList.add(new Review((int)currMap.get("rating"), (boolean)currMap.get("parking"),
-                                        (boolean) currMap.get("accessibility"), (boolean) currMap.get("toilet"),
-                                        (boolean) currMap.get("service"), (String) currMap.get("extraInfo"),
-                                        (String) currMap.get("time")));*/
-        // Toast.makeText(ResultActivity.this, reviewsList.size(), Toast.LENGTH_SHORT).show();
     }
-
 }
-
-/*
-                })
-                        .addOnFailureListener(new OnFailureListener(){
-@Override
-public void onFailure(@NonNull Exception e){
-        Toast.makeText(ResultActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
-        }
-        });
-
-        }
-*/
-
-/*
-
-        final EditText enterOpinion = (EditText) findViewById(R.id.enter_opinion);//get the id for edit text
-        Button saveButton;
-        saveButton = findViewById(R.id.save_b);//get the id for button
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (enterOpinion.getText().toString() != null)//check whether the entered text is not null
-                {
-                    tempMap.put("opinion", enterOpinion.getText().toString());
-                    db.collection("places").document(chosenPlaceId).set(tempMap, SetOptions.merge());
-                    Toast.makeText(ResultActivity.this, "SAVED", Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(ResultActivity.this, "FAILED", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-*/
-
-
-
 
 
