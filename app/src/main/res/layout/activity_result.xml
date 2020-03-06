@@ -86,27 +86,32 @@
         app:layout_constraintVertical_bias="0.353" />
 
     <RelativeLayout
-        android:layout_width="397dp"
-        android:layout_height="347dp"
+        android:layout_width="391dp"
+        android:layout_height="473dp"
 
+        android:background="@color/common_google_signin_btn_text_light_disabled"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/no_reviews_yet"
+        app:layout_constraintTop_toBottomOf="@+id/add_review_intent"
         tools:context="com.example.test.listviewwithimage.MainActivity">
 
         <ListView
             android:id="@+id/list"
-            android:layout_width="380dp"
-            android:layout_height="311dp"
+            style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
+            android:layout_width="387dp"
+            android:layout_height="440dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="23dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="23dp"
+            android:divider="@color/places_autocomplete_separator"
+            android:dividerHeight="@dimen/places_autocomplete_vertical_dropdown">
 
         </ListView>
 
