@@ -1,8 +1,6 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,36 +9,27 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.suke.widget.SwitchButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -175,6 +164,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
 
 
+
+
+
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -195,12 +187,21 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 test.setText("empty");
                             } else {
                                 String[] maintitle = new String[reviewsList.size()];
+                                Integer[] imgParking = new Integer[reviewsList.size()];
+                                Integer[] imgAccessibility = new Integer[reviewsList.size()];
+                                Integer[] imgToilet = new Integer[reviewsList.size()];
+                                Integer[] imgService = new Integer[reviewsList.size()];
+
                                 int counter = 0;
                                 for (Map<String, Object> currMap: reviewsList) {
                                 maintitle[counter] = (String) currMap.get("extraInfo");
+                                imgParking[counter] =  (Boolean)currMap.get("parking" )  ? R.drawable.v : R.drawable.x;
+                                imgAccessibility[counter] =  (Boolean)currMap.get("accessibility" )  ? R.drawable.v : R.drawable.x;
+                                imgToilet[counter] =  (Boolean)currMap.get("toilet" )  ? R.drawable.v : R.drawable.x;
+                                imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
                                 counter++;
                                 }
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, maintitle);
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, maintitle, imgParking, imgAccessibility,imgToilet,imgService);
                                 list=(ListView)findViewById(R.id.list);
                                 list.setAdapter(adapter);
                             }

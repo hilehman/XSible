@@ -14,14 +14,21 @@ public class MyListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] maintitle;
+    private final Integer[] imgParking;
+    private final Integer[] imgAccessibility;
+    private final Integer[] imgToilet;
+    private final Integer[] imgService;
 
-    public MyListAdapter(Activity context, String[] maintitle) {
+    public MyListAdapter(Activity context, String[] maintitle, Integer[] imgParking, Integer[] imgAccessibility, Integer[] imgToilet, Integer[] imgService) {
         super(context, R.layout.review_list_item, maintitle);
         // TODO Auto-generated constructor stub
 
         this.context=context;
         this.maintitle=maintitle;
-
+        this.imgParking=imgParking;
+        this.imgAccessibility=imgAccessibility;
+        this.imgToilet=imgToilet;
+        this.imgService=imgService;
 
     }
 
@@ -30,9 +37,18 @@ public class MyListAdapter extends ArrayAdapter<String> {
         View rowView=inflater.inflate(R.layout.review_list_item, null,true);
 
         TextView titleText = (TextView) rowView.findViewById(R.id.title);
+        ImageView imageParking = (ImageView) rowView.findViewById(R.id.isVX1);
+        ImageView imageAccessibility = (ImageView) rowView.findViewById(R.id.isVX2);
+        ImageView imageToilet = (ImageView) rowView.findViewById(R.id.isVX3);
+        ImageView imageService = (ImageView) rowView.findViewById(R.id.isVX4);
+
+
 
         titleText.setText(maintitle[position]);
-
+        imageParking.setImageResource(imgParking[position]);
+        imageAccessibility.setImageResource(imgAccessibility[position]);
+        imageToilet.setImageResource(imgToilet[position]);
+        imageService.setImageResource(imgService[position]);
 
         return rowView;
 

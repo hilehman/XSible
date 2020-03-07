@@ -12,11 +12,11 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="253dp"
+            android:layout_width="259dp"
             android:layout_height="107dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:padding="2dp"
+            android:padding="5dp"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#4d4d4d"
@@ -27,51 +27,92 @@
     </LinearLayout>
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="111dp">
+        android:layout_width="125dp"
+        android:layout_height="112dp">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/isVX1"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/v" />
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="47dp"
+                android:id="@+id/parking_final"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="TextView" />
+                android:layout_weight="4"
+                android:text="   חנייה"
+                android:textSize="14sp" />
+
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/isVX2"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/v" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:id="@+id/accessibility_final"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="   הגעה ושהייה"
+                android:textSize="14sp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/isVX3"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/v" />
 
             <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:id="@+id/toilet_final"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="   שירותים"
+                android:textSize="14sp" />
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/isVX4"
+                android:layout_width="0dp"
+                android:layout_height="21dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/v" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:id="@+id/service_final"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="   שירות ידידותי"
+                android:textSize="14sp" />
         </TableRow>
     </TableLayout>
 
