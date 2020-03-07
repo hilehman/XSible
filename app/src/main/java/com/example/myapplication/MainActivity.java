@@ -33,20 +33,21 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* create a full screen window */
+        // create a full screen window
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        /* adapt the image to the size of the display */
+        // adapts the image to the size of the display */
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                getResources(),R.drawable.main_background),size.x,size.y,true);
+                getResources(), R.drawable.main_background), size.x, size.y, true);
 
-        /* fill the background ImageView with the resized image */
+
+        // fills the background ImageView with the resized image
         ImageView iv_background = (ImageView) findViewById(R.id.main_background);
         iv_background.setImageBitmap(bmp);
 
@@ -54,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         button = findViewById(R.id.button);//get id of button 1
 
         String apiKey = getString(R.string.api_key);
-
-
-
-
 
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(autocompleteIntent,23 );
+                startActivityForResult(autocompleteIntent, 23);
             }
         });
 
@@ -80,10 +77,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-
         super.onActivityResult(requestCode, resultCode, intent);
-
-        if(requestCode==23) {
+        if (requestCode == 23) {
             Place place = Autocomplete.getPlaceFromIntent(intent);
             String chosenPlaceId = place.getId();
             Intent toPlace = new Intent(this, ResultActivity.class);
@@ -91,19 +86,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             startActivity(toPlace);
         }
 
-//
         else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-
             Status status = Autocomplete.getStatusFromIntent(intent);
         } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {
-            Toast.makeText(MainActivity.this,"ASDASD",Toast.LENGTH_LONG).show();
-
-            // The user canceled the operation.
-        }
-        else
-            Toast.makeText(MainActivity.this, "PIPIPI", Toast.LENGTH_LONG).show();
-
-
+            Toast.makeText(MainActivity.this, "CANCELED", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_LONG).show();
     }
 }
 

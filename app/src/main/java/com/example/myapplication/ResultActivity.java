@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.type.LatLng;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,66 +42,36 @@ import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity implements Serializable {
 
+    // FIELDS//
     private String chosenPlaceName = "";
     private String chosenPlaceaddress = "";
-    private String chosenPlaceOpenHours = "";
+    private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    //  public Place chosenPlace;
-
-
-    ListView list;
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private ListView list;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
 
-        /* create a full screen window */
+        // create a full screen window
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_result);
 
 
-
-
-
-
-        /* adapt the image to the size of the display */
+        // adapts the image to the size of the display */
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
                 getResources(), R.drawable.main_background_light), size.x, size.y, true);
 
-        /* fill the background ImageView with the resized image */
+        // fills the background ImageView with the resized image
         ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
         iv_background.setImageBitmap(bmp);
-
-
-
-
-
-
-
 
         // takes the chosen place's id from MainACtivity
         String chosenPlaceId;
@@ -118,6 +90,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Places.initialize(getApplicationContext(), apiKey);
         }
 
+        // takes place's details and insert it to the database
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
         final PlacesClient placesClient = Places.createClient(this);
@@ -146,14 +119,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
-
-
-
-
+        // creates "new review" button
         final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
         Intent toAddReview = new Intent(this, AddReviewActivity.class);
         toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
-
         add_review_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,12 +130,19 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             }
         });
 
+        // creates "open map" button
+        final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
+        Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id="+chosenPlaceId));
+        open_map_intent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(toOpenMap);
+            }
+        });
+
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
 
-
-
-
-
+        // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -178,20 +154,21 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                         } else {
                             no_reviews_yet.setVisibility(View.GONE);
                             reviewsList = new ArrayList<>();
+                            // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
                                 reviewsList.add(tempMap);
                             }
                             TextView test = findViewById(R.id.no_reviews_yet);
-                            if(reviewsList.isEmpty()) {
-                                test.setText("empty");
-                            } else {
+                            if(!reviewsList.isEmpty()) {
+                                // creates arrays to hold data
                                 String[] maintitle = new String[reviewsList.size()];
                                 Integer[] imgParking = new Integer[reviewsList.size()];
                                 Integer[] imgAccessibility = new Integer[reviewsList.size()];
                                 Integer[] imgToilet = new Integer[reviewsList.size()];
                                 Integer[] imgService = new Integer[reviewsList.size()];
 
+                                // puts data in the arrays
                                 int counter = 0;
                                 for (Map<String, Object> currMap: reviewsList) {
                                 maintitle[counter] = (String) currMap.get("extraInfo");
@@ -201,6 +178,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
                                 counter++;
                                 }
+
+                                // uses the adapter to insert data to listView
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, maintitle, imgParking, imgAccessibility,imgToilet,imgService);
                                 list=(ListView)findViewById(R.id.list);
                                 list.setAdapter(adapter);
