@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -29,13 +31,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Calendar;
 
 public class AddReviewActivity extends AppCompatActivity {
 
     //fields
-    private int rating = 0;
+    private String rating = "0";
     private boolean parkingValue = false;
     private boolean accessibilityValue = false;
     private boolean toiletValue = false;
@@ -150,7 +153,7 @@ public class AddReviewActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss", Locale.getDefault());;
                 String currentDateandTime = sdf.format(new Date());
                 extraInfo = extra_s.getText().toString();
                 reviewsMap.put("rating",rating);
@@ -164,6 +167,7 @@ public class AddReviewActivity extends AppCompatActivity {
                         set(reviewsMap, SetOptions.merge());
                 Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
                 toResult.putExtra("chosenPlaceId", chosenPlaceId);
+                toResult.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toResult);
 
 
@@ -179,24 +183,37 @@ public class AddReviewActivity extends AppCompatActivity {
                 // Except if it first time, then the value will be false.
                 switch (smiley) {
                     case SmileRating.BAD:
-                        rating = 2;
+                        rating = "2";
                         break;
                     case SmileRating.GOOD:
-                        rating = 4;
+                        rating = "4";
                         break;
                     case SmileRating.GREAT:
-                        rating = 5;
+                        rating = "5";
                         break;
                     case SmileRating.OKAY:
-                        rating = 3;
+                        rating = "3";
                         break;
                     case SmileRating.TERRIBLE:
-                        rating = 1;
+                        rating = "1";
                         break;
                 }
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("תגובה לא נשמרה. לצאת בכל זאת?")
+                .setCancelable(false)
+                .setPositiveButton("כן", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                       AddReviewActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("לא", null)
+                .show();
     }
 
 

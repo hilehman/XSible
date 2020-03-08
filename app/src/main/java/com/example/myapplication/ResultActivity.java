@@ -73,7 +73,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
         iv_background.setImageBitmap(bmp);
 
-        // takes the chosen place's id from MainACtivity
+               // takes the chosen place's id from MainACtivity
         String chosenPlaceId;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -103,6 +103,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             chosenPlaceMap.put("name", chosenPlace.getName());
             chosenPlaceMap.put("address", chosenPlace.getAddress());
             chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
+            chosenPlaceMap.put("avgGrade", 0);
             db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
                     .set(chosenPlaceMap, SetOptions.merge()); //
             final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
@@ -141,7 +142,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
-
+        TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
+        TextView avgGradeVar = (TextView) findViewById(R.id.avg_grade_var);
         // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -149,45 +151,52 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (queryDocumentSnapshots.isEmpty()) {
                             no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
-                            no_reviews_yet.setVisibility(View.VISIBLE);
-
                         } else {
                             no_reviews_yet.setVisibility(View.GONE);
+                            avgGradeText.setText("ציון נגישות");
                             reviewsList = new ArrayList<>();
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
                                 reviewsList.add(tempMap);
                             }
-                            TextView test = findViewById(R.id.no_reviews_yet);
+
                             if(!reviewsList.isEmpty()) {
                                 // creates arrays to hold data
-                                String[] maintitle = new String[reviewsList.size()];
+                                String[] extraInfo = new String[reviewsList.size()];
+                                String[] date = new String[reviewsList.size()];
                                 Integer[] imgParking = new Integer[reviewsList.size()];
                                 Integer[] imgAccessibility = new Integer[reviewsList.size()];
                                 Integer[] imgToilet = new Integer[reviewsList.size()];
                                 Integer[] imgService = new Integer[reviewsList.size()];
-
+                                Double[] grades = new Double[reviewsList.size()];
                                 // puts data in the arrays
                                 int counter = 0;
+                                double summedGrade = 0;
+                                Integer currGrade =0;
                                 for (Map<String, Object> currMap: reviewsList) {
-                                maintitle[counter] = (String) currMap.get("extraInfo");
-                                imgParking[counter] =  (Boolean)currMap.get("parking" )  ? R.drawable.v : R.drawable.x;
-                                imgAccessibility[counter] =  (Boolean)currMap.get("accessibility" )  ? R.drawable.v : R.drawable.x;
-                                imgToilet[counter] =  (Boolean)currMap.get("toilet" )  ? R.drawable.v : R.drawable.x;
-                                imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
-                                counter++;
+                                    extraInfo[counter] = (String) currMap.get("extraInfo");
+                                    date[counter] = ((String) currMap.get("time")).substring(0,10);
+                                    imgParking[counter] =  (Boolean)currMap.get("parking" )  ? R.drawable.v : R.drawable.x;
+                                    imgAccessibility[counter] =  (Boolean)currMap.get("accessibility" )  ? R.drawable.v : R.drawable.x;
+                                    imgToilet[counter] =  (Boolean)currMap.get("toilet" )  ? R.drawable.v : R.drawable.x;
+                                    imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
+                                    currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
+                                    summedGrade += currGrade;
+                                    counter++;
                                 }
+                                double grade = summedGrade/reviewsList.size();
+                                double finalGrade = Math.round( grade * 10) / 10.0;
+                                avgGradeVar.setText(String.valueOf(finalGrade));
 
                                 // uses the adapter to insert data to listView
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, maintitle, imgParking, imgAccessibility,imgToilet,imgService);
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility,imgToilet,imgService);
                                 list=(ListView)findViewById(R.id.list);
                                 list.setAdapter(adapter);
                             }
                         }
                     }
                 });
-
     }
 }
 

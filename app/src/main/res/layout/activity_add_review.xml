@@ -116,7 +116,7 @@
             <EditText
                 android:id="@+id/extra_s"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="206dp"
                 android:layout_alignBottom="@+id/XSible"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -136,21 +136,22 @@
             <TextView
                 android:id="@+id/extra_text2"
                 android:layout_width="match_parent"
-                android:layout_height="69dp"
-                android:gravity="bottom"
-                android:text="ציון כללי לנגישות המקום:"
+                android:layout_height="40dp"
+                android:gravity="bottom|center_horizontal"
+                android:text="ציון כללי לנגישות במקום"
                 android:textSize="18sp" />
 
             <com.hsalf.smilerating.SmileRating
                 android:id="@+id/smile_rating"
                 android:layout_width="match_parent"
-                android:layout_height="92dp" />
+                android:layout_height="39dp" />
 
             <Button
                 android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:text="שמירה" />
+                android:text="שמירה"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
