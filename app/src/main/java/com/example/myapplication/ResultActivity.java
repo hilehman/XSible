@@ -48,7 +48,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList;
     private ListView list;
-
+    double summedGrade = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
         TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
-        TextView avgGradeVar = (TextView) findViewById(R.id.avg_grade_var);
         // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -153,7 +152,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
                         } else {
                             no_reviews_yet.setVisibility(View.GONE);
-                            avgGradeText.setText("ציון נגישות");
                             reviewsList = new ArrayList<>();
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
@@ -172,8 +170,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 Double[] grades = new Double[reviewsList.size()];
                                 // puts data in the arrays
                                 int counter = 0;
-                                double summedGrade = 0;
-                                Integer currGrade =0;
+                                int dontCount = 0;
                                 for (Map<String, Object> currMap: reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
                                     date[counter] = ((String) currMap.get("time")).substring(0,10);
@@ -181,14 +178,17 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     imgAccessibility[counter] =  (Boolean)currMap.get("accessibility" )  ? R.drawable.v : R.drawable.x;
                                     imgToilet[counter] =  (Boolean)currMap.get("toilet" )  ? R.drawable.v : R.drawable.x;
                                     imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
-                                    currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
-                                    summedGrade += currGrade;
+                                    Integer currGrade =Integer.valueOf(String.valueOf(currMap.get("rating")));
+                                    if(currGrade != 0) summedGrade += currGrade;
+                                    else dontCount++;
                                     counter++;
                                 }
-                                double grade = summedGrade/reviewsList.size();
-                                double finalGrade = Math.round( grade * 10) / 10.0;
-                                avgGradeVar.setText(String.valueOf(finalGrade));
+                                if (reviewsList.size()-dontCount >0) {
+                                    double grade = summedGrade / (reviewsList.size() - dontCount);
+                                    double finalGrade = Math.round(grade * 10) / 10.0;
+                                    avgGradeText.setText("ציון נגישות כללי: "+String.valueOf(finalGrade));
 
+                                }
                                 // uses the adapter to insert data to listView
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility,imgToilet,imgService);
                                 list=(ListView)findViewById(R.id.list);

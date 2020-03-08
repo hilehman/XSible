@@ -87,9 +87,9 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="406dp"
+        android:layout_width="405dp"
 
-        android:layout_height="478dp"
+        android:layout_height="458dp"
         android:background="@color/common_google_signin_btn_text_light_disabled"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,28 +139,18 @@
 
     <TextView
         android:id="@+id/avg_grade_text"
-        android:layout_width="34dp"
-        android:layout_height="19dp"
-        android:text="  "
+        android:layout_width="152dp"
+        android:layout_height="31dp"
+        android:backgroundTint="#6A90A3C4"
+        android:fadeScrollbars="true"
+        android:textColor="#D73A3A3A"
+        android:text=""
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_review_intent"
-        app:layout_constraintVertical_bias="0.013" />
-
-    <TextView
-        android:id="@+id/avg_grade_var"
-        android:layout_width="37dp"
-        android:layout_height="20dp"
-        android:gravity="center_horizontal"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toStartOf="@+id/avg_grade_text"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/open_map_intent"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintVertical_bias="0.021" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
