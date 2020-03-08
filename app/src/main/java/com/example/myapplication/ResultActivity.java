@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -21,16 +23,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.core.OrderBy;
 import com.google.type.LatLng;
 
 import java.io.Serializable;
@@ -40,13 +47,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.google.firebase.firestore.Query.Direction.DESCENDING;
+
 public class ResultActivity extends AppCompatActivity implements Serializable {
 
     // FIELDS//
     private String chosenPlaceName = "";
     private String chosenPlaceaddress = "";
     private String chosenPlaceURL = "";
-    private List<Map<String, Object>> reviewsList;
+    private List<Map<String, Object>> reviewsList = new ArrayList<>();;
     private ListView list;
     double summedGrade = 0;
 
@@ -73,7 +82,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         ImageView iv_background = (ImageView) findViewById(R.id.main_background_light);
         iv_background.setImageBitmap(bmp);
 
-               // takes the chosen place's id from MainACtivity
+        // takes the chosen place's id from MainACtivity
         String chosenPlaceId;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -99,17 +108,35 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             chosenPlaceName = chosenPlace.getName();
             chosenPlaceaddress = chosenPlace.getAddress();
             Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
-            chosenPlaceMap.put("id", chosenPlace.getId());
-            chosenPlaceMap.put("name", chosenPlace.getName());
-            chosenPlaceMap.put("address", chosenPlace.getAddress());
-            chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
-            chosenPlaceMap.put("avgGrade", 0);
-            db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
-                    .set(chosenPlaceMap, SetOptions.merge()); //
-            final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
-            final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
-            place_name.setText(chosenPlaceName); //displays Place's name
-            place_address.setText(chosenPlaceaddress); //displays Place's address
+
+            DocumentReference docRef = db.collection("places").document(chosenPlaceId);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) { //if there is already a collection for this places
+                            db.collection("places").document(chosenPlaceId).update("reviewsCounter", reviewsList.size()); //updates its reviewsCounter
+                        } else { //creates the collection with the different fields
+                            chosenPlaceMap.put("id", chosenPlace.getId());
+                            chosenPlaceMap.put("name", chosenPlace.getName());
+                            chosenPlaceMap.put("address", chosenPlace.getAddress());
+                            chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
+                            chosenPlaceMap.put("reviewsCounter", 0);
+                            db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
+                                    .set(chosenPlaceMap, SetOptions.merge()); //
+                            final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
+                            final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
+                            place_name.setText(chosenPlaceName); //displays Place's name
+                            place_address.setText(chosenPlaceaddress); //displays Place's address
+
+                        }
+                    } else {
+                        Log.d("ResultActivity", "get failed with ", task.getException());
+                    }
+                }
+            });
+
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
                 // Handle error with given status code.
@@ -120,20 +147,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
-        // creates "new review" button
-        final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
-        Intent toAddReview = new Intent(this, AddReviewActivity.class);
-        toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
-        add_review_intent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(toAddReview);
-            }
-        });
 
         // creates "open map" button
         final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
-        Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id="+chosenPlaceId));
+        Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
         open_map_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +161,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
         TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
         // gets review from data base into a listView
-        db.collection("places").document(chosenPlaceId).collection("reviews").get()
+        db.collection("places").document(chosenPlaceId).collection("reviews").orderBy("id", DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -152,14 +169,15 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
                         } else {
                             no_reviews_yet.setVisibility(View.GONE);
-                            reviewsList = new ArrayList<>();
+
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
                                 reviewsList.add(tempMap);
                             }
 
-                            if(!reviewsList.isEmpty()) {
+                            if (!reviewsList.isEmpty()) {
+
                                 // creates arrays to hold data
                                 String[] extraInfo = new String[reviewsList.size()];
                                 String[] date = new String[reviewsList.size()];
@@ -171,32 +189,43 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 // puts data in the arrays
                                 int counter = 0;
                                 int dontCount = 0;
-                                for (Map<String, Object> currMap: reviewsList) {
+                                for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
-                                    date[counter] = ((String) currMap.get("time")).substring(0,10);
-                                    imgParking[counter] =  (Boolean)currMap.get("parking" )  ? R.drawable.v : R.drawable.x;
-                                    imgAccessibility[counter] =  (Boolean)currMap.get("accessibility" )  ? R.drawable.v : R.drawable.x;
-                                    imgToilet[counter] =  (Boolean)currMap.get("toilet" )  ? R.drawable.v : R.drawable.x;
-                                    imgService[counter] =  (Boolean)currMap.get("service" )  ? R.drawable.v : R.drawable.x;
-                                    Integer currGrade =Integer.valueOf(String.valueOf(currMap.get("rating")));
-                                    if(currGrade != 0) summedGrade += currGrade;
+                                    date[counter] = ((String) currMap.get("time")).substring(0, 10);
+                                    imgParking[counter] = (Boolean) currMap.get("parking") ? R.drawable.v : R.drawable.x;
+                                    imgAccessibility[counter] = (Boolean) currMap.get("accessibility") ? R.drawable.v : R.drawable.x;
+                                    imgToilet[counter] = (Boolean) currMap.get("toilet") ? R.drawable.v : R.drawable.x;
+                                    imgService[counter] = (Boolean) currMap.get("service") ? R.drawable.v : R.drawable.x;
+                                    Integer currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
+                                    if (currGrade != 0) summedGrade += currGrade;
                                     else dontCount++;
                                     counter++;
                                 }
-                                if (reviewsList.size()-dontCount >0) {
+                                if (reviewsList.size() - dontCount > 0) {
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
-                                    avgGradeText.setText("ציון נגישות כללי: "+String.valueOf(finalGrade));
+                                    avgGradeText.setText("ציון נגישות כללי: " + String.valueOf(finalGrade));
 
                                 }
                                 // uses the adapter to insert data to listView
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility,imgToilet,imgService);
-                                list=(ListView)findViewById(R.id.list);
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
+                                list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
                             }
                         }
                     }
                 });
+        // creates "new review" button
+        final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
+        Intent toAddReview = new Intent(this, AddReviewActivity.class);
+        add_review_intent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
+                toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
+                startActivity(toAddReview);
+            }
+        });
     }
 }
 

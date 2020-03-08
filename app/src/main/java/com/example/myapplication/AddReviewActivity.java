@@ -44,6 +44,8 @@ public class AddReviewActivity extends AppCompatActivity {
     private boolean toiletValue = false;
     private boolean serviceValue = false;
     private String extraInfo = "";
+    private String chosenPlaceId = "";
+    private String reviewsCounter = "temp";
 
     String TAG = "AddReviewActivity";
 
@@ -54,17 +56,18 @@ public class AddReviewActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
 
         // takes the chosen place's id from ResultACtivity
-        String chosenPlaceId;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
                 chosenPlaceId = null;
             } else {
                 chosenPlaceId = extras.getString("chosenPlaceId");
+                reviewsCounter = extras.getString("reviewsCounter");
             }
         } else {
             chosenPlaceId = (String) savedInstanceState.getSerializable("chosenPlaceId");
         }
+        Toast.makeText(this, reviewsCounter, Toast.LENGTH_SHORT).show();
         String apiKey = getString(R.string.api_key);
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
@@ -163,7 +166,9 @@ public class AddReviewActivity extends AppCompatActivity {
                 reviewsMap.put("service",serviceValue);
                 reviewsMap.put("extraInfo",extraInfo);
                 reviewsMap.put("time",currentDateandTime);
-                db.collection("places").document(chosenPlaceId).collection("reviews").document().
+                reviewsMap.put("id", reviewsCounter);
+
+                db.collection("places").document(chosenPlaceId).collection("reviews").document(reviewsCounter).
                         set(reviewsMap, SetOptions.merge());
                 Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
                 toResult.putExtra("chosenPlaceId", chosenPlaceId);
