@@ -18,7 +18,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
     // FIELDS//
     private String chosenPlaceName = "";
-    private String chosenPlaceaddress = "";
+    private String chosenPlaceAddress = "";
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();;
     private ListView list;
@@ -65,11 +67,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
 
         // create a full screen window
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_result);
-
+        getSupportActionBar().hide();
 
         // adapts the image to the size of the display */
         Display display = getWindowManager().getDefaultDisplay();
@@ -106,9 +105,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
             Place chosenPlace = response.getPlace(); //gets Place object
             chosenPlaceName = chosenPlace.getName();
-            chosenPlaceaddress = chosenPlace.getAddress();
+            chosenPlaceAddress = chosenPlace.getAddress();
             Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
-
+            final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
+            final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
             DocumentReference docRef = db.collection("places").document(chosenPlaceId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -117,6 +117,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) { //if there is already a collection for this places
                             db.collection("places").document(chosenPlaceId).update("reviewsCounter", reviewsList.size()); //updates its reviewsCounter
+                            place_name.setText(chosenPlaceName); //displays Place's name
+                            place_address.setText(chosenPlaceAddress); //displays Place's address
                         } else { //creates the collection with the different fields
                             chosenPlaceMap.put("id", chosenPlace.getId());
                             chosenPlaceMap.put("name", chosenPlace.getName());
@@ -125,10 +127,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             chosenPlaceMap.put("reviewsCounter", 0);
                             db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
                                     .set(chosenPlaceMap, SetOptions.merge()); //
-                            final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
-                            final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
+
                             place_name.setText(chosenPlaceName); //displays Place's name
-                            place_address.setText(chosenPlaceaddress); //displays Place's address
+                            place_address.setText(chosenPlaceAddress); //displays Place's address
 
                         }
                     } else {
@@ -204,7 +205,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 if (reviewsList.size() - dontCount > 0) {
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
-                                    avgGradeText.setText("ציון נגישות כללי: " + String.valueOf(finalGrade));
+                                    if (finalGrade % 1 == 0)
+                                        avgGradeText.setText("ציון נגישות ממוצע: 5 / "+String.valueOf((int)finalGrade));
+                                    else avgGradeText.setText("ציון נגישות ממוצע: 5 / "+String.valueOf(finalGrade));
 
                                 }
                                 // uses the adapter to insert data to listView

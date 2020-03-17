@@ -139,12 +139,12 @@
 
     <TextView
         android:id="@+id/avg_grade_text"
-        android:layout_width="152dp"
-        android:layout_height="31dp"
+        android:layout_width="202dp"
+        android:layout_height="27dp"
         android:backgroundTint="#6A90A3C4"
         android:fadeScrollbars="true"
-        android:textColor="#D73A3A3A"
         android:text=""
+        android:textColor="#D73A3A3A"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

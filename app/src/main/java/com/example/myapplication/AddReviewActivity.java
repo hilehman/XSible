@@ -52,9 +52,9 @@ public class AddReviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_review);
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
-
+        setContentView(R.layout.activity_add_review);
+        getSupportActionBar().hide(); //creates full screen
         // takes the chosen place's id from ResultACtivity
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -67,7 +67,6 @@ public class AddReviewActivity extends AppCompatActivity {
         } else {
             chosenPlaceId = (String) savedInstanceState.getSerializable("chosenPlaceId");
         }
-        Toast.makeText(this, reviewsCounter, Toast.LENGTH_SHORT).show();
         String apiKey = getString(R.string.api_key);
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), apiKey);
