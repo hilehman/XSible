@@ -1,13 +1,22 @@
 package com.example.myapplication;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +33,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
 
@@ -32,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //loadLocale();
         // create a full screen window
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
@@ -49,8 +59,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         ImageView iv_background = (ImageView) findViewById(R.id.main_background);
         iv_background.setImageBitmap(bmp);
 
+        //setLocale("en");
+
         Button button;
-        button = findViewById(R.id.button);//get id of button 1
+        button = findViewById(R.id.search_button);//get id of button 1
+        Button changeLang = findViewById(R.id.lang_button);
+       /* changeLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLanguageDialog();
+            }
+        });*/
+
 
         String apiKey = getString(R.string.api_key);
 
@@ -82,16 +102,52 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             Intent toPlace = new Intent(this, ResultActivity.class);
             toPlace.putExtra("chosenPlaceId", chosenPlaceId);
             startActivity(toPlace);
-        }
-
-        else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+        } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
             Status status = Autocomplete.getStatusFromIntent(intent);
         } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {
             Toast.makeText(MainActivity.this, "CANCELED", Toast.LENGTH_LONG).show();
         } else
             Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_LONG).show();
     }
+
+
+/*
+    private void showChangeLanguageDialog() {
+        final String[] listItems = {"עברית","English"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle("Lan/שפה");
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if (i == 0) {
+                    setLocale("iw");
+                } else if (i == 1) {
+                    setLocale("en");
+                }
+                dialog.dismiss();
+                recreate();
+            }
+
+        });
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+
+    }
+
+        private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang",lang);
+        editor.apply();
+    }
+
+    public void loadLocale() {
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
+    }*/
 }
-
-
-

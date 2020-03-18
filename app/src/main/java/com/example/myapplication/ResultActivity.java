@@ -160,7 +160,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
-        TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
+        TextView avgGradeText = (TextView) findViewById(R.id.avg_grade);
         // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").orderBy("id", DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -206,8 +206,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
                                     if (finalGrade % 1 == 0)
-                                        avgGradeText.setText("ציון נגישות ממוצע: 5 / "+String.valueOf((int)finalGrade));
-                                    else avgGradeText.setText("ציון נגישות ממוצע: 5 / "+String.valueOf(finalGrade));
+                                        avgGradeText.setText(String.valueOf((int)finalGrade));
+                                    else avgGradeText.setText(String.valueOf(finalGrade));
 
                                 }
                                 // uses the adapter to insert data to listView

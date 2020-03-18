@@ -19,13 +19,13 @@
         app:srcCompat="@drawable/main_background" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/search_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="189dp"
         android:layout_height="81dp"
         android:background="@drawable/button"
         android:backgroundTint="#C9BBB7B7"
-        android:text="חיפוש"
+        android:text="@string/search_button"
         android:textColor="#79000000"
         android:textIsSelectable="false"
         android:textSize="40sp"
@@ -65,6 +65,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.946" />
 
+    <Button
+        android:id="@+id/lang_button"
+        android:background="@drawable/button"
+        android:backgroundTint="#C9BBB7B7"
+        android:text="Lan/שפה"
+        android:textColor="#79000000"
+        android:textIsSelectable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

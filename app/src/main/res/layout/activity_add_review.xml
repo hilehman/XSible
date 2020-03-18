@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:gravity="center"
-                    android:text="חנייה נגישה"
+                    android:text="@string/accessible_parking"
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:gravity="center"
-                    android:text="הגעה ושהייה נגישה"
+                    android:text="@string/accessible_arriving"
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:gravity="center"
-                    android:text="שירותים נגישים"
+                    android:text="@string/accessible_toilet"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:gravity="center"
-                    android:text="שירות ידידותי"
+                    android:text="@string/accessible_crew"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="הערות נוספות"
+                android:text="@string/extra_info"
                 android:textSize="18sp" />
 
             <EditText
@@ -124,7 +124,7 @@
                 android:background="#CCCCCC"
                 android:ems="10"
                 android:gravity="top"
-                android:hint="כאן מומלץ לפרט על דרכי הגעה מומלצות, נקודות שכדאי לשים אליהם לב, וכל דבר שיעזור לאחרים לקבל מידע נוסף אודות נגישות המקום"
+                android:hint="@string/extra_info_hint"
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLength="2000"
                 android:maxLines="30"
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="bottom|center_horizontal"
-                android:text="ציון כללי לנגישות במקום"
+                android:text="@string/avg_grade_in_place"
                 android:textSize="18sp" />
 
             <com.hsalf.smilerating.SmileRating
