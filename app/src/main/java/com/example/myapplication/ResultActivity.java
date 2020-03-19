@@ -167,10 +167,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (queryDocumentSnapshots.isEmpty()) {
-                            no_reviews_yet.setText("אין עדיין ביקורות זמינות. \n הנה הזדמנות להתחיל :) ");
+                            no_reviews_yet.setVisibility(View.VISIBLE);
                         } else {
-                            no_reviews_yet.setVisibility(View.GONE);
-
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
@@ -203,6 +201,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     counter++;
                                 }
                                 if (reviewsList.size() - dontCount > 0) {
+                                    avgGradeText.setVisibility(View.VISIBLE);
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
                                     if (finalGrade % 1 == 0)

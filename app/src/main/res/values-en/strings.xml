@@ -1,34 +1,26 @@
 <resources>
     <!--extra-->
     <string name="api_key">AIzaSyBZKbr8RFXazrIAw6fD7705MMdcL1idUdA</string>
-    <string name="app_name" translatable="false">XSible</string>
 
     <!--main_activity-->
     <string name="search_button">SEARCH</string>
 
-
-
     <!--result_activity-->
-    <string name="open_map_button">פתיחת מפה</string>
-    <string name="add_review_button">הוספת ביקורת</string>
-    <string name="avg_grade"> ציון נגישות כללי"\u202A": </string>
-
-
+    <string name="open_map_button">View on Google Maps</string>
+    <string name="add_review_button">Add a review</string>
+    <string name="avg_grade"> Overall accessibility rating: </string>
 
     <!--add_review_activity-->
-    <string name="accessible_parking"> חנייה נגישה </string>
-    <string name="accessible_arriving"> הגעה ושהייה נגישה </string>
-    <string name="accessible_toilet"> שירותים נגישים </string>
-    <string name="accessible_crew"> שירות ידידותי </string>
-    <string name="extra_info"> הערות נוספות </string>
-    <string name="extra_info_hint"> כאן מומלץ לפרט על דרכי הגעה מומלצות, נקודות שכדאי לשים אליהם לב, וכל דבר שיעזור לאחרים לקבל מידע נוסף אודות נגישות המקום </string>
-    <string name="avg_grade_in_place"> ציון כללי לנגישות במקום </string>
+    <string name="accessible_parking"> Accessible parking </string>
+    <string name="accessible_arriving"> Accessible arrival and stay </string>
+    <string name="accessible_toilet"> Accessible toilet</string>
+    <string name="accessible_crew"> Humane service</string>
+    <string name="extra_info_hint"> Tell people about your experience: What did you like or dislike? Point out any useful information in order to help people who are planning to arrive to this place: obstacles and barriers in indoor and outdoor of the facility, recommended arrival paths etc.</string>
+    <string name="avg_grade_in_place"> Overall accessibility rating</string>
     <string name="save_button">SAVE</string>
-
-
-
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_place">place</string>
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_map">Map</string>
+    <string name="no_reviews_yet">No reviews yet. Be the first to add one :)</string>
 </resources>

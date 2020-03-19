@@ -1,7 +1,6 @@
 <resources>
     <!--extra-->
     <string name="api_key">AIzaSyBZKbr8RFXazrIAw6fD7705MMdcL1idUdA</string>
-    <string name="app_name" translatable="false">XSible</string>
 
     <!--main_activity-->
     <string name="search_button">חיפוש</string>
@@ -20,7 +19,6 @@
     <string name="accessible_arriving"> הגעה ושהייה נגישה </string>
     <string name="accessible_toilet"> שירותים נגישים </string>
     <string name="accessible_crew"> שירות ידידותי </string>
-    <string name="extra_info"> הערות נוספות </string>
     <string name="extra_info_hint"> כאן מומלץ לפרט על דרכי הגעה מומלצות, נקודות שכדאי לשים אליהם לב, וכל דבר שיעזור לאחרים לקבל מידע נוסף אודות נגישות המקום </string>
     <string name="avg_grade_in_place"> ציון כללי לנגישות במקום </string>
     <string name="save_button"> שמירה </string>
@@ -31,4 +29,5 @@
     <string name="title_activity_place">place</string>
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_map">Map</string>
+    <string name="no_reviews_yet">אין עדיין ביקורות זמינות. הנה הזדמנות להתחיל :)</string>
 </resources>

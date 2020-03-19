@@ -105,14 +105,6 @@
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/extra_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/extra_info"
-                android:textSize="18sp" />
-
             <EditText
                 android:id="@+id/extra_s"
                 android:layout_width="match_parent"
@@ -134,7 +126,7 @@
                 android:textColorHint="#CD777777" />
 
             <TextView
-                android:id="@+id/extra_text2"
+                android:id="@+id/avg_grade_desc"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="bottom|center_horizontal"
