@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "376547247426",
+    "firebase_url": "https://xsible-2dadb.firebaseio.com",
+    "project_id": "xsible-2dadb",
+    "storage_bucket": "xsible-2dadb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376547247426:android:cc50fd9775bd289a56f4db",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376547247426-qecnop8jeeb2m4ndnuja9upignmvgjb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "60c9094ffcbc440f7a30745501d29b0e1371aacf"
+          }
+        },
+        {
+          "client_id": "376547247426-hck56ipurj4naohi8k65gtntvv4gdlol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIG0DEayYtdQlhhnazYOrQb8lxJO2JlWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376547247426-hck56ipurj4naohi8k65gtntvv4gdlol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
