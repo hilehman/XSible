@@ -99,7 +99,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Places.initialize(getApplicationContext(), apiKey);
         }
 
-       // FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
+        FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
 
         // takes place's details and insert it to the database
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
@@ -163,15 +163,30 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
-        TextView avgGradeText = (TextView) findViewById(R.id.avg_grade);
+
+        final TextView avgGrade = (TextView) findViewById(R.id.avg_grade);
+        final TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
+        final LinearLayout legendLayout = (LinearLayout) findViewById(R.id.legend_layout);
+
+        avgGradeText.setVisibility(View.INVISIBLE);
+        avgGrade.setVisibility(View.INVISIBLE);
+        legendLayout.setVisibility((View.INVISIBLE));
+
         // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").orderBy("id", DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if (queryDocumentSnapshots.isEmpty()) {
+                            legendFrame.setVisibility(View.INVISIBLE);
+                            legendLayout.setVisibility((View.INVISIBLE));
                             no_reviews_yet.setVisibility(View.VISIBLE);
                         } else {
+                            no_reviews_yet.setVisibility(View.INVISIBLE);
+                            legendFrame.setVisibility(View.VISIBLE);
+                            legendLayout.setVisibility((View.VISIBLE));
+
+
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
@@ -208,12 +223,12 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 }
                                 if (reviewsList.size() - dontCount > 0) {
                                     avgGradeText.setVisibility(View.VISIBLE);
+                                    avgGrade.setVisibility(View.VISIBLE);
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
                                     if (finalGrade % 1 == 0)
                                         avgGradeText.setText(String.valueOf((int)finalGrade));
                                     else avgGradeText.setText(String.valueOf(finalGrade));
-
                                 }
                                 // uses the adapter to insert data to listView
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
