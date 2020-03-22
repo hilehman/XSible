@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -98,6 +99,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Places.initialize(getApplicationContext(), apiKey);
         }
 
+       // FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
+
         // takes place's details and insert it to the database
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
@@ -176,6 +179,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             }
 
                             if (!reviewsList.isEmpty()) {
+
+                                //creates frame for legend
+
 
                                 // creates arrays to hold data
                                 String[] extraInfo = new String[reviewsList.size()];
