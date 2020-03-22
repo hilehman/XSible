@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|center_vertical"
+                android:paddingRight="150dp"
                 android:text="תאריך"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -87,6 +88,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <TextView
         android:id="@+id/title"
