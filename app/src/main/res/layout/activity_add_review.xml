@@ -107,7 +107,7 @@
 
             <EditText
                 android:id="@+id/extra_s"
-                android:layout_width="match_parent"
+                android:layout_width="384dp"
                 android:layout_height="206dp"
                 android:layout_alignBottom="@+id/XSible"
                 android:layout_marginStart="16dp"

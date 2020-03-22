@@ -11,17 +11,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.497" />
-
-
-
-
-
-
-
-
-
-
-
     ]]>
 
     <ImageView
@@ -143,29 +132,43 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_review_intent"
-        app:layout_constraintVertical_bias="0.923"
+        app:layout_constraintVertical_bias="1.0"
         tools:context="com.example.test.listviewwithimage.MainActivity">
+
+        <TextView
+            android:id="@+id/no_reviews_yet"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="372dp"
+            android:text="@string/no_reviews_yet"
+            android:textSize="24sp"
+            android:visibility="invisible" />
 
         <ListView
             android:id="@+id/list"
             style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
             android:layout_width="match_parent"
-            android:layout_height="459dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="10dp"
-            android:divider="@color/places_autocomplete_separator"
-            android:dividerHeight="@dimen/places_autocomplete_vertical_dropdown"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false">
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="-1dp"
+            android:layout_marginBottom="14dp"
+            android:divider="@color/quantum_black_text"
+            android:dividerHeight="@dimen/places_autocomplete_vertical_dropdown">
 
         </ListView>
 
@@ -187,8 +190,9 @@
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:divider="@drawable/places_autocomplete_toolbar_shadow"
-            android:dividerPadding="2dp"
-            android:orientation="horizontal">
+            android:dividerPadding="1dp"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
             <LinearLayout
                 android:layout_width="102dp"
@@ -298,17 +302,6 @@
         </LinearLayout>
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/no_reviews_yet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/no_reviews_yet"
-        android:textSize="24sp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/legend_frame"
-        tools:layout_editor_absoluteX="-1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
