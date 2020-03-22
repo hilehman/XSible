@@ -191,10 +191,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
                                     date[counter] = ((String) currMap.get("time")).substring(0, 10);
-                                    imgParking[counter] = (Boolean) currMap.get("parking") ? R.drawable.v : R.drawable.x;
-                                    imgAccessibility[counter] = (Boolean) currMap.get("accessibility") ? R.drawable.v : R.drawable.x;
-                                    imgToilet[counter] = (Boolean) currMap.get("toilet") ? R.drawable.v : R.drawable.x;
-                                    imgService[counter] = (Boolean) currMap.get("service") ? R.drawable.v : R.drawable.x;
+                                    imgParking[counter] = (Boolean) currMap.get("parking") ? R.drawable.v1 : R.drawable.x1;
+                                    imgAccessibility[counter] = (Boolean) currMap.get("accessibility") ? R.drawable.v2 : R.drawable.x2;
+                                    imgToilet[counter] = (Boolean) currMap.get("toilet") ? R.drawable.v3 : R.drawable.x3;
+                                    imgService[counter] = (Boolean) currMap.get("service") ? R.drawable.v4 : R.drawable.x4;
                                     Integer currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
                                     if (currGrade != 0) summedGrade += currGrade;
                                     else dontCount++;
