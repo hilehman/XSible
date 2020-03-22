@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/review_date"
-                android:layout_width="100dp"
+                android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|center_vertical"
@@ -30,7 +30,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -39,23 +39,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/v" />
-
-            <TextView
-                android:id="@+id/service_final"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:paddingStart="1dp"
-                android:text="@string/accessible_crew"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                app:srcCompat="@drawable/v4" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -65,22 +54,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/v" />
-
-            <TextView
-                android:id="@+id/parking_final"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/accessible_parking"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                app:srcCompat="@drawable/v1" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -89,23 +68,12 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/v" />
+                app:srcCompat="@drawable/v2" />
 
-            <TextView
-                android:id="@+id/accessibility_final"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|center_vertical"
-                android:paddingStart="1dp"
-                android:text="@string/accessible_arriving"
-                android:textSize="14sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -114,19 +82,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/v" />
-
-            <TextView
-                android:id="@+id/toilet_final"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingStart="1dp"
-                android:text="@string/accessible_toilet"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                app:srcCompat="@drawable/v3" />
 
         </LinearLayout>
 
