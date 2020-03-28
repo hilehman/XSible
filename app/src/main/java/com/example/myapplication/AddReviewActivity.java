@@ -129,9 +129,9 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 toiletValue = isChecked;
                 if (isChecked) {
-                   toilet_t.setBackground(greenWhite());
+                    toilet_t.setBackground(greenWhite());
                 } else {
-                   toilet_t.setBackground(redWhite());
+                    toilet_t.setBackground(redWhite());
                 }
             }
         });
@@ -213,7 +213,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton((AddReviewActivity.this.getString(R.string.yes)), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                       AddReviewActivity.super.onBackPressed();
+                        AddReviewActivity.super.onBackPressed();
                     }
                 })
                 .setNegativeButton((AddReviewActivity.this.getString(R.string.no)), null)

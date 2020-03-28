@@ -116,7 +116,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="404dp"
+        android:layout_width="0dp"
 
         android:layout_height="442dp"
         android:background="@color/common_google_signin_btn_text_light_disabled"
@@ -125,7 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_review_intent"
+        app:layout_constraintTop_toBottomOf="@id/legend_frame"
         app:layout_constraintVertical_bias="1.0"
         tools:context="com.example.test.listviewwithimage.MainActivity">
 

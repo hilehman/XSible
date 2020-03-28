@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         String apiKey = getString(R.string.api_key);
 
         if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), apiKey);
+            Places.initialize(getApplicationContext(), "AIzaSyBZKbr8RFXazrIAw6fD7705MMdcL1idUdA");
         }
 
         // Create a new Places client instance.

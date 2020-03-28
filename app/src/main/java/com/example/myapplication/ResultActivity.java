@@ -79,8 +79,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 getResources(), R.drawable.main_background_light), size.x, size.y, true);
 
         // fills the background ImageView with the resized image
-     //   ImageView iv_background = (ImageView) findViewById(R.id.);
-       // iv_background.setImageBitmap(bmp);
+        //   ImageView iv_background = (ImageView) findViewById(R.id.);
+        // iv_background.setImageBitmap(bmp);
 
         // takes the chosen place's id from MainACtivity
         String chosenPlaceId;
@@ -222,7 +222,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     counter++;
                                 }
                                 if (reviewsList.size() - dontCount > 3) { avgGradeText.setVisibility(View.VISIBLE);
-                                   avgGrade.setVisibility(View.VISIBLE);
+                                    avgGrade.setVisibility(View.VISIBLE);
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
                                     if (finalGrade % 1 == 0)
@@ -250,5 +250,3 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
     }
 }
-
-

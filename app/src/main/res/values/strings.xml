@@ -1,6 +1,6 @@
 <resources>
     <!--extra-->
-    <string name="api_key">AIzaSyBZKbr8RFXazrIAw6fD7705MMdcL1idUdA</string>
+    <string name="api_key" translatable="false">AIzaSyBZKbr8RFXazrIAw6fD7705MMdcL1idUdA</string>
 
     <!--main_activity-->
     <string name="search_button">חיפוש</string>
