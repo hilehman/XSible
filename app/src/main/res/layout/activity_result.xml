@@ -15,75 +15,73 @@
         app:layout_constraintVertical_bias="0.497" />
 
 
+
+
+
+
     ]]>
 
-    <TextView
-        android:id="@+id/place_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="          "
-        android:textColor="#730E9E"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
+    <LinearLayout
+        android:id="@+id/place_details_layout"
+        android:layout_width="414dp"
+        android:layout_height="89dp"
+        android:background="#63673AB7"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        tools:layout_editor_absoluteX="-3dp">
 
-    <TextView
-        android:id="@+id/place_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="          "
-        android:textColor="#730E9E"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_name"
-        app:layout_constraintVertical_bias="0.013" />
+        <TextView
+            android:id="@+id/place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="          "
+            android:textColor="#730E9E"
+            android:textSize="25sp"
+            tools:layout_conversion_absoluteHeight="34dp"
+            tools:layout_conversion_absoluteWidth="411dp" />
+
+        <TextView
+            android:id="@+id/place_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="          "
+            android:textColor="#730E9E"
+            android:textSize="14sp"
+            tools:layout_conversion_absoluteHeight="19dp"
+            tools:layout_conversion_absoluteWidth="411dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/add_review_intent"
         style="drawable/button"
         android:layout_width="173dp"
         android:layout_height="69dp"
+        android:layout_marginStart="28dp"
         android:background="@drawable/button"
         android:fadeScrollbars="true"
         android:text="@string/add_review_button"
         android:textColor="#730E9E"
         android:textIsSelectable="false"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.282"
-        app:layout_constraintStart_toEndOf="@+id/open_map_intent"
-        app:layout_constraintTop_toBottomOf="@+id/place_address"
-        app:layout_constraintVertical_bias="0.01" />
+        app:layout_constraintStart_toEndOf="@id/open_map_intent"
+        app:layout_constraintTop_toBottomOf="@id/place_details_layout" />
 
     <Button
         android:id="@+id/open_map_intent"
         style="drawable/button"
         android:layout_width="173dp"
         android:layout_height="69dp"
+        android:layout_marginEnd="220dp"
         android:background="@drawable/button"
         android:fadeScrollbars="true"
         android:text="@string/open_map_button"
         android:textColor="#730E9E"
         android:textIsSelectable="false"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/avg_grade_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place_address"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintTop_toBottomOf="@id/place_details_layout" />
 
     <TextView
         android:id="@+id/avg_grade"
@@ -92,7 +90,7 @@
         android:text="      "
         android:textColor="#730E9E"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintBottom_toTopOf="@id/legend_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,24 +99,24 @@
 
     <TextView
         android:id="@+id/avg_grade_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="407dp"
+        android:layout_height="39dp"
         android:layout_marginBottom="31dp"
         android:fadeScrollbars="true"
+        android:gravity="center"
         android:text="@string/avg_grade"
         android:textColor="#730E9E"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/avg_grade"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_review_intent"
+        app:layout_constraintTop_toBottomOf="@id/open_map_intent"
         app:layout_constraintVertical_bias="0.13" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
+        android:layout_width="410dp"
 
-        android:layout_height="442dp"
+        android:layout_height="323dp"
         android:background="@color/common_google_signin_btn_text_light_disabled"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -174,9 +172,10 @@
         android:layout_height="61dp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avg_grade"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.903">
 
 
         <LinearLayout
