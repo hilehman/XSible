@@ -63,13 +63,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         Button button;
         button = findViewById(R.id.search_button);//get id of button 1
-        Button changeLang = findViewById(R.id.lang_button);
-       /* changeLang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showChangeLanguageDialog();
-            }
-        });*/
+
 
 
         String apiKey = getString(R.string.api_key);
@@ -111,43 +105,5 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     }
 
 
-/*
-    private void showChangeLanguageDialog() {
-        final String[] listItems = {"עברית","English"};
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        mBuilder.setTitle("Lan/שפה");
-        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                if (i == 0) {
-                    setLocale("iw");
-                } else if (i == 1) {
-                    setLocale("en");
-                }
-                dialog.dismiss();
-                recreate();
-            }
 
-        });
-        AlertDialog mDialog = mBuilder.create();
-        mDialog.show();
-
-    }
-
-        private void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
-        editor.putString("My_Lang",lang);
-        editor.apply();
-    }
-
-    public void loadLocale() {
-        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefs.getString("My_Lang", "");
-        setLocale(language);
-    }*/
 }

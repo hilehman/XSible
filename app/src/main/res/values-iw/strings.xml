@@ -30,4 +30,8 @@
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_map">Map</string>
     <string name="no_reviews_yet">אין עדיין ביקורות זמינות. הנה הזדמנות להתחיל :)</string>
+    <string name="thanks_for_review">תגובתך נשמרה! תודה</string>
+    <string name="are_you_sure">" תגובה לא נשמרה. לצאת בכל זאת? "</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
 </resources>

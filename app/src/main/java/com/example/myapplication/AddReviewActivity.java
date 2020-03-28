@@ -169,7 +169,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
                 db.collection("places").document(chosenPlaceId).collection("reviews").document(reviewsCounter).
                         set(reviewsMap, SetOptions.merge());
-                Toast.makeText(AddReviewActivity.this, "תגובתך נשמרה. תודה!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddReviewActivity.this, AddReviewActivity.this.getString(R.string.thanks_for_review), Toast.LENGTH_LONG).show();
                 toResult.putExtra("chosenPlaceId", chosenPlaceId);
                 toResult.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(toResult);
@@ -209,14 +209,14 @@ public class AddReviewActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setMessage("תגובה לא נשמרה. לצאת בכל זאת?")
+                .setMessage(AddReviewActivity.this.getString(R.string.are_you_sure))
                 .setCancelable(false)
-                .setPositiveButton("כן", new DialogInterface.OnClickListener() {
+                .setPositiveButton((AddReviewActivity.this.getString(R.string.yes)), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                        AddReviewActivity.super.onBackPressed();
                     }
                 })
-                .setNegativeButton("לא", null)
+                .setNegativeButton((AddReviewActivity.this.getString(R.string.no)), null)
                 .show();
     }
 
