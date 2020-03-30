@@ -169,7 +169,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         final LinearLayout legendLayout = (LinearLayout) findViewById(R.id.legend_layout);
 
         avgGradeText.setVisibility(View.INVISIBLE);
-        avgGrade.setVisibility(View.INVISIBLE);
+     //   avgGrade.setVisibility(View.INVISIBLE);
         legendLayout.setVisibility((View.INVISIBLE));
 
         // gets review from data base into a listView
@@ -221,13 +221,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     else dontCount++;
                                     counter++;
                                 }
-                                if (reviewsList.size() - dontCount > 3) { avgGradeText.setVisibility(View.VISIBLE);
+                                if (reviewsList.size() - dontCount > 3) {
+                                    avgGradeText.setVisibility(View.VISIBLE);
                                     avgGrade.setVisibility(View.VISIBLE);
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
-                                    if (finalGrade % 1 == 0)
+                                  /*  if (finalGrade % 1 == 0)
                                         avgGradeText.setText(String.valueOf((int)finalGrade));
-                                    else avgGradeText.setText(String.valueOf(finalGrade));
+                                    else avgGradeText.setText(String.valueOf(finalGrade));*/
                                 }
                                 // uses the adapter to insert data to listView
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);

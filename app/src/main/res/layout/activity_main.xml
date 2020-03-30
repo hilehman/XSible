@@ -20,11 +20,9 @@
 
     <Button
         android:id="@+id/search_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="drawable/button"
         android:layout_width="189dp"
         android:layout_height="81dp"
-        android:background="@drawable/button"
-        android:backgroundTint="#C9BBB7B7"
         android:text="@string/search_button"
         android:textColor="#79000000"
         android:textIsSelectable="false"
