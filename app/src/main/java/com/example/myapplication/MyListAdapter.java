@@ -40,9 +40,22 @@ public class MyListAdapter extends ArrayAdapter<String> {
         TextView titleText = (TextView) rowView.findViewById(R.id.title);
         TextView dateText = (TextView) rowView.findViewById(R.id.review_date);
         ImageView imageParking = (ImageView) rowView.findViewById(R.id.isVX1);
+        imageParking.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    // your code here
+                }
+            });
+
         ImageView imageAccessibility = (ImageView) rowView.findViewById(R.id.isVX2);
+
+
         ImageView imageToilet = (ImageView) rowView.findViewById(R.id.isVX3);
+
+
         ImageView imageService = (ImageView) rowView.findViewById(R.id.isVX4);
+
+
 
 
 

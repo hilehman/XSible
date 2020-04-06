@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +78,8 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView accessibility_t = findViewById(R.id.accessibility_t);
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
+        ImageView parking_image = findViewById(R.id.parking_image);
+        parking_image.setImageResource(R.drawable.x1);
 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
@@ -99,8 +103,11 @@ public class AddReviewActivity extends AppCompatActivity {
                 parkingValue = isChecked;
                 if (isChecked) {
                     parking_t.setBackground(greenWhite());
+                    parking_image.setImageResource(R.drawable.v1);
                 } else {
                     parking_t.setBackground(redWhite());
+                    parking_image.setImageResource(R.drawable.x1);
+
                 }
             }
         });

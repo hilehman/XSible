@@ -23,17 +23,24 @@
 
 
 
+
+
+
+
+
+
+
+
     ]]>
 
     <LinearLayout
         android:id="@+id/place_details_layout"
-        android:layout_width="414dp"
-        android:layout_height="89dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-2dp">
+        tools:layout_editor_absoluteX="1dp">
 
         <TextView
             android:id="@+id/place_name"
@@ -51,130 +58,20 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="          "
-            android:textSize="14sp"
+            android:textSize="18sp"
             tools:layout_conversion_absoluteHeight="19dp"
             tools:layout_conversion_absoluteWidth="411dp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/add_review_intent"
-        style="drawable/button"
-        android:layout_width="173dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="28dp"
-        android:background="@drawable/button"
-        android:fadeScrollbars="true"
-        android:text="@string/add_review_button"
-        android:textIsSelectable="false"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@id/open_map_intent"
-        app:layout_constraintTop_toBottomOf="@id/place_details_layout" />
-
-    <Button
-        android:id="@+id/open_map_intent"
-        style="drawable/button"
-        android:layout_width="173dp"
-        android:layout_height="69dp"
-        android:layout_marginEnd="212dp"
-        android:background="@drawable/button"
-        android:fadeScrollbars="true"
-        android:text="@string/open_map_button"
-        android:textIsSelectable="false"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/place_details_layout" />
-
-    <TextView
-        android:id="@+id/avg_grade"
-        android:layout_width="44dp"
-        android:layout_height="33dp"
-        android:text="      "
-        android:textColor="#730E9E"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/legend_frame"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avg_grade_text"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/avg_grade_text"
-        android:layout_width="407dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="31dp"
-        android:fadeScrollbars="true"
-        android:gravity="center"
-        android:text="@string/avg_grade"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/avg_grade"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/open_map_intent"
-        app:layout_constraintVertical_bias="0.13" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="410dp"
-
-        android:layout_height="323dp"
-        android:background="@color/common_google_signin_btn_text_light_disabled"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/legend_frame"
-        app:layout_constraintVertical_bias="1.0"
-        tools:context="com.example.test.listviewwithimage.MainActivity">
-
-        <TextView
-            android:id="@+id/no_reviews_yet"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="372dp"
-            android:text="@string/no_reviews_yet"
-            android:textColor="#730E9E"
-            android:textSize="24sp"
-            android:visibility="invisible" />
-
-        <ListView
-            android:id="@+id/list"
-            style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="-1dp"
-            android:layout_marginBottom="14dp"
-            android:background="#ffffff"
-            android:backgroundTint="#FFFFFF"
-            android:divider="#000000"
-            android:dividerHeight="1dp">
-
-        </ListView>
-
-    </RelativeLayout>
-
     <FrameLayout
         android:id="@+id/legend_frame"
-        android:layout_width="382dp"
-        android:layout_height="61dp"
+        android:layout_width="394dp"
+        android:layout_height="57dp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avg_grade"
+        app:layout_constraintTop_toBottomOf="@+id/place_details_layout"
         app:layout_constraintVertical_bias="0.903">
 
 
@@ -182,8 +79,7 @@
             android:id="@+id/legend_layout"
             android:layout_width="wrap_content"
             android:layout_height="58dp"
-            android:divider="#A1252525"
-            android:dividerPadding="1dp"
+
             android:orientation="horizontal"
             android:showDividers="middle">
 
@@ -295,6 +191,110 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="405dp"
+
+        android:layout_height="474dp"
+        android:background="@color/common_google_signin_btn_text_light_disabled"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/legend_frame"
+        app:layout_constraintVertical_bias="1.0"
+        tools:context="com.example.test.listviewwithimage.MainActivity">
+
+        <TextView
+            android:id="@+id/no_reviews_yet"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="372dp"
+            android:text="@string/no_reviews_yet"
+            android:textColor="#730E9E"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+
+
+
+        <ListView
+            android:id="@+id/list"
+            style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
+            android:layout_width="406dp"
+            android:layout_height="303dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="20dp"
+            android:background="#ffffff"
+            android:backgroundTint="#FFFFFF"
+            android:divider="#000000"
+            android:dividerHeight="1dp">
+
+        </ListView>
+
+<!--        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/open_map_icon_text"
+            android:layout_width="177dp"
+            android:layout_height="52dp"
+
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="370dp"
+            android:layout_marginEnd="207dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="#7A28A0F3"
+            android:lines="2"
+            android:text="open\nmap"
+            android:textSize="12dp"
+            app:icon="@drawable/google_map_icon"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:iconTint="#EEFFFFFF"
+            app:layout_anchor="@id/list"
+            app:layout_anchorGravity="bottom|right|end" />-->
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_review_icon_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="368dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#7A28A0F3"
+            android:includeFontPadding="false"
+            android:lines="2"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:text="Add\nreview"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:icon="@drawable/add_icon"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="56dp"
+            app:iconTint="#EEFFFFFF"
+            app:layout_anchor="@id/list"
+            app:layout_anchorGravity="bottom|start" />
+
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

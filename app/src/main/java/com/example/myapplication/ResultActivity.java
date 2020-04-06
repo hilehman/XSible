@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,7 +60,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private String chosenPlaceName = "";
     private String chosenPlaceAddress = "";
     private String chosenPlaceURL = "";
-    private List<Map<String, Object>> reviewsList = new ArrayList<>();;
+    private List<Map<String, Object>> reviewsList = new ArrayList<>();
+/*    private ExtendedFloatingActionButton open_map;
+    private ExtendedFloatingActionButton add_review;*/
+    ;
     private ListView list;
     double summedGrade = 0;
 
@@ -66,6 +71,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
+
+
 
         // create a full screen window
         setContentView(R.layout.activity_result);
@@ -132,7 +139,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     .set(chosenPlaceMap, SetOptions.merge()); //
 
                             place_name.setText(chosenPlaceName); //displays Place's name
-                            place_address.setText(chosenPlaceAddress); //displays Place's address
+                            place_address.setText(getShortAddress(chosenPlaceAddress)); //displays Place's address
 
                         }
                     } else {
@@ -150,26 +157,25 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
-
-
+;
         // creates "open map" button
-        final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
+        //  final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
         Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
-        open_map_intent.setOnClickListener(new View.OnClickListener() {
+  /*      open_map_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(toOpenMap);
             }
-        });
+        });*/
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
 
-        final TextView avgGrade = (TextView) findViewById(R.id.avg_grade);
-        final TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
+        // final TextView avgGrade = (TextView) findViewById(R.id.avg_grade);
+        // final TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
         final LinearLayout legendLayout = (LinearLayout) findViewById(R.id.legend_layout);
 
-        avgGradeText.setVisibility(View.INVISIBLE);
-     //   avgGrade.setVisibility(View.INVISIBLE);
+        //  avgGradeText.setVisibility(View.INVISIBLE);
+        //   avgGrade.setVisibility(View.INVISIBLE);
         legendLayout.setVisibility((View.INVISIBLE));
 
         // gets review from data base into a listView
@@ -186,7 +192,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             legendFrame.setVisibility(View.VISIBLE);
                             legendLayout.setVisibility((View.VISIBLE));
 
-
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 Map<String, Object> tempMap = document.getData();
@@ -196,7 +201,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             if (!reviewsList.isEmpty()) {
 
                                 //creates frame for legend
-
 
                                 // creates arrays to hold data
                                 String[] extraInfo = new String[reviewsList.size()];
@@ -222,8 +226,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     counter++;
                                 }
                                 if (reviewsList.size() - dontCount > 3) {
-                                    avgGradeText.setVisibility(View.VISIBLE);
-                                    avgGrade.setVisibility(View.VISIBLE);
+                                    //      avgGradeText.setVisibility(View.VISIBLE);
+                                    //     avgGrade.setVisibility(View.VISIBLE);
                                     double grade = summedGrade / (reviewsList.size() - dontCount);
                                     double finalGrade = Math.round(grade * 10) / 10.0;
                                   /*  if (finalGrade % 1 == 0)
@@ -234,11 +238,36 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
                                 list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
+                                ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
+                                add_review.extend(true);
+                                shrinkButton(list);
+                                list.setOnScrollListener( new AbsListView.OnScrollListener()
+                                {
+                                    @Override
+                                    public void onScroll(AbsListView view, int firstVisibleItem,
+                                                         int visibleItemCount, int totalItemCount){
+
+                                    }
+                                    @Override
+                                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+                                        add_review.shrink(true);
+                                    }
+                                });
                             }
                         }
                     }
                 });
-        // creates "new review" button
+
+
+        Intent toAddReview = new Intent(this, AddReviewActivity.class);
+
+
+
+
+        //   add_review.setOnClickListener(clickListener);
+
+
+  /*      // creates "new review" button
         final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
         Intent toAddReview = new Intent(this, AddReviewActivity.class);
         add_review_intent.setOnClickListener(new View.OnClickListener() {
@@ -248,6 +277,35 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
                 startActivity(toAddReview);
             }
-        });
+        });*/
+        //}
+
+
     }
+
+
+    private String getShortAddress(String fullAddress) {
+        int secComma = fullAddress.indexOf(',', fullAddress.indexOf(',') + 1);
+        return fullAddress.substring(0, secComma);
+    }
+
+    private void shrinkButton (ListView list) {
+
+    }
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

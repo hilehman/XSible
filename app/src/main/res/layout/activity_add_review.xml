@@ -28,13 +28,26 @@
                     android:layout_width="114dp"
                     android:layout_height="54dp" />
 
-                <TextView
-                    android:id="@+id/parking_text"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:gravity="center"
-                    android:text="@string/accessible_parking"
-                    android:textSize="24sp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/parking_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/accessible_parking"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/parking_image"
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/v1" />
+                </FrameLayout>
 
             </LinearLayout>
 
