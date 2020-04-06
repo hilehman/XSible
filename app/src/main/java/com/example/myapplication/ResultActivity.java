@@ -62,8 +62,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();
 /*    private ExtendedFloatingActionButton open_map;
-    private ExtendedFloatingActionButton add_review;*/
-    ;
+    private ExtendedFloatingActionButton add_review;*/;
     private ListView list;
     double summedGrade = 0;
 
@@ -71,7 +70,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
-
 
 
         // create a full screen window
@@ -107,15 +105,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         }
 
         FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
-
-
-
-
-
-
-
-
-
 
 
         // takes place's details and insert it to the database
@@ -167,7 +156,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
-;
+        ;
         // creates "open map" button
         //  final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
         Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
@@ -251,28 +240,34 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
                                 add_review.extend(true);
                                 shrinkButton(list);
-                                list.setOnScrollListener( new AbsListView.OnScrollListener()
-                                {
+                                list.setOnScrollListener(new AbsListView.OnScrollListener() {
                                     @Override
                                     public void onScroll(AbsListView view, int firstVisibleItem,
-                                                         int visibleItemCount, int totalItemCount){
+                                                         int visibleItemCount, int totalItemCount) {
 
                                     }
+
                                     @Override
                                     public void onScrollStateChanged(AbsListView view, int scrollState) {
-                                        add_review.setTextSize(1,1);
+                                        add_review.setTextSize(1, 1);
                                         add_review.shrink(true);
                                     }
                                 });
+                                // creates "new review" button
+                                Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
+                                add_review.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
+                                        toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
+                                        startActivity(toAddReview);
+                                    }
+                                });
+                                //}
                             }
                         }
                     }
                 });
-
-
-        Intent toAddReview = new Intent(this, AddReviewActivity.class);
-
-
 
 
         //   add_review.setOnClickListener(clickListener);
@@ -300,10 +295,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         return fullAddress.substring(0, secComma);
     }
 
-    private void shrinkButton (ListView list) {
+    private void shrinkButton(ListView list) {
 
     }
-
 
 
 }
