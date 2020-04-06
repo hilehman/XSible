@@ -108,6 +108,16 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
         FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
 
+
+
+
+
+
+
+
+
+
+
         // takes place's details and insert it to the database
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
@@ -250,6 +260,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     }
                                     @Override
                                     public void onScrollStateChanged(AbsListView view, int scrollState) {
+                                        add_review.setTextSize(1,1);
                                         add_review.shrink(true);
                                     }
                                 });

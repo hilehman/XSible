@@ -15,10 +15,10 @@
 
 
     <!--add_review_activity-->
-    <string name="accessible_parking"> חנייה נגישה </string>
-    <string name="accessible_arriving"> הגעה ושהייה נגישה </string>
-    <string name="accessible_toilet"> שירותים נגישים </string>
-    <string name="accessible_crew"> שירות ידידותי </string>
+    <string name="accessible_parking">חנייה</string>
+    <string name="accessible_arriving">הגעה ושהייה</string>
+    <string name="accessible_toilet">שירותים</string>
+    <string name="accessible_crew">שירות</string>
     <string name="extra_info_hint"> כאן מומלץ לפרט על דרכי הגעה מומלצות, נקודות שכדאי לשים אליהם לב, וכל דבר שיעזור לאחרים לקבל מידע נוסף אודות נגישות המקום </string>
     <string name="avg_grade_in_place"> ציון כללי לנגישות במקום </string>
     <string name="save_button"> שמירה </string>
