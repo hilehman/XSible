@@ -4,24 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg_blue"
     tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/main_background"
-        android:layout_width="440dp"
-        android:layout_height="739dp"
-        android:tint="#004E0C0C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/main_background" />
 
     <Button
         android:id="@+id/search_button"
         style="drawable/button"
-        android:layout_width="189dp"
+        android:layout_width="190dp"
         android:layout_height="81dp"
         android:text="@string/search_button"
         android:textColor="#79000000"

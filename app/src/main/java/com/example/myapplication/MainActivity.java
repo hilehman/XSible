@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 getResources(), R.drawable.main_background), size.x, size.y, true);
 
 
-        // fills the background ImageView with the resized image
-        ImageView iv_background = (ImageView) findViewById(R.id.main_background);
-        iv_background.setImageBitmap(bmp);
+
 
         //setLocale("en");
 
