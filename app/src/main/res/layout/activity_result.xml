@@ -13,6 +13,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.497" />
+
+
     ]]>
 
     <LinearLayout
@@ -65,6 +67,8 @@
         app:layout_constraintTop_toBottomOf="@+id/place_details_layout"
         tools:layout_conversion_absoluteHeight="19dp"
         tools:layout_conversion_absoluteWidth="411dp" />
+
+
 
     <FrameLayout
         android:id="@+id/legend_frame"
@@ -196,6 +200,22 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#646464"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/legend_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_details_layout"
+        tools:layout_conversion_absoluteHeight="19dp"
+        tools:layout_conversion_absoluteWidth="411dp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

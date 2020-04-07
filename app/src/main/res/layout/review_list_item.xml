@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="40dp"
+        android:background="#E2DEDE"
         android:divider="@drawable/places_autocomplete_toolbar_shadow"
         android:dividerPadding="2dp"
         android:orientation="horizontal"
@@ -27,9 +28,7 @@
                 android:id="@+id/review_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:backgroundTint="#fffffF"
-                android:gravity="center_horizontal|center_vertical|end"
+                android:gravity="center_horizontal|center_vertical"
                 android:paddingStart="8dp"
                 android:text="תאריך"
                 android:textStyle="bold" />
@@ -38,7 +37,6 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:background="#ffffff"
             android:backgroundTint="#ffffff"
             android:orientation="horizontal">
 
@@ -54,7 +52,6 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:background="#ffffff"
             android:backgroundTint="#ffffff"
             android:orientation="horizontal">
 
@@ -70,8 +67,6 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
             android:orientation="horizontal">
 
             <ImageView
@@ -86,8 +81,6 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
             android:orientation="horizontal">
 
             <ImageView
@@ -113,9 +106,8 @@
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="30"
-        android:padding="1dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:scrollbars="horizontal"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#4d4d4d"
