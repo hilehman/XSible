@@ -10,10 +10,10 @@
     <string name="avg_grade"> Overall accessibility rating: </string>
 
     <!--add_review_activity-->
-    <string name="accessible_parking">parking</string>
-    <string name="accessible_arriving">arrival and stay</string>
-    <string name="accessible_toilet">toilet</string>
-    <string name="accessible_crew">service</string>
+    <string name="accessible_parking">Parking</string>
+    <string name="accessible_arriving">Arrival and Stay</string>
+    <string name="accessible_toilet">WC</string>
+    <string name="accessible_crew">Service</string>
     <string name="extra_info_hint"> Tell people about your experience: What did you like or dislike? Point out any useful information in order to help people who are planning to arrive to this place: obstacles and barriers in indoor and outdoor of the facility, recommended arrival paths etc.</string>
     <string name="avg_grade_in_place"> Overall accessibility rating</string>
     <string name="save_button">SAVE</string>

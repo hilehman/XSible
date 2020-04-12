@@ -79,7 +79,16 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
         ImageView parking_image = findViewById(R.id.parking_image);
-        parking_image.setImageResource(R.drawable.x1);
+        parking_image.setImageResource(R.drawable.v1);
+
+        ImageView accessibility_image = findViewById(R.id.accessibility_image);
+        accessibility_image.setImageResource(R.drawable.v2);
+
+        ImageView wc_image = findViewById(R.id.wc_image);
+        wc_image.setImageResource(R.drawable.v3);
+
+        ImageView service_image = findViewById(R.id.service_image);
+        service_image.setImageResource(R.drawable.v4);
 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();

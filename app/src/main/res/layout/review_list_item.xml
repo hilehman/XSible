@@ -28,7 +28,7 @@
                 android:id="@+id/review_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal|center_vertical"
+                android:gravity="start|center_horizontal|center_vertical"
                 android:paddingStart="8dp"
                 android:text="תאריך"
                 android:textStyle="bold" />
