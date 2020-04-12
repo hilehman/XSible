@@ -3,6 +3,7 @@
 
     <!--main_activity-->
     <string name="search_button">SEARCH</string>
+    <string name="search_hint">Insert place and check accessibility</string>
 
     <!--result_activity-->
     <string name="open_map_button">View on Google Maps</string>

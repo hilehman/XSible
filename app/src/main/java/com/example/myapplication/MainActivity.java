@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         //setLocale("en");
 
         Button button;
-        button = findViewById(R.id.search_button);//get id of button 1
+        button = findViewById(R.id.search_button);
 
 
 
@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
         // Create a new Places client instance.
         PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
-
+        String searchHint = getString(R.string.search_hint);
         final Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
-                .setHint(("הכנס שם עסק לבדיקת נגישות")).build(this);
+                .setHint((searchHint)).build(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -169,7 +169,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
-
+        no_reviews_yet.setVisibility(View.VISIBLE);
         // final TextView avgGrade = (TextView) findViewById(R.id.avg_grade);
         // final TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
         final LinearLayout legendLayout = (LinearLayout) findViewById(R.id.legend_layout);
@@ -183,6 +183,19 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        // creates "new review" button
+                        ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
+                        add_review.extend(true);
+                        shrinkButton(list);
+                        Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
+                        add_review.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
+                                toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
+                                startActivity(toAddReview);
+                            }
+                        });
                         if (queryDocumentSnapshots.isEmpty()) {
                             legendFrame.setVisibility(View.INVISIBLE);
                             legendLayout.setVisibility((View.INVISIBLE));
@@ -238,9 +251,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
                                 list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
-                                ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
-                                add_review.extend(true);
-                                shrinkButton(list);
+
                                 list.setOnScrollListener(new AbsListView.OnScrollListener() {
                                     @Override
                                     public void onScroll(AbsListView view, int firstVisibleItem,
@@ -254,17 +265,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                         add_review.shrink(true);
                                     }
                                 });
-                                // creates "new review" button
-                                Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
-                                add_review.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
-                                        toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
-                                        startActivity(toAddReview);
-                                    }
-                                });
-                                //}
+
                             }
                         }
                     }
@@ -293,7 +294,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
     private String getShortAddress(String fullAddress) {
         int secComma = fullAddress.indexOf(',', fullAddress.indexOf(',') + 1);
-        return fullAddress.substring(0, secComma);
+        if(fullAddress.length()>secComma) fullAddress = fullAddress.substring(0, secComma);
+        return fullAddress;
     }
 
     private void shrinkButton(ListView list) {

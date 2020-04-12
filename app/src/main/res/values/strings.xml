@@ -4,7 +4,7 @@
 
     <!--main_activity-->
     <string name="search_button">חיפוש</string>
-
+    <string name="search_hint">הכנס מקום ובדוק אם הוא נגיש!</string>
 
 
     <!--result_activity-->

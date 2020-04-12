@@ -79,16 +79,16 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
         ImageView parking_image = findViewById(R.id.parking_image);
-        parking_image.setImageResource(R.drawable.v1);
+        parking_image.setImageResource(R.drawable.x1);
 
         ImageView accessibility_image = findViewById(R.id.accessibility_image);
-        accessibility_image.setImageResource(R.drawable.v2);
+        accessibility_image.setImageResource(R.drawable.x2);
 
-        ImageView wc_image = findViewById(R.id.wc_image);
-        wc_image.setImageResource(R.drawable.v3);
+        ImageView toilet_image = findViewById(R.id.wc_image);
+        toilet_image.setImageResource(R.drawable.x3);
 
         ImageView service_image = findViewById(R.id.service_image);
-        service_image.setImageResource(R.drawable.v4);
+        service_image.setImageResource(R.drawable.x4);
 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
@@ -111,12 +111,11 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 parkingValue = isChecked;
                 if (isChecked) {
-                    parking_t.setBackground(greenWhite());
+                   // parking_t.setBackground(greenWhite());
                     parking_image.setImageResource(R.drawable.v1);
                 } else {
-                    parking_t.setBackground(redWhite());
+                  //  parking_t.setBackground(redWhite());
                     parking_image.setImageResource(R.drawable.x1);
-
                 }
             }
         });
@@ -130,9 +129,11 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 accessibilityValue = isChecked;
                 if (isChecked) {
-                    accessibility_t.setBackground(greenWhite());
+                    // parking_t.setBackground(greenWhite());
+                    accessibility_image.setImageResource(R.drawable.v2);
                 } else {
-                    accessibility_t.setBackground(redWhite());
+                    //  parking_t.setBackground(redWhite());
+                    accessibility_image.setImageResource(R.drawable.x2);
                 }
             }
         });
@@ -145,9 +146,11 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 toiletValue = isChecked;
                 if (isChecked) {
-                    toilet_t.setBackground(greenWhite());
+                    // parking_t.setBackground(greenWhite());
+                   toilet_image.setImageResource(R.drawable.v3);
                 } else {
-                    toilet_t.setBackground(redWhite());
+                    //  parking_t.setBackground(redWhite());
+                    toilet_image.setImageResource(R.drawable.x3);
                 }
             }
         });
@@ -159,11 +162,13 @@ public class AddReviewActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 serviceValue = isChecked;
-                if (isChecked) {
-                    service_t.setBackground(greenWhite());
-                } else {
-                    service_t.setBackground(redWhite());
-                }
+            if (isChecked) {
+                // parking_t.setBackground(greenWhite());
+                service_image.setImageResource(R.drawable.v4);
+            } else {
+                //  parking_t.setBackground(redWhite());
+                service_image.setImageResource(R.drawable.x4);
+            }
             }
         });
 
