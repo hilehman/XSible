@@ -15,6 +15,8 @@
         app:layout_constraintVertical_bias="0.497" />
 
 
+
+
     ]]>
 
     <LinearLayout
@@ -24,30 +26,49 @@
         android:background="#7A28A0F3"
         android:orientation="vertical"
         android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/place_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#000000"
-            android:textSize="25sp"
-            tools:layout_conversion_absoluteHeight="34dp"
-            tools:layout_conversion_absoluteWidth="411dp" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/place_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="          "
-            android:textColor="#000000"
-            android:textSize="18sp"
-            tools:layout_conversion_absoluteHeight="19dp"
-            tools:layout_conversion_absoluteWidth="411dp" />
+            <LinearLayout
+                android:layout_width="341dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/place_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textSize="25sp"
+                    tools:layout_conversion_absoluteHeight="34dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+
+                <TextView
+                    android:id="@+id/place_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="          "
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/open_map_buttom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#03FFFFFF"
+                app:srcCompat="@drawable/google_map_icon" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

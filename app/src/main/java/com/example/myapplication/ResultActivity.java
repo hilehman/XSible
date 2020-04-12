@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -158,14 +159,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
         ;
         // creates "open map" button
-        //  final Button open_map_intent = (Button) findViewById(R.id.open_map_intent);
+        final ImageButton open_map_intent = (ImageButton) findViewById(R.id.open_map_buttom);
         Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
-  /*      open_map_intent.setOnClickListener(new View.OnClickListener() {
+        open_map_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(toOpenMap);
             }
-        });*/
+        });
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
 
