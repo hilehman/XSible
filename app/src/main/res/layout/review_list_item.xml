@@ -10,13 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#E2DEDE"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
         android:divider="@drawable/places_autocomplete_toolbar_shadow"
         android:dividerPadding="2dp"
+        android:gravity="right"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,7 +30,7 @@
                 android:id="@+id/review_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="start|center_horizontal|center_vertical"
+                android:gravity="left|center_vertical"
                 android:paddingStart="8dp"
                 android:text="תאריך"
                 android:textStyle="bold" />
@@ -79,7 +81,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -98,17 +100,16 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginRight="10dp"
         android:background="#ffffff"
         android:backgroundTint="#ffffff"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
         android:maxLines="30"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
         android:scrollbars="horizontal"
+        android:text="טקסט טקסט טקסט טקסט"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#4d4d4d"
         android:textStyle="normal"
