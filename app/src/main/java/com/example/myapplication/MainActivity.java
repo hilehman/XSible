@@ -35,6 +35,10 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import java.io.Serializable;
 import java.util.Locale;
 
+
+import static com.google.android.libraries.places.api.model.TypeFilter.ESTABLISHMENT;
+import static java.time.temporal.WeekFields.ISO;
+
 public class MainActivity extends AppCompatActivity implements Serializable {
 
 
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         PlacesFieldSelector fieldSelector = new PlacesFieldSelector();
         String searchHint = getString(R.string.search_hint);
         final Intent autocompleteIntent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldSelector.getAllFields())
-                .setHint((searchHint)).build(this);
+                .setHint((searchHint)).setCountry("il").setTypeFilter(ESTABLISHMENT).build(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
