@@ -4,14 +4,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -78,18 +84,30 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView accessibility_t = findViewById(R.id.accessibility_t);
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
-        ImageView parking_image = findViewById(R.id.parking_image);
-        parking_image.setImageResource(R.drawable.x1);
+        ImageView parking_imageX = findViewById(R.id.parking_imageX);
+        ImageView parking_imageV = findViewById(R.id.parking_imageV);
+        parking_imageX.setImageResource(R.drawable.x1);
+        parking_imageV.setImageResource(R.drawable.v1);
+        parking_imageV.setVisibility(View.INVISIBLE);
 
-        ImageView accessibility_image = findViewById(R.id.accessibility_image);
-        accessibility_image.setImageResource(R.drawable.x2);
-
-        ImageView toilet_image = findViewById(R.id.wc_image);
-        toilet_image.setImageResource(R.drawable.x3);
-
-        ImageView service_image = findViewById(R.id.service_image);
-        service_image.setImageResource(R.drawable.x4);
-
+        ImageView accessibility_imageV = findViewById(R.id.accessibility_imageV);
+        accessibility_imageV.setImageResource(R.drawable.v2);
+        ImageView accessibility_imageX = findViewById(R.id.accessibility_imageX);
+        accessibility_imageX.setImageResource(R.drawable.x2);
+        accessibility_imageV.setVisibility(View.INVISIBLE);
+                
+        ImageView toilet_imageV = findViewById(R.id.wc_imageV);
+        toilet_imageV.setImageResource(R.drawable.v3);
+        ImageView toilet_imageX = findViewById(R.id.wc_imageX);
+        toilet_imageX.setImageResource(R.drawable.x3);
+       toilet_imageV.setVisibility(View.INVISIBLE);
+                
+        ImageView service_imageV = findViewById(R.id.service_imageV);
+        service_imageV.setImageResource(R.drawable.v4);
+        ImageView service_imageX = findViewById(R.id.service_imageX);
+        service_imageX.setImageResource(R.drawable.x4);
+        service_imageV.setVisibility(View.INVISIBLE);
+                
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
 
@@ -111,11 +129,16 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 parkingValue = isChecked;
                 if (isChecked) {
+                    fadeOut(parking_imageV, parking_imageX);
+                    fadeIn(parking_imageX, parking_imageV);
+
+
                    // parking_t.setBackground(greenWhite());
-                    parking_image.setImageResource(R.drawable.v1);
+                 //   parking_image.setImageResource(R.drawable.v1);
                 } else {
                   //  parking_t.setBackground(redWhite());
-                    parking_image.setImageResource(R.drawable.x1);
+                    fadeIn(parking_imageV, parking_imageX);
+                    fadeOut(parking_imageX, parking_imageV);
                 }
             }
         });
@@ -129,11 +152,11 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 accessibilityValue = isChecked;
                 if (isChecked) {
-                    // parking_t.setBackground(greenWhite());
-                    accessibility_image.setImageResource(R.drawable.v2);
+                    fadeOut(accessibility_imageV,accessibility_imageX);
+                    fadeIn(accessibility_imageX, accessibility_imageV);
                 } else {
-                    //  parking_t.setBackground(redWhite());
-                    accessibility_image.setImageResource(R.drawable.x2);
+                    fadeIn(accessibility_imageV,accessibility_imageX);
+                    fadeOut(accessibility_imageX, accessibility_imageV);
                 }
             }
         });
@@ -146,11 +169,11 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 toiletValue = isChecked;
                 if (isChecked) {
-                    // parking_t.setBackground(greenWhite());
-                   toilet_image.setImageResource(R.drawable.v3);
+                    fadeOut(toilet_imageV,toilet_imageX);
+                    fadeIn(toilet_imageX, toilet_imageV);
                 } else {
-                    //  parking_t.setBackground(redWhite());
-                    toilet_image.setImageResource(R.drawable.x3);
+                    fadeIn(toilet_imageV,toilet_imageX);
+                    fadeOut(toilet_imageX, toilet_imageV);
                 }
             }
         });
@@ -162,13 +185,13 @@ public class AddReviewActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 serviceValue = isChecked;
-            if (isChecked) {
-                // parking_t.setBackground(greenWhite());
-                service_image.setImageResource(R.drawable.v4);
-            } else {
-                //  parking_t.setBackground(redWhite());
-                service_image.setImageResource(R.drawable.x4);
-            }
+                if (isChecked) {
+                    fadeOut(service_imageV,service_imageX);
+                    fadeIn(service_imageX, service_imageV);
+                } else {
+                    fadeIn(service_imageV,service_imageX);
+                    fadeOut(service_imageX, service_imageV);
+                }
             }
         });
 
@@ -251,6 +274,54 @@ public class AddReviewActivity extends AppCompatActivity {
                 });
         return gradientDrawable;
     }
+
+
+
+    public void fadeIn(ImageView img1, ImageView img2) {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new AccelerateInterpolator());
+        fadeIn.setDuration(250);
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                img2.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        img2.startAnimation(fadeIn);
+        img1.setVisibility(View.GONE);
+    }
+
+    public void fadeOut(ImageView img1, ImageView img2) {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(250);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                img2.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        img2.startAnimation(fadeOut);
+        img1.setVisibility(View.VISIBLE);
+    }
+
 
     public GradientDrawable greenWhite() {
 

@@ -36,13 +36,21 @@
                         android:id="@+id/parking_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center|start|center_vertical"
-                        android:paddingStart="64dp"
+                        android:gravity="center|center_vertical"
+                        android:paddingEnd="64dp"
                         android:text="@string/accessible_parking"
                         android:textSize="24sp" />
 
                     <ImageView
-                        android:id="@+id/parking_image"
+                        android:id="@+id/parking_imageV"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/v1" />
+
+                    <ImageView
+                        android:id="@+id/parking_imageX"
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
@@ -70,19 +78,25 @@
                         android:id="@+id/accessibility_t"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
-                        android:gravity="center|start"
-                        android:paddingStart="32dp"
+                        android:gravity="center"
+                        android:paddingEnd="64dp"
                         android:text="@string/accessible_arriving"
                         android:textSize="24sp" />
 
                     <ImageView
-                        android:id="@+id/accessibility_image"
+                        android:id="@+id/accessibility_imageV"
                         android:layout_width="65dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="end"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/v2" />
-
+                    <ImageView
+                        android:id="@+id/accessibility_imageX"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/v2" />
                 </FrameLayout>
 
                 <requestFocus />
@@ -107,13 +121,20 @@
                         android:id="@+id/toilet_text"
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
-                        android:gravity="center|start"
-                        android:paddingStart="58dp"
+                        android:gravity="center"
+                        android:paddingEnd="64dp"
                         android:text="@string/accessible_toilet"
                         android:textSize="24sp" />
 
                     <ImageView
-                        android:id="@+id/wc_image"
+                        android:id="@+id/wc_imageV"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/v3" />
+                    <ImageView
+                        android:id="@+id/wc_imageX"
                         android:layout_width="65dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical|end"
@@ -144,13 +165,20 @@
                         android:id="@+id/service_text"
                         android:layout_width="match_parent"
                         android:layout_height="53dp"
-                        android:gravity="center|start"
-                        android:paddingStart="60dp"
+                        android:gravity="center"
+                        android:paddingEnd="64dp"
                         android:text="@string/accessible_crew"
                         android:textSize="24sp" />
 
                     <ImageView
-                        android:id="@+id/service_image"
+                        android:id="@+id/service_imageV"
+                        android:layout_width="65dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/v4" />
+                    <ImageView
+                        android:id="@+id/service_imageX"
                         android:layout_width="65dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical|end"
