@@ -200,6 +200,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             legendFrame.setVisibility(View.INVISIBLE);
                             legendLayout.setVisibility((View.INVISIBLE));
                             no_reviews_yet.setVisibility(View.VISIBLE);
+                            no_reviews_yet.bringToFront();
                         } else {
                             no_reviews_yet.setVisibility(View.INVISIBLE);
                             legendFrame.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,27 +84,34 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(autocompleteIntent, 23);
+                startActivityForResult(autocompleteIntent, 23 );
             }
         });
 
     }
 
+
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+        Intent toMain = new Intent(this, ResultActivity.class);
         if (requestCode == 23) {
-            Place place = Autocomplete.getPlaceFromIntent(intent);
-            String chosenPlaceId = place.getId();
-            Intent toPlace = new Intent(this, ResultActivity.class);
-            toPlace.putExtra("chosenPlaceId", chosenPlaceId);
-            startActivity(toPlace);
-        } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-            Status status = Autocomplete.getStatusFromIntent(intent);
-        } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {
-            Toast.makeText(MainActivity.this, "CANCELED", Toast.LENGTH_LONG).show();
-        } else
-            Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_LONG).show();
+            if (resultCode == -1) {
+                Place place = Autocomplete.getPlaceFromIntent(intent);
+                String chosenPlaceId = place.getId();
+                Intent toPlace = new Intent(this, ResultActivity.class);
+                toPlace.putExtra("chosenPlaceId", chosenPlaceId);
+                startActivity(toPlace);
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+
+            } else if (resultCode == AutocompleteActivity.RESULT_CANCELED) {
+            }
+        }
+
+
     }
 
 
