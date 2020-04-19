@@ -124,6 +124,7 @@ public class AddReviewActivity extends AppCompatActivity {
         //parking switch
         com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton)
                 findViewById(R.id.parking_b);
+
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {

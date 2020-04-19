@@ -26,7 +26,8 @@
                 <com.suke.widget.SwitchButton
                     android:id="@+id/parking_b"
                     android:layout_width="114dp"
-                    android:layout_height="54dp" />
+                    android:layout_height="54dp"
+                    app:sb_checked_color="#CB03A9F4" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -68,7 +69,8 @@
                 <com.suke.widget.SwitchButton
                     android:id="@+id/accessibility_b"
                     android:layout_width="114dp"
-                    android:layout_height="52dp" />
+                    android:layout_height="52dp"
+                    app:sb_checked_color="#CB03A9F4" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -111,7 +113,9 @@
                 <com.suke.widget.SwitchButton
                     android:id="@+id/toilet_b"
                     android:layout_width="113dp"
-                    android:layout_height="54dp" />
+                    android:layout_height="54dp"
+                    android:backgroundTint="#ffffff"
+                    app:sb_checked_color="#CB03A9F4" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -155,7 +159,8 @@
                 <com.suke.widget.SwitchButton
                     android:id="@+id/service_b"
                     android:layout_width="114dp"
-                    android:layout_height="53dp" />
+                    android:layout_height="53dp"
+                    app:sb_checked_color="#CB03A9F4" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

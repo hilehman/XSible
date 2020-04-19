@@ -27,25 +27,6 @@
         />
 
     <TextView
-        android:id="@+id/XSible"
-        android:layout_width="125dp"
-        android:layout_height="70dp"
-        android:fontFamily="@font/caveat_brush"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:radius="20dp"
-        android:text="XSible"
-        android:textColor="#302E49"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.897" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="156dp"
         android:layout_height="41dp"
@@ -58,6 +39,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.946" />
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="173dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.989"
+        app:srcCompat="@drawable/logo_xsible_trans" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
