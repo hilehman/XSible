@@ -18,6 +18,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -65,35 +66,8 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
                 getResources(), R.drawable.main_background), size.x, size.y, true);
 
-
-
-
-
-
-
-
-/*
-
-        // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.FacebookBuilder().build());
-*/
-
-/*// Create and launch sign-in intent
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                20);*/
-
-        //setLocale("en");
-
         Button button;
         button = findViewById(R.id.search_button);
-
 
 
         String apiKey = getString(R.string.api_key);
@@ -117,25 +91,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
     }
 
-/*    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 20) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-            }
-        }
-    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);

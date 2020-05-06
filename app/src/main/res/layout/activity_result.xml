@@ -30,36 +30,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:orientation="horizontal"
             android:paddingStart="8dp"
             android:paddingEnd="8dp">
 
             <LinearLayout
-                android:layout_width="290dp"
+                android:layout_width="0dp"
                 android:layout_height="111dp"
-                android:orientation="vertical">
+                android:layout_weight="3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="8dp">
 
                 <TextView
                     android:id="@+id/place_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:layout_constraintWidth_default="wrap"
                     android:gravity="clip_horizontal|center_horizontal|center_vertical"
+                    android:maxLines="2"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
                     android:textColor="#000000"
                     android:textSize="25sp"
+                    android:text = "                   "
                     tools:layout_conversion_absoluteHeight="34dp"
                     tools:layout_conversion_absoluteWidth="411dp" />
 
                 <TextView
                     android:id="@+id/place_address"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal|center_vertical"
+                    android:maxLines="2"
                     android:paddingStart="4dp"
-                    android:text="          "
+                    android:text="                   "
                     android:textColor="#000000"
                     android:textSize="18sp"
+                    app:layout_constraintWidth_default="wrap"
                     tools:layout_conversion_absoluteHeight="19dp"
                     tools:layout_conversion_absoluteWidth="411dp" />
             </LinearLayout>
@@ -68,7 +78,9 @@
                 android:id="@+id/open_map_buttom"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_gravity="center"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="clip_horizontal|center|clip_vertical"
+                android:layout_weight="0"
                 android:background="@drawable/bordered_button"
                 android:backgroundTint="#85E8F3FF"
                 android:insetTop="0dp"

@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,6 +93,7 @@
                         android:layout_gravity="end"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/v2" />
+
                     <ImageView
                         android:id="@+id/accessibility_imageX"
                         android:layout_width="65dp"
@@ -137,6 +139,7 @@
                         android:layout_gravity="center_vertical|end"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/v3" />
+
                     <ImageView
                         android:id="@+id/wc_imageX"
                         android:layout_width="65dp"
@@ -182,6 +185,7 @@
                         android:layout_gravity="center_vertical|end"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/v4" />
+
                     <ImageView
                         android:id="@+id/service_imageX"
                         android:layout_width="65dp"
@@ -199,10 +203,9 @@
 
             <EditText
                 android:id="@+id/extra_s"
-                android:layout_width="376dp"
+                android:layout_width="match_parent"
                 android:layout_height="206dp"
                 android:layout_alignBottom="@+id/XSible"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_toRightOf="@+id/XSible"
                 android:background="#CCCCCC"
@@ -212,8 +215,8 @@
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLength="2000"
                 android:maxLines="30"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:scrollbars="horizontal"
                 android:textColorHint="#CD777777" />
 
