@@ -11,6 +11,8 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -29,6 +31,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
@@ -37,6 +40,10 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Constants;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,13 +51,21 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.core.OrderBy;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.type.LatLng;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.google.firebase.firestore.Query.Direction.DESCENDING;
@@ -59,6 +74,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
     // FIELDS//
     private String chosenPlaceName = "";
+    private String chosenPlaceId = "";
     private String chosenPlaceAddress = "";
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();
@@ -66,11 +82,17 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private ExtendedFloatingActionButton add_review;*/;
     private ListView list;
     double summedGrade = 0;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
+    private DocumentReference docRef;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
+
 
 
         // create a full screen window
@@ -89,7 +111,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         // iv_background.setImageBitmap(bmp);
 
         // takes the chosen place's id from MainACtivity
-        String chosenPlaceId;
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -119,7 +141,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
             final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
             final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
-            DocumentReference docRef = db.collection("places").document(chosenPlaceId);
+            docRef = db.collection("places").document(chosenPlaceId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -155,6 +177,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             }
         });
 
+
         setContentView(R.layout.activity_result); //set the layout
         getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
         ;
@@ -186,7 +209,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                         // creates "new review" button
                         ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
                         add_review.extend(true);
-                        shrinkButton(list);
+
                         Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
                         add_review.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -196,6 +219,20 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 startActivity(toAddReview);
                             }
                         });
+
+                        ExtendedFloatingActionButton add_picture = (ExtendedFloatingActionButton) findViewById(R.id.add_picture_icon_text);
+                        add_review.extend(true);
+
+                        add_picture.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onLaunchCamera();
+
+
+                            }
+                        });
+
+
                         if (queryDocumentSnapshots.isEmpty()) {
                             legendFrame.setVisibility(View.INVISIBLE);
                             legendLayout.setVisibility((View.INVISIBLE));
@@ -264,6 +301,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     public void onScrollStateChanged(AbsListView view, int scrollState) {
                                         add_review.setTextSize(1, 1);
                                         add_review.shrink(true);
+                                        add_picture.setTextSize(1, 1);
+                                        add_picture.shrink(true);
                                     }
                                 });
 
@@ -273,33 +312,62 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 });
 
 
-        //   add_review.setOnClickListener(clickListener);
-
-
-  /*      // creates "new review" button
-        final Button add_review_intent = (Button) findViewById(R.id.add_review_intent);
-        Intent toAddReview = new Intent(this, AddReviewActivity.class);
-        add_review_intent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
-                toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
-                startActivity(toAddReview);
-            }
-        });*/
-        //}
-
 
     }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == this.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            String imagePath = encodeBitmapAndSaveToFirebase(imageBitmap);
+            Map<String, Object> imageMap = new HashMap<>();
+            imageMap.put("pic", imagePath);
+            db.collection("places").document(chosenPlaceId).collection("pictures").document().set(imageMap);
+        }
+    }
+
+    public String encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss", Locale.getDefault());;
+        String currentDateandTime = sdf.format(new Date());
+        StorageReference placeRef = storageRef.child(chosenPlaceId).child(currentDateandTime);
+        UploadTask uploadTask = placeRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        });
+        return placeRef.getPath();
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
 
 
     private String getShortAddress(String fullAddress) {
         int secComma = fullAddress.indexOf(',', fullAddress.indexOf(',') + 1);
-        if(fullAddress.length()>secComma) fullAddress = fullAddress.substring(0, secComma);
+        if (fullAddress.length() > secComma) fullAddress = fullAddress.substring(0, secComma);
         return fullAddress;
     }
 
-    private void shrinkButton(ListView list) {
+    public void onLaunchCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(this.getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
 
     }
 

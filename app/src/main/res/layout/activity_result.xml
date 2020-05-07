@@ -265,6 +265,7 @@
             android:visibility="invisible" />
 
 
+
         <ListView
             android:id="@+id/list"
             style="@android:style/Widget.DeviceDefault.Light.ExpandableListView"
@@ -315,6 +316,36 @@
             android:textSize="16sp"
             app:cornerRadius="28dp"
             app:icon="@drawable/add_icon"
+            app:iconPadding="16dp"
+            app:iconTint="#EEFFFFFF"
+            app:layout_anchor="@id/list"
+            app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_picture_icon_text"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+
+            android:layout_alignBottom="@+id/list"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="368dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="80dp"
+            android:background="#FFF223"
+            android:backgroundTint="#7A28A0F3"
+            android:includeFontPadding="true"
+            android:paddingStart="12dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:text="Add Picture"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:cornerRadius="28dp"
+            app:icon="@drawable/ic_add_a_photo_black_24dp"
             app:iconPadding="16dp"
             app:iconTint="#EEFFFFFF"
             app:layout_anchor="@id/list"
