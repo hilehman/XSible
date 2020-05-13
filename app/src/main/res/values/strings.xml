@@ -17,7 +17,6 @@
     <string name="avg_grade"> ציון נגישות כללי"\u202A": </string>
 
 
-
     <!--add_review_activity-->
     <string name="accessible_parking"> חנייה </string>
     <string name="accessible_arriving"> כניסה ומרחב  </string>
@@ -28,7 +27,6 @@
     <string name="save_button"> שמירה </string>
     <string name="thanks_for_review"> תגובתך נשמרה! תודה </string>
     <string name="are_you_sure"> תגובה לא נשמרה. לצאת בכל זאת? </string>
-
 
 
     <string name="title_activity_maps">Map</string>

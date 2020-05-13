@@ -1,16 +1,65 @@
 package com.example.myapplication;
+//
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+//
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -18,6 +67,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -57,6 +107,7 @@ import com.google.firebase.storage.UploadTask;
 import com.google.type.LatLng;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -68,11 +119,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
 import static com.google.firebase.firestore.Query.Direction.DESCENDING;
 
 public class ResultActivity extends AppCompatActivity implements Serializable {
 
     // FIELDS//
+    public static final int CAMERA_PERM_CODE = 101;
+    public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int GALLERY_REQUEST_CODE = 105;
     private String chosenPlaceName = "";
     private String chosenPlaceId = "";
     private String chosenPlaceAddress = "";
@@ -82,18 +137,26 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private ExtendedFloatingActionButton add_review;*/;
     private ListView list;
     double summedGrade = 0;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
     private DocumentReference docRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+    String currentPhotoPath;
+    ImageView selectedImage;
+    private ProgressDialog mProgress;
+    Uri fileUri;
+    private static final int MAX_WIDTH = 400;
+    private static final int MAX_HEIGHT = 300;
+    File photoFile;
+    Uri uri;
+    private final static int RESULT_LOAD_IMAGE = 1;
+    private ProgressDialog progress;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         // create a full screen window
         setContentView(R.layout.activity_result);
@@ -105,7 +168,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         display.getSize(size);
         Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
                 getResources(), R.drawable.main_background_light), size.x, size.y, true);
-
+        mProgress = new ProgressDialog(this);
         // fills the background ImageView with the resized image
         //   ImageView iv_background = (ImageView) findViewById(R.id.);
         // iv_background.setImageBitmap(bmp);
@@ -227,6 +290,23 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             @Override
                             public void onClick(View view) {
                                 onLaunchCamera();
+                            }
+                        });
+
+                        ExtendedFloatingActionButton see_picture = (ExtendedFloatingActionButton) findViewById(R.id.open_picture_icon_text);
+                        see_picture.extend(true);
+
+                        see_picture.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent toImagesGallery = new Intent(ResultActivity.this, ImagesGalleryActivity.class);
+                                see_picture.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        toImagesGallery.putExtra("chosenPlaceId", chosenPlaceId);
+                                        startActivity(toImagesGallery);
+                                    }
+                                });
 
 
                             }
@@ -303,6 +383,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                         add_review.shrink(true);
                                         add_picture.setTextSize(1, 1);
                                         add_picture.shrink(true);
+                                        see_picture.setTextSize(1, 1);
+                                        see_picture.shrink(true);
                                     }
                                 });
 
@@ -326,6 +408,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Map<String, Object> imageMap = new HashMap<>();
             imageMap.put("pic", imagePath);
             db.collection("places").document(chosenPlaceId).collection("pictures").document().set(imageMap);
+            progress = new ProgressDialog(this);
         }
     }
 
@@ -336,17 +419,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss", Locale.getDefault());;
         String currentDateandTime = sdf.format(new Date());
         StorageReference placeRef = storageRef.child(chosenPlaceId).child(currentDateandTime);
-        UploadTask uploadTask = placeRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-            }
-        });
+        placeRef.putBytes(data);
         return placeRef.getPath();
     }
 
@@ -370,6 +443,38 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         }
 
     }
+
+    public void open(View view){
+        progress.setMessage("Downloading Music :) ");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setIndeterminate(true);
+        progress.show();
+
+        final int totalProgressTime = 100;
+
+        final Thread t = new Thread(){
+
+            @Override
+            public void run(){
+
+                int jumpTime = 0;
+                while(jumpTime < totalProgressTime){
+                    try {
+                        sleep(200);
+                        jumpTime += 5;
+                        progress.setProgress(jumpTime);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+        };
+        t.start();
+    }
+
 
 
 }
