@@ -48,11 +48,12 @@
                     android:id="@+id/place_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="clip_horizontal|center_horizontal|center_vertical"
+                    android:layout_gravity="start|center_vertical"
+                    android:gravity="clip_horizontal|start|center_vertical"
                     android:maxLines="2"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
-                    android:text="                   "
+                    android:text="טקסט ארוך  "
                     android:textColor="#000000"
                     android:textSize="25sp"
                     app:layout_constraintWidth_default="wrap"
@@ -63,31 +64,154 @@
                     android:id="@+id/place_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
                     android:gravity="center_horizontal|center_vertical"
                     android:maxLines="2"
                     android:paddingStart="4dp"
-                    android:text="                   "
+                    android:text="שם של כתובת ארוכה למדי "
                     android:textColor="#000000"
                     android:textSize="18sp"
                     app:layout_constraintWidth_default="wrap"
                     tools:layout_conversion_absoluteHeight="19dp"
                     tools:layout_conversion_absoluteWidth="411dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/open_map_buttom"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="clip_horizontal|center|clip_vertical|start"
+                        android:layout_weight="0"
+                        android:background="@drawable/com_facebook_auth_dialog_cancel_background"
+                        android:backgroundTint="#00E8F3FF"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_place_black_24dp"
+                        app:cornerRadius="45dp" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:text="בוא נעזוב את האפליקציה המחורבנת הזאת לגוגל מפות" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/open_map_buttom"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="clip_horizontal|center|clip_vertical"
-                android:layout_weight="0"
-                android:background="@drawable/bordered_button"
-                android:backgroundTint="#85E8F3FF"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:padding="8dp"
-                android:src="@drawable/google_map_icon"
-                app:cornerRadius="45dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="9">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:outlineAmbientShadowColor="#00B33131"
+                    android:outlineSpotShadowColor="#00B82929"
+                    android:progressTint="#00C94A4A" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:outlineAmbientShadowColor="#00B33131"
+                    android:outlineSpotShadowColor="#00B82929"
+                    android:progressTint="#00C94A4A" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:outlineAmbientShadowColor="#00B33131"
+                    android:outlineSpotShadowColor="#00B82929"
+                    android:progressTint="#00C94A4A" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:outlineAmbientShadowColor="#00B33131"
+                    android:outlineSpotShadowColor="#00B82929"
+                    android:progressTint="#00C94A4A" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -362,7 +486,7 @@
             android:layout_marginTop="200dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="145dp"
-            android:background="#FFF223"
+            android:background="#FFFFFF"
             android:backgroundTint="#7A28A0F3"
             android:includeFontPadding="true"
             android:paddingStart="12dp"
