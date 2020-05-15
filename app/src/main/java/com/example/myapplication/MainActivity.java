@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                getResources(), R.drawable.main_background), size.x, size.y, true);
-
         Button button;
         button = findViewById(R.id.search_button);
 
@@ -74,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             if (resultCode == -1) {
                 Place place = Autocomplete.getPlaceFromIntent(intent);
                 String chosenPlaceId = place.getId();
-                Intent toPlace = new Intent(this, ResultActivity.class);
-                toPlace.putExtra("chosenPlaceId", chosenPlaceId);
-                startActivity(toPlace);
+                Intent toResult = new Intent(this, ResultActivity.class);
+                toResult.putExtra("chosenPlaceId", chosenPlaceId);
+                startActivity(toResult);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
 
                 Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();

@@ -42,7 +42,7 @@ public class MyListAdapter extends ArrayAdapter<String> {
         imageParking.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    // your code here
+
                 }
             });
 

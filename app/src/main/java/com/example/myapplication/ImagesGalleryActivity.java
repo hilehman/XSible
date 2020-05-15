@@ -61,7 +61,7 @@ public class ImagesGalleryActivity extends AppCompatActivity {
                         } else {
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-
+                                //go to reference in the path that is saved in the DB
                                 StorageReference islandRef = storageRef.child((String) document.get("pic"));
                                 final long ONE_MEGABYTE = 1024 * 1024;
                                 islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {

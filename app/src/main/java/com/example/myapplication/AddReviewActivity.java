@@ -195,7 +195,7 @@ public class AddReviewActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss", Locale.getDefault());;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss", Locale.getDefault());
                 String currentDateandTime = sdf.format(new Date());
                 extraInfo = extra_s.getText().toString();
                 reviewsMap.put("rating",rating);
@@ -261,7 +261,7 @@ public class AddReviewActivity extends AppCompatActivity {
     }
 
 
-    public GradientDrawable redWhite() {
+/*    public GradientDrawable redWhite() {
 
         GradientDrawable gradientDrawable = new GradientDrawable(
                 GradientDrawable.Orientation.RIGHT_LEFT,
@@ -269,7 +269,7 @@ public class AddReviewActivity extends AppCompatActivity {
                         ContextCompat.getColor(this, R.color.quantum_white_100)
                 });
         return gradientDrawable;
-    }
+    }*/
 
 
 
@@ -318,7 +318,7 @@ public class AddReviewActivity extends AppCompatActivity {
         img1.setVisibility(View.VISIBLE);
     }
 
-
+/*
     public GradientDrawable greenWhite() {
 
         GradientDrawable gradientDrawable = new GradientDrawable(
@@ -327,7 +327,7 @@ public class AddReviewActivity extends AppCompatActivity {
                         ContextCompat.getColor(this, R.color.quantum_white_100)
                 });
         return gradientDrawable;
-    }
+    }*/
 
     private Chip addChip(String text, ChipGroup pChipGroup) {
         Chip chip = new Chip(this);

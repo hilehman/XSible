@@ -201,6 +201,18 @@
             </LinearLayout>
 
 
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="385dp"
+                android:layout_height="78dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:animateLayoutChanges="true"
+                android:background="#FFFFFF" />
+
             <EditText
                 android:id="@+id/extra_s"
                 android:layout_width="match_parent"
@@ -220,17 +232,6 @@
                 android:scrollbars="horizontal"
                 android:textColorHint="#CD777777" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="385dp"
-                android:layout_height="78dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:background="#F3EEEE"
-                android:animateLayoutChanges="true"/>
 
             <TextView
                 android:id="@+id/avg_grade_desc"

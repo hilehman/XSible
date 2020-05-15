@@ -66,6 +66,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private String chosenPlaceName = "";
     private String chosenPlaceId = "";
     private String chosenPlaceAddress = "";
+    private String getChosenPlacePhone = "";
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();
     private ListView list;
@@ -96,7 +97,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
 
 
-        getChosenId(savedInstanceState);
+        getChosenId(savedInstanceState); //takes id from extra and initiate the field
+
         FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
@@ -105,9 +107,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Place chosenPlace = response.getPlace(); //gets Place object
             chosenPlaceName = chosenPlace.getName();
             chosenPlaceAddress = chosenPlace.getAddress();
+            getChosenPlacePhone = chosenPlace.getPhoneNumber();
             Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
             final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
             final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
+            //todo add phone number textview in XML and here
             docRef = db.collection("places").document(chosenPlaceId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -118,13 +122,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             db.collection("places").document(chosenPlaceId).update("reviewsCounter", reviewsList.size()); //updates its reviewsCounter
                             place_name.setText(chosenPlaceName); //displays Place's name
                             place_address.setText(chosenPlaceAddress); //displays Place's address
+                            //todo initiaet phone number textview
                         } else { //creates the collection with the different fields
                             chosenPlaceMap.put("id", chosenPlace.getId());
                             chosenPlaceMap.put("name", chosenPlace.getName());
                             chosenPlaceMap.put("address", chosenPlace.getAddress());
-                            chosenPlaceMap.put("longitude", String.valueOf(chosenPlace.getLatLng().longitude));
+                            chosenPlaceMap.put("longitude", String.valueOf(chosenPlace.getLatLng().latitude)); //todo - bug here!
                             chosenPlaceMap.put("latitude", String.valueOf(chosenPlace.getLatLng().latitude));
-
+                            chosenPlaceMap.put("phone", chosenPlace.getPhoneNumber());
                             chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
                             chosenPlaceMap.put("reviewsCounter", 0);
                             db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
@@ -176,36 +181,38 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        //builds the floating button
+
                         // creates "new review" button
                         ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
                         add_review.extend(true);
-
+                        //intent to add_review activity
                         Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
                         add_review.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
                                 toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
+                                //todo does it takes care of buck before posting a review
                                 startActivity(toAddReview);
                             }
                         });
-
+                        // creates "add pivcture" button
                         ExtendedFloatingActionButton add_picture = (ExtendedFloatingActionButton) findViewById(R.id.add_picture_icon_text);
-                        add_review.extend(true);
+                        add_picture.extend(true);
 
                         add_picture.setOnClickListener(new View.OnClickListener() {
                             @Override
 
                             public void onClick(View view) {
                                 onLaunchCamera();
-
-
-                            }
+                           }
                         });
 
+                        // creates "see picture" button
                         ExtendedFloatingActionButton see_picture = (ExtendedFloatingActionButton) findViewById(R.id.open_picture_icon_text);
                         see_picture.extend(true);
-
                         see_picture.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -241,7 +248,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
                             if (!reviewsList.isEmpty()) {
 
-                                //creates frame for legend
+
 
                                 // creates arrays to hold data
                                 String[] extraInfo = new String[reviewsList.size()];
@@ -266,6 +273,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     else dontCount++;
                                     counter++;
                                 }
+                                //calculate grade for current place based on revires (if more than 3)
                                 if (reviewsList.size() - dontCount > 3) {
                                     //      avgGradeText.setVisibility(View.VISIBLE);
                                     //     avgGrade.setVisibility(View.VISIBLE);
@@ -288,6 +296,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     }
 
                                     @Override
+                                    //takes care of the floating button (shrink and expand)
                                     public void onScrollStateChanged(AbsListView view, int scrollState) {
                                         add_review.setTextSize(1, 1);
                                         add_review.shrink(true);
