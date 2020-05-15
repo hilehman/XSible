@@ -1,51 +1,26 @@
 package com.example.myapplication;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.common.api.Status;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 
 import static com.google.android.libraries.places.api.model.TypeFilter.ESTABLISHMENT;
-import static java.time.temporal.WeekFields.ISO;
 
 public class MainActivity extends AppCompatActivity implements Serializable {
 

@@ -1,33 +1,27 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.libraries.places.api.Places;
-import com.google.firebase.database.annotations.NotNull;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.hsalf.smilerating.BaseRating;
@@ -35,13 +29,10 @@ import com.hsalf.smilerating.SmileRating;
 import com.suke.widget.SwitchButton;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Calendar;
 
 public class AddReviewActivity extends AppCompatActivity {
 
@@ -54,6 +45,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private String extraInfo = "";
     private String chosenPlaceId = "";
     private String reviewsCounter = "temp";
+    private ChipGroup chipGroup;
 
     String TAG = "AddReviewActivity";
 
@@ -107,6 +99,8 @@ public class AddReviewActivity extends AppCompatActivity {
         ImageView service_imageX = findViewById(R.id.service_imageX);
         service_imageX.setImageResource(R.drawable.x4);
         service_imageV.setVisibility(View.INVISIBLE);
+
+        chipGroup = (ChipGroup) this.findViewById(R.id.chipGroup);
                 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
@@ -128,18 +122,19 @@ public class AddReviewActivity extends AppCompatActivity {
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                Chip chip1 =  addChip("Parking in distance of less than 50m", chipGroup);
+                Chip chip2 =  addChip("Very few accessible parking spots", chipGroup);
                 parkingValue = isChecked;
                 if (isChecked) {
                     fadeOut(parking_imageV, parking_imageX);
                     fadeIn(parking_imageX, parking_imageV);
-
-
-                   // parking_t.setBackground(greenWhite());
-                 //   parking_image.setImageResource(R.drawable.v1);
+                    chipGroup.addView(chip1, chipGroup.getChildCount() - 1);
+                    chipGroup.addView(chip2, chipGroup.getChildCount() - 1);
                 } else {
-                  //  parking_t.setBackground(redWhite());
                     fadeIn(parking_imageV, parking_imageX);
                     fadeOut(parking_imageX, parking_imageV);
+                    chipGroup.removeView(chip1);
+                    chipGroup.removeView(chip2);
                 }
             }
         });
@@ -332,6 +327,12 @@ public class AddReviewActivity extends AppCompatActivity {
                         ContextCompat.getColor(this, R.color.quantum_white_100)
                 });
         return gradientDrawable;
+    }
+
+    private Chip addChip(String text, ChipGroup pChipGroup) {
+        Chip chip = new Chip(this);
+        chip.setText(text);
+        return chip;
     }
 
 

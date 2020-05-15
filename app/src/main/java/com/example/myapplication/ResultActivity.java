@@ -1,111 +1,49 @@
 package com.example.myapplication;
 //
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-//
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Constants;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.firestore.core.OrderBy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.google.type.LatLng;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -118,23 +56,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-
 import static com.google.firebase.firestore.Query.Direction.DESCENDING;
+
+//
 
 public class ResultActivity extends AppCompatActivity implements Serializable {
 
     // FIELDS//
-    public static final int CAMERA_PERM_CODE = 101;
-    public static final int CAMERA_REQUEST_CODE = 102;
-    public static final int GALLERY_REQUEST_CODE = 105;
     private String chosenPlaceName = "";
     private String chosenPlaceId = "";
     private String chosenPlaceAddress = "";
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();
-/*    private ExtendedFloatingActionButton open_map;
-    private ExtendedFloatingActionButton add_review;*/;
     private ListView list;
     double summedGrade = 0;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -142,16 +75,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private DocumentReference docRef;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-    String currentPhotoPath;
-    ImageView selectedImage;
-    private ProgressDialog mProgress;
-    Uri fileUri;
-    private static final int MAX_WIDTH = 400;
-    private static final int MAX_HEIGHT = 300;
-    File photoFile;
-    Uri uri;
-    private final static int RESULT_LOAD_IMAGE = 1;
-    private ProgressDialog progress;
+    AlertDialog.Builder builder;
+    AlertDialog progressDialog;
 
 
     @Override
@@ -166,34 +91,13 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        Bitmap bmp = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                getResources(), R.drawable.main_background_light), size.x, size.y, true);
-        mProgress = new ProgressDialog(this);
-        // fills the background ImageView with the resized image
-        //   ImageView iv_background = (ImageView) findViewById(R.id.);
-        // iv_background.setImageBitmap(bmp);
 
-        // takes the chosen place's id from MainACtivity
 
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                chosenPlaceId = null;
-            } else {
-                chosenPlaceId = extras.getString("chosenPlaceId");
-            }
-        } else {
-            chosenPlaceId = (String) savedInstanceState.getSerializable("chosenPlaceId");
-        }
-        String apiKey = getString(R.string.api_key);
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), apiKey);
-        }
 
+
+
+        getChosenId(savedInstanceState);
         FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
-
-
-        // takes place's details and insert it to the database
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
         final PlacesClient placesClient = Places.createClient(this);
@@ -218,6 +122,9 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             chosenPlaceMap.put("id", chosenPlace.getId());
                             chosenPlaceMap.put("name", chosenPlace.getName());
                             chosenPlaceMap.put("address", chosenPlace.getAddress());
+                            chosenPlaceMap.put("longitude", String.valueOf(chosenPlace.getLatLng().longitude));
+                            chosenPlaceMap.put("latitude", String.valueOf(chosenPlace.getLatLng().latitude));
+
                             chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
                             chosenPlaceMap.put("reviewsCounter", 0);
                             db.collection("places").document(chosenPlaceId) // creates a document named <placeID> and add it to db
@@ -288,8 +195,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
                         add_picture.setOnClickListener(new View.OnClickListener() {
                             @Override
+
                             public void onClick(View view) {
                                 onLaunchCamera();
+
+
                             }
                         });
 
@@ -408,7 +318,15 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Map<String, Object> imageMap = new HashMap<>();
             imageMap.put("pic", imagePath);
             db.collection("places").document(chosenPlaceId).collection("pictures").document().set(imageMap);
-            progress = new ProgressDialog(this);
+            progressDialog = getDialogProgressBar().create();
+            progressDialog.show();
+            try{
+                Thread.sleep(1200);
+            }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
         }
     }
 
@@ -421,11 +339,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         StorageReference placeRef = storageRef.child(chosenPlaceId).child(currentDateandTime);
         placeRef.putBytes(data);
         return placeRef.getPath();
-    }
-
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
 
@@ -444,37 +357,39 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
     }
 
-    public void open(View view){
-        progress.setMessage("Downloading Music :) ");
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.setIndeterminate(true);
-        progress.show();
+    public AlertDialog.Builder getDialogProgressBar() {
 
-        final int totalProgressTime = 100;
+        if (builder == null) {
+            builder = new AlertDialog.Builder(this);
 
-        final Thread t = new Thread(){
+            builder.setTitle("Loading...");
 
-            @Override
-            public void run(){
-
-                int jumpTime = 0;
-                while(jumpTime < totalProgressTime){
-                    try {
-                        sleep(200);
-                        jumpTime += 5;
-                        progress.setProgress(jumpTime);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-        };
-        t.start();
+            final ProgressBar progressBar = new ProgressBar(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            progressBar.setLayoutParams(lp);
+            builder.setView(progressBar);
+        }
+        return builder;
     }
 
+    void getChosenId(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                chosenPlaceId = null;
+            } else {
+                chosenPlaceId = extras.getString("chosenPlaceId");
+            }
+        } else {
+            chosenPlaceId = (String) savedInstanceState.getSerializable("chosenPlaceId");
+        }
+        String apiKey = getString(R.string.api_key);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+    }
 
 
 }

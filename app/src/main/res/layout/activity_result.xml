@@ -48,14 +48,14 @@
                     android:id="@+id/place_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintWidth_default="wrap"
-                    android:gravity="clip_horizontal|center_horizontal|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:maxLines="2"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
+                    android:text="                   "
                     android:textColor="#000000"
                     android:textSize="25sp"
-                    android:text = "                   "
+                    app:layout_constraintWidth_default="wrap"
                     tools:layout_conversion_absoluteHeight="34dp"
                     tools:layout_conversion_absoluteWidth="411dp" />
 
