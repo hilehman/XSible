@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_reviews_yet">dfdfdfdf</string>
+    <!--extra-->
+
+    <!--main_activity-->
+    <string name="search_button">بحث</string>
+    <string name="search_hint">أدخل مكان وتأكد من قابليته</string>
+
+    <!--result_activity-->
+    <string name="open_map_button">فتح الخريطة</string>
+    <string name="add_review_button">إضافة تصنيف</string>
+    <string name="avg_grade">علامة وصول عامه</string>
+
+    <!--add_review_activity-->
+    <string name="accessible_parking">موقف</string>
+    <string name="accessible_arriving">مدخل وفضاء</string>
+    <string name="accessible_toilet">مراحيض</string>
+    <string name="accessible_crew">خدمة</string>
+    <string name="extra_info_hint">هنا ينصح بالتفصيل عن طرق وصول موصى بها, نقاط التي يجب اخذها بعين الاعتبار وكل أمر من شأنه أن يساعد الاخرين ان يحصلوا على معلومات اكثر عن توفر المكان</string>
+    <string name="avg_grade_in_place">علامة وصول عامه</string>
+    <string name="save_button">"حفظ "</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_place">place</string>
+    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_map">Map</string>
+    <string name="thanks_for_review">أجابتك حفظت. شكرا!</string>
+    <string name="are_you_sure">اجابتك لم تحفظ, تود الخروج بكل حال؟</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="no_reviews_yet">حتى الان لا يوجد نقد, هذه فرصتك للبدء😊</string>
 </resources>

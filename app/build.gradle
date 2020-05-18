@@ -57,6 +57,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'com.android.support:design:23.1.0'
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
     implementation 'com.github.clans:fab:1.6.2'
 
