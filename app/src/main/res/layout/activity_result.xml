@@ -13,6 +13,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.497" />
 
+
+
+
+
     ]]>
 
     <LinearLayout
@@ -31,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:paddingStart="8dp"
             android:paddingEnd="8dp">
@@ -53,7 +58,7 @@
                     android:maxLines="2"
                     android:paddingStart="4dp"
                     android:paddingTop="4dp"
-                    android:text="טקסט ארוך  "
+                    android:text="שם של בית עסק"
                     android:textColor="#000000"
                     android:textSize="25sp"
                     app:layout_constraintWidth_default="wrap"
@@ -100,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:text="בוא נעזוב את האפליקציה המחורבנת הזאת לגוגל מפות" />
+                        android:text="פתיחה בגוגל מפות" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -116,21 +121,81 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="73dp"
-                android:layout_weight="9">
+                android:layout_weight="8">
+
+                <ImageView
+                    android:id="@+id/isVX1"
+                    android:layout_width="48dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center|start"
+                    android:layout_weight="0"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:srcCompat="@drawable/v1" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/parking_final"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/accessible_parking"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="176dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:outlineAmbientShadowColor="#00B33131"
+                    android:outlineSpotShadowColor="#00B82929"
+                    android:progressTint="#00C94A4A" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="12" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:layout_weight="8">
+
+                <ImageView
+                    android:id="@+id/isVX2"
+                    android:layout_width="48dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center|start"
+                    android:layout_weight="0"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:srcCompat="@drawable/v2" />
+
+                <TextView
+                    android:id="@+id/accessibility_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:text="TextView" />
+                    android:gravity="center_vertical"
+                    android:text="@string/accessible_arriving"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ProgressBar
                     android:id="@+id/progressBar2"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
+                    android:layout_width="176dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="6"
+                    android:layout_weight="0"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
                     android:progressTint="#00C94A4A" />
@@ -140,7 +205,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="9" />
 
             </LinearLayout>
 
@@ -149,22 +215,45 @@
                 android:layout_height="73dp"
                 android:layout_weight="3">
 
+                <ImageView
+                    android:id="@+id/isVX3"
+                    android:layout_width="48dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    app:srcCompat="@drawable/v3" />
+
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/toilet_final"
+                    android:layout_width="53dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="1dp"
+                    android:text="@string/accessible_toilet"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar2"
+                    android:id="@+id/progressBar3"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
+                    android:layout_width="176dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="0"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
                     android:progressTint="#00C94A4A" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="7" />
             </LinearLayout>
 
             <LinearLayout
@@ -172,174 +261,48 @@
                 android:layout_height="73dp"
                 android:layout_weight="3">
 
+                <ImageView
+                    android:id="@+id/isVX4"
+                    android:layout_width="48dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:paddingStart="8dp"
+                    android:paddingLeft="8dp"
+                    app:srcCompat="@drawable/v4" />
+
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/service_final"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="TextView" />
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="1dp"
+                    android:text="@string/accessible_crew"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar2"
+                    android:id="@+id/progressBar4"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
+                    android:layout_width="176dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="0"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
                     android:progressTint="#00C94A4A" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="3">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="TextView" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar2"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:outlineAmbientShadowColor="#00B33131"
-                    android:outlineSpotShadowColor="#00B82929"
-                    android:progressTint="#00C94A4A" />
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="4" />
             </LinearLayout>
 
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/legend_frame"
-            android:layout_width="match_parent"
-            android:layout_height="52dp">
-
-
-            <LinearLayout
-                android:id="@+id/legend_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="58dp"
-
-                android:orientation="horizontal"
-                android:showDividers="middle">
-
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingStart="4dp">
-
-                    <ImageView
-                        android:id="@+id/isVX4"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/v4" />
-
-                    <TextView
-                        android:id="@+id/service_final"
-                        android:layout_width="71dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:paddingStart="1dp"
-                        android:text="@string/accessible_crew"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingStart="4dp">
-
-                    <ImageView
-                        android:id="@+id/isVX1"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/v1" />
-
-                    <TextView
-                        android:id="@+id/parking_final"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="@string/accessible_parking"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="109dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/isVX2"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/v2" />
-
-                    <TextView
-                        android:id="@+id/accessibility_final"
-                        android:layout_width="94dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:paddingStart="1dp"
-                        android:paddingEnd="8dp"
-                        android:text="@string/accessible_arriving"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="82dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:id="@+id/isVX3"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/v3" />
-
-                    <TextView
-                        android:id="@+id/toilet_final"
-                        android:layout_width="53dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingStart="1dp"
-                        android:text="@string/accessible_toilet"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </FrameLayout>
 
     </LinearLayout>
 
@@ -416,36 +379,6 @@
         </ListView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/add_review_icon_text"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-
-            android:layout_alignBottom="@+id/list"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="368dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="16dp"
-            android:background="#FFFFFF"
-            android:backgroundTint="#7A28A0F3"
-            android:includeFontPadding="true"
-            android:paddingStart="12dp"
-            android:paddingLeft="0dp"
-            android:paddingTop="0dp"
-            android:paddingEnd="20dp"
-            android:paddingRight="0dp"
-            android:paddingBottom="0dp"
-            android:text="@string/add_review_button"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:cornerRadius="28dp"
-            app:icon="@drawable/add_icon"
-            app:iconPadding="16dp"
-            app:iconTint="#EEFFFFFF"
-            app:layout_anchor="@id/list"
-            app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_picture_icon_text"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
@@ -455,7 +388,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="368dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="128dp"
             android:background="#FFF223"
             android:backgroundTint="#7A28A0F3"
             android:includeFontPadding="true"
@@ -476,6 +409,36 @@
             app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_review_icon_text"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+
+            android:layout_alignBottom="@+id/list"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="368dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="64dp"
+            android:background="#FFFFFF"
+            android:backgroundTint="#7A28A0F3"
+            android:includeFontPadding="true"
+            android:paddingStart="12dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:text="@string/add_review_button"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:cornerRadius="28dp"
+            app:icon="@drawable/add_icon"
+            app:iconPadding="16dp"
+            app:iconTint="#EEFFFFFF"
+            app:layout_anchor="@id/list"
+            app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/open_picture_icon_text"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
@@ -485,7 +448,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="200dp"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="145dp"
+            android:layout_marginBottom="192dp"
             android:background="#FFFFFF"
             android:backgroundTint="#7A28A0F3"
             android:includeFontPadding="true"
@@ -505,8 +468,80 @@
             app:layout_anchor="@id/list"
             app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/add_review_icon_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignBottom="@+id/list"
+                    android:layout_alignParentStart="true"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#7A28A0F3"
+                    android:includeFontPadding="true"
+                    android:paddingStart="12dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp"
+                    android:text="@string/add_review_button"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/add_icon"
+                    app:iconPadding="16dp"
+                    app:iconTint="#EEFFFFFF"
+                    app:layout_anchor="@id/list"
+                    app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/add_picture_icon_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+
+                    android:layout_alignBottom="@+id/list"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="368dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="128dp"
+                    android:background="#FFF223"
+                    android:backgroundTint="#7A28A0F3"
+                    android:includeFontPadding="true"
+                    android:paddingStart="12dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp"
+                    android:text="Add Picture"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/ic_add_a_photo_black_24dp"
+                    app:iconPadding="16dp"
+                    app:iconTint="#EEFFFFFF"
+                    app:layout_anchor="@id/list"
+                    app:layout_anchorGravity="bottom|start|center_horizontal|fill_horizontal|left|center_vertical" />
+
+            </LinearLayout>
+        </LinearLayout>
+
 
     </RelativeLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
