@@ -114,14 +114,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="216dp"
+            android:layout_height="167dp"
             android:layout_weight="4"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="8">
+                android:layout_height="40dp">
 
                 <ImageView
                     android:id="@+id/isVX1"
@@ -135,7 +134,7 @@
 
                 <TextView
                     android:id="@+id/parking_final"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -145,20 +144,22 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar1"
+                    android:id="@+id/progressBar_parking"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="176dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
+                    android:alpha="3"
+                    android:indeterminate="false"
+                    android:max="11"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
-                    android:progressTint="#00C94A4A" />
+                    android:progressTint="#F2343C57" />
 
                 <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="0dp"
+                    android:id="@+id/parking_grade"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="12" />
 
@@ -166,8 +167,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="8">
+                android:layout_height="40dp">
 
                 <ImageView
                     android:id="@+id/isVX2"
@@ -181,7 +181,7 @@
 
                 <TextView
                     android:id="@+id/accessibility_final"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="2"
@@ -191,29 +191,28 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar2"
+                    android:id="@+id/progressBar_accessibility"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="176dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
-                    android:progressTint="#00C94A4A" />
+                    android:progressTint="#F2343C57" />
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
+                    android:id="@+id/accessibility_grade"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="9" />
+                    android:text="12" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="3">
+                android:layout_height="40dp">
 
                 <ImageView
                     android:id="@+id/isVX3"
@@ -227,7 +226,7 @@
 
                 <TextView
                     android:id="@+id/toilet_final"
-                    android:layout_width="53dp"
+                    android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -238,28 +237,28 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar3"
+                    android:id="@+id/progressBar_toilet"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="176dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
+                    android:max="11"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
-                    android:progressTint="#00C94A4A" />
+                    android:progressTint="#F2343C57" />
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="0dp"
+                    android:id="@+id/toilet_grade"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="7" />
+                    android:text="12" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:layout_weight="3">
+                android:layout_height="40dp">
 
                 <ImageView
                     android:id="@+id/isVX4"
@@ -273,7 +272,7 @@
 
                 <TextView
                     android:id="@+id/service_final"
-                    android:layout_width="71dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -284,22 +283,23 @@
                     android:textStyle="bold" />
 
                 <ProgressBar
-                    android:id="@+id/progressBar4"
+                    android:id="@+id/progressBar_service"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="176dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
+                    android:max="111"
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
-                    android:progressTint="#00C94A4A" />
+                    android:progressTint="#F2343C57" />
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="0dp"
+                    android:id="@+id/service_grade"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="4" />
+                    android:text="12" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.myapplication;
 //
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +9,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -44,6 +48,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Downloader;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +84,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     StorageReference storageRef = storage.getReference();
     AlertDialog.Builder builder;
     AlertDialog progressDialog;
+    private TextView parking_grade;
+    private TextView accessibility_grade;
+    private TextView toilet_grade;
+    private TextView service_grade;
+    private ProgressBar pbParking;
+    private ProgressBar pbAccessibility;
+    private ProgressBar pbToilet;
+    private ProgressBar pbService;
 
 
     @Override
@@ -93,17 +107,25 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         Point size = new Point();
         display.getSize(size);
 
-
-
-
-
         getChosenId(savedInstanceState); //takes id from extra and initiate the field
 
-        FrameLayout legendFrame = (FrameLayout) findViewById(R.id.legend_frame);
+
+
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
         final PlacesClient placesClient = Places.createClient(this);
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+
+            parking_grade = (TextView) findViewById(R.id.parking_grade);
+            accessibility_grade = (TextView) findViewById(R.id.accessibility_grade);
+            toilet_grade = (TextView) findViewById(R.id.toilet_grade);
+            service_grade = (TextView) findViewById(R.id.service_grade);
+
+            pbParking = (ProgressBar) findViewById(R.id.progressBar_parking);
+            pbAccessibility = (ProgressBar) findViewById(R.id.progressBar_accessibility);
+            pbToilet = (ProgressBar) findViewById(R.id.progressBar_toilet);
+            pbService = (ProgressBar) findViewById(R.id.progressBar_service);
+
             Place chosenPlace = response.getPlace(); //gets Place object
             chosenPlaceName = chosenPlace.getName();
             chosenPlaceAddress = chosenPlace.getAddress();
@@ -170,11 +192,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         no_reviews_yet.setVisibility(View.VISIBLE);
         // final TextView avgGrade = (TextView) findViewById(R.id.avg_grade);
         // final TextView avgGradeText = (TextView) findViewById(R.id.avg_grade_text);
-        final LinearLayout legendLayout = (LinearLayout) findViewById(R.id.legend_layout);
+
 
         //  avgGradeText.setVisibility(View.INVISIBLE);
         //   avgGrade.setVisibility(View.INVISIBLE);
-        legendLayout.setVisibility((View.INVISIBLE));
+
 
         // gets review from data base into a listView
         db.collection("places").document(chosenPlaceId).collection("reviews").orderBy("id", DESCENDING).get()
@@ -194,7 +216,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             public void onClick(View view) {
                                 toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
                                 toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
-                                //todo does it takes care of buck before posting a review
+                                //todo does it takes care of back from adding review before posting a review
                                 startActivity(toAddReview);
                             }
                         });
@@ -231,14 +253,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
 
                         if (queryDocumentSnapshots.isEmpty()) {
-                            legendFrame.setVisibility(View.INVISIBLE);
-                            legendLayout.setVisibility((View.INVISIBLE));
+
+
                             no_reviews_yet.setVisibility(View.VISIBLE);
                             no_reviews_yet.bringToFront();
                         } else {
                             no_reviews_yet.setVisibility(View.INVISIBLE);
-                            legendFrame.setVisibility(View.VISIBLE);
-                            legendLayout.setVisibility((View.VISIBLE));
+
+
 
                             // puts every document on a map that goes into a list
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
@@ -259,20 +281,62 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 Integer[] imgService = new Integer[reviewsList.size()];
                                 Double[] grades = new Double[reviewsList.size()];
                                 // puts data in the arrays
+                                int counterParkingGrade = 0;
+                                int counterAccessibilityGrade = 0;
+                                int counterToiletGrade = 0;
+                                int counterServiceGrade = 0;
                                 int counter = 0;
                                 int dontCount = 0;
                                 for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
                                     date[counter] = ((String) currMap.get("time")).substring(0, 10);
-                                    imgParking[counter] = (Boolean) currMap.get("parking") ? R.drawable.v1 : R.drawable.x1;
-                                    imgAccessibility[counter] = (Boolean) currMap.get("accessibility") ? R.drawable.v2 : R.drawable.x2;
-                                    imgToilet[counter] = (Boolean) currMap.get("toilet") ? R.drawable.v3 : R.drawable.x3;
-                                    imgService[counter] = (Boolean) currMap.get("service") ? R.drawable.v4 : R.drawable.x4;
+                                    
+                                    
+                                    if ((Boolean) currMap.get("parking")){
+                                        imgParking[counter] = R.drawable.v1;
+                                        counterParkingGrade++;
+                                    }
+                                    else imgParking[counter] = R.drawable.x1;
+
+                                    if ((Boolean) currMap.get("accessibility")){
+                                        imgAccessibility[counter] = R.drawable.v2;
+                                        counterAccessibilityGrade++;
+                                    }
+                                    else imgAccessibility[counter] = R.drawable.x2;
+
+                                    if ((Boolean) currMap.get("toilet")){
+                                        imgToilet[counter] = R.drawable.v3;
+                                        counterToiletGrade++;
+                                    }
+                                    else imgToilet[counter] = R.drawable.x3;
+
+                                    if ((Boolean) currMap.get("service")){
+                                        imgService[counter] = R.drawable.v4;
+                                        counterServiceGrade++;
+                                    }
+                                    else imgService[counter] = R.drawable.x4;
+                                    
                                     Integer currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
                                     if (currGrade != 0) summedGrade += currGrade;
                                     else dontCount++;
                                     counter++;
                                 }
+
+                                pbParking.setMax(counter);
+                                pbAccessibility.setMax(counter);
+                                pbToilet.setMax(counter);
+                                pbService.setMax(counter);
+                                Toast.makeText(ResultActivity.this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
+                                parking_grade.setText(String.valueOf(counterParkingGrade));
+                                accessibility_grade.setText(String.valueOf(counterAccessibilityGrade));
+                                toilet_grade.setText(String.valueOf(counterToiletGrade));
+                                service_grade.setText(String.valueOf(counterServiceGrade));
+
+                                pbParking.setProgress(counterParkingGrade);
+                                pbAccessibility.setProgress(counterAccessibilityGrade);
+                                pbToilet.setProgress(counterToiletGrade);
+                                pbService.setProgress(counterServiceGrade);
+
                                 //calculate grade for current place based on revires (if more than 3)
                                 if (reviewsList.size() - dontCount > 3) {
                                     //      avgGradeText.setVisibility(View.VISIBLE);
