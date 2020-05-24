@@ -211,15 +211,26 @@
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"
-                android:layout_width="385dp"
-                android:layout_height="78dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:animateLayoutChanges="true"
-                android:background="#FFFFFF" />
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+                android:clickable="true"
+                android:clipToPadding="true"
+                android:padding="4dp"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                app:chipSpacing="2dp"
+                app:chipSpacingVertical="2dp"
+                app:singleSelection="true"
+                app:chipBackgroundColor="#7A28A0F3"/>
 
             <EditText
                 android:id="@+id/extra_s"

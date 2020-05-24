@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -124,16 +125,25 @@ public class AddReviewActivity extends AppCompatActivity {
         Button saveButton;
         saveButton = findViewById(R.id.save_button);//get the id for button
 
-
+        Chip chip1 =  addChip("דרך נגישה מהחנייה", chipGroup);
+        Chip chip2 =  addChip("מספיק מקומות חנייה", chipGroup);
+        Chip chip3 =  addChip("ניתן להכניס כלב שירות", chipGroup);
+        Chip chip4 =  addChip("קיים דלפק מונמך", chipGroup);
+        Chip chip5 =  addChip("שולחנות מתאימים", chipGroup);
+        Chip chip6 =  addChip("תאורה נוחה", chipGroup);
+        Chip chip7 =  addChip("עובדים סבלניים", chipGroup);
+        Chip chip8 =  addChip("קדימות בתור בהצגת תעודה", chipGroup);
         //parking switch
         com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton)
                 findViewById(R.id.parking_b);
 
+
+
+
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Chip chip1 =  addChip("Parking in distance of less than 50m", chipGroup);
-                Chip chip2 =  addChip("Very few accessible parking spots", chipGroup);
+
                 parkingValue = isChecked;
                 if (isChecked) {
                     fadeOut(parking_imageV, parking_imageX);
@@ -160,9 +170,19 @@ public class AddReviewActivity extends AppCompatActivity {
                 if (isChecked) {
                     fadeOut(accessibility_imageV,accessibility_imageX);
                     fadeIn(accessibility_imageX, accessibility_imageV);
+                    chipGroup.addView(chip3, chipGroup.getChildCount() - 1);
+                    chipGroup.addView(chip4, chipGroup.getChildCount() - 1);
+                    chipGroup.addView(chip5, chipGroup.getChildCount() - 1);
+                    chipGroup.addView(chip6, chipGroup.getChildCount() - 1);
+
                 } else {
                     fadeIn(accessibility_imageV,accessibility_imageX);
                     fadeOut(accessibility_imageX, accessibility_imageV);
+                    chipGroup.removeView(chip3);
+                    chipGroup.removeView(chip4);
+                    chipGroup.removeView(chip5);
+                    chipGroup.removeView(chip6);
+
                 }
             }
         });
@@ -194,9 +214,14 @@ public class AddReviewActivity extends AppCompatActivity {
                 if (isChecked) {
                     fadeOut(service_imageV,service_imageX);
                     fadeIn(service_imageX, service_imageV);
+                    chipGroup.addView(chip7, chipGroup.getChildCount() - 1);
+                    chipGroup.addView(chip8, chipGroup.getChildCount() - 1);
                 } else {
                     fadeIn(service_imageV,service_imageX);
                     fadeOut(service_imageX, service_imageV);
+                    chipGroup.removeView(chip7);
+                    chipGroup.removeView(chip8);
+
                 }
             }
         });
@@ -365,6 +390,8 @@ public class AddReviewActivity extends AppCompatActivity {
     private Chip addChip(String text, ChipGroup pChipGroup) {
         Chip chip = new Chip(this);
         chip.setText(text);
+      /*  chip.setBackgroundColor(Color.parseColor("#7A28A0F3"));
+        chip.setOutlineAmbientShadowColor(Color.parseColor("#7A28A0F3"));*/
         return chip;
     }
 
