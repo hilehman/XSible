@@ -92,6 +92,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private ProgressBar pbAccessibility;
     private ProgressBar pbToilet;
     private ProgressBar pbService;
+    private TextView openGoogleMapText;
 
 
     @Override
@@ -120,12 +121,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             accessibility_grade = (TextView) findViewById(R.id.accessibility_grade);
             toilet_grade = (TextView) findViewById(R.id.toilet_grade);
             service_grade = (TextView) findViewById(R.id.service_grade);
-
             pbParking = (ProgressBar) findViewById(R.id.progressBar_parking);
             pbAccessibility = (ProgressBar) findViewById(R.id.progressBar_accessibility);
             pbToilet = (ProgressBar) findViewById(R.id.progressBar_toilet);
             pbService = (ProgressBar) findViewById(R.id.progressBar_service);
-
+            openGoogleMapText = (TextView) findViewById(R.id.open_google_map_text);
             Place chosenPlace = response.getPlace(); //gets Place object
             chosenPlaceName = chosenPlace.getName();
             chosenPlaceAddress = chosenPlace.getAddress();
@@ -187,6 +187,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                 startActivity(toOpenMap);
             }
         });
+
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
         no_reviews_yet.setVisibility(View.VISIBLE);
@@ -326,7 +327,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 pbAccessibility.setMax(counter);
                                 pbToilet.setMax(counter);
                                 pbService.setMax(counter);
-                                Toast.makeText(ResultActivity.this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
                                 parking_grade.setText(String.valueOf(counterParkingGrade));
                                 accessibility_grade.setText(String.valueOf(counterAccessibilityGrade));
                                 toilet_grade.setText(String.valueOf(counterToiletGrade));

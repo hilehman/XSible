@@ -11,6 +11,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private String chosenPlaceId = "";
     private String reviewsCounter = "temp";
     private ChipGroup chipGroup;
+    FrameLayout parkingFrame;
 
     String TAG = "AddReviewActivity";
 
@@ -76,11 +78,19 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView accessibility_t = findViewById(R.id.accessibility_t);
         TextView toilet_t = findViewById(R.id.toilet_text);
         TextView service_t = findViewById(R.id.service_text);
+
+        parkingFrame = findViewById(R.id.parking_frame);
+
         ImageView parking_imageX = findViewById(R.id.parking_imageX);
         ImageView parking_imageV = findViewById(R.id.parking_imageV);
+
+
+
+
         parking_imageX.setImageResource(R.drawable.x1);
         parking_imageV.setImageResource(R.drawable.v1);
         parking_imageV.setVisibility(View.INVISIBLE);
+
 
         ImageView accessibility_imageV = findViewById(R.id.accessibility_imageV);
         accessibility_imageV.setImageResource(R.drawable.v2);
@@ -245,6 +255,27 @@ public class AddReviewActivity extends AppCompatActivity {
             }
         });
 
+        parkingFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(AddReviewActivity.this)
+                        .setTitle("חנייה")
+                        .setMessage("האם קיימת חנייה נגישה בסמוך? האם הדרך מהחנייה למקום נגישה? האם מספר מקומות החנייה הנגישים מספק?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
     }
     @Override
     public void onBackPressed() {
@@ -259,6 +290,8 @@ public class AddReviewActivity extends AppCompatActivity {
                 .setNegativeButton((AddReviewActivity.this.getString(R.string.no)), null)
                 .show();
     }
+
+
 
 
 /*    public GradientDrawable redWhite() {

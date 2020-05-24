@@ -24,22 +24,26 @@
                 android:layout_height="63dp"
                 android:orientation="horizontal">
 
+
+
                 <com.suke.widget.SwitchButton
                     android:id="@+id/parking_b"
                     android:layout_width="114dp"
                     android:layout_height="54dp"
                     app:sb_checked_color="#CB03A9F4" />
 
+
                 <FrameLayout
+                    android:id="@+id/parking_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/parking_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center|center_vertical"
-                        android:paddingEnd="64dp"
                         android:text="@string/accessible_parking"
                         android:textSize="24sp" />
 
@@ -53,11 +57,12 @@
 
                     <ImageView
                         android:id="@+id/parking_imageX"
-                        android:layout_width="65dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/v1" />
+
                 </FrameLayout>
 
             </LinearLayout>
@@ -75,7 +80,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/accessibility_t"
@@ -121,7 +127,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/toilet_text"
@@ -167,7 +174,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:clickable="true">
 
                     <TextView
                         android:id="@+id/service_text"
