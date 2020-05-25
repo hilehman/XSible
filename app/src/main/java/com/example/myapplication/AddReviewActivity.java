@@ -241,6 +241,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 reviewsMap.put("extraInfo",extraInfo);
                 reviewsMap.put("time",currentDateandTime);
                 reviewsMap.put("id", reviewsCounter);
+                if (chip1.isChecked()) reviewsMap.put("chip1", chip1.getText() );
 
                 db.collection("places").document(chosenPlaceId).collection("reviews").document(reviewsCounter).
                         set(reviewsMap, SetOptions.merge());
@@ -390,6 +391,7 @@ public class AddReviewActivity extends AppCompatActivity {
     private Chip addChip(String text, ChipGroup pChipGroup) {
         Chip chip = new Chip(this);
         chip.setText(text);
+        chip.setCheckable(true);
       /*  chip.setBackgroundColor(Color.parseColor("#7A28A0F3"));
         chip.setOutlineAmbientShadowColor(Color.parseColor("#7A28A0F3"));*/
         return chip;

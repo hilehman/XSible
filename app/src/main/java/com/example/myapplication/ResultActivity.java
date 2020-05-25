@@ -280,6 +280,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 Integer[] imgAccessibility = new Integer[reviewsList.size()];
                                 Integer[] imgToilet = new Integer[reviewsList.size()];
                                 Integer[] imgService = new Integer[reviewsList.size()];
+                                String[] chip1 = new String[reviewsList.size()];
                                 Double[] grades = new Double[reviewsList.size()];
                                 // puts data in the arrays
                                 int counterParkingGrade = 0;
@@ -290,6 +291,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 int dontCount = 0;
                                 for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
+                                    chip1[counter]= (String) currMap.get("chip1");
                                     date[counter] = ((String) currMap.get("time")).substring(0, 10);
                                     
                                     
@@ -348,7 +350,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     else avgGradeText.setText(String.valueOf(finalGrade));*/
                                 }
                                 // uses the adapter to insert data to listView
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService, chip1  );
                                 list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
 
