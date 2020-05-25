@@ -115,6 +115,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 
         //creates a map of the review fields
         Map<String, Object> reviewsMap = new HashMap<>();
+        Map<String, Object> chipsMap = new HashMap<>();
 
         //takes user input ("extra details")
         EditText extra_s = findViewById(R.id.extra_s);
@@ -241,10 +242,18 @@ public class AddReviewActivity extends AppCompatActivity {
                 reviewsMap.put("extraInfo",extraInfo);
                 reviewsMap.put("time",currentDateandTime);
                 reviewsMap.put("id", reviewsCounter);
-                if (chip1.isChecked()) reviewsMap.put("chip1", chip1.getText() );
-
+                if (chip1.isChecked()) chipsMap.put("chip1", chip1.getText() );
+                if (chip2.isChecked()) chipsMap.put("chip2", chip2.getText() );
+                if (chip3.isChecked()) chipsMap.put("chip3", chip3.getText() );
+                if (chip4.isChecked()) chipsMap.put("chip4", chip4.getText() );
+                if (chip5.isChecked()) chipsMap.put("chip5", chip5.getText() );
+                if (chip6.isChecked()) chipsMap.put("chip6", chip6.getText() );
+                if (chip7.isChecked()) chipsMap.put("chip7", chip7.getText() );
+                if (chip8.isChecked()) chipsMap.put("chip8", chip8.getText() );
                 db.collection("places").document(chosenPlaceId).collection("reviews").document(reviewsCounter).
                         set(reviewsMap, SetOptions.merge());
+                if(!chipsMap.isEmpty()) db.collection("places").document(chosenPlaceId).collection("reviews").document(reviewsCounter).
+                        set(chipsMap, SetOptions.merge());
                 Toast.makeText(AddReviewActivity.this, AddReviewActivity.this.getString(R.string.thanks_for_review), Toast.LENGTH_LONG).show();
                 toResult.putExtra("chosenPlaceId", chosenPlaceId);
                 toResult.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

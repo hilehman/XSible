@@ -221,16 +221,16 @@
                 android:animateLayoutChanges="true"
                 android:background="#FFFFFF"
                 android:backgroundTint="#FFFFFF"
-                android:clickable="true"
+                android:clickable="false"
                 android:clipToPadding="true"
                 android:padding="4dp"
                 android:paddingStart="4dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
+                app:chipBackgroundColor="#7A28A0F3"
                 app:chipSpacing="2dp"
-                app:chipSpacingVertical="2dp"
-                app:singleSelection="true"
-                app:chipBackgroundColor="#7A28A0F3"/>
+                app:chipSpacingHorizontal="4dp"
+                app:chipSpacingVertical="4dp" />
 
             <EditText
                 android:id="@+id/extra_s"

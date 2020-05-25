@@ -76,6 +76,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private String chosenPlaceURL = "";
     private List<Map<String, Object>> reviewsList = new ArrayList<>();
     private ListView list;
+    private ListView chipsList;
     double summedGrade = 0;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();  //gets an instance of FireStore database
@@ -93,6 +94,15 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private ProgressBar pbToilet;
     private ProgressBar pbService;
     private TextView openGoogleMapText;
+    private  TextView chip1Text;
+    private  TextView chip2Text;
+    private  TextView chip3Text;
+    private  TextView chip4Text;
+    private  TextView chip5Text;
+    private  TextView chip6Text;
+    private  TextView chip7Text;
+    private  TextView chip8Text;
+
 
 
     @Override
@@ -116,6 +126,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
         final PlacesClient placesClient = Places.createClient(this);
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+            chip1Text = (TextView) findViewById(R.id.chip1);
+            chip2Text  = (TextView) findViewById(R.id.chip2);
+            chip3Text  = (TextView) findViewById(R.id.chip3);
+            chip4Text  = (TextView) findViewById(R.id.chip4);
+            chip5Text  = (TextView) findViewById(R.id.chip5);
+            chip6Text  = (TextView) findViewById(R.id.chip6);
+            chip7Text  = (TextView) findViewById(R.id.chip7);
+            chip8Text  = (TextView) findViewById(R.id.chip8);
 
             parking_grade = (TextView) findViewById(R.id.parking_grade);
             accessibility_grade = (TextView) findViewById(R.id.accessibility_grade);
@@ -281,6 +299,21 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 Integer[] imgToilet = new Integer[reviewsList.size()];
                                 Integer[] imgService = new Integer[reviewsList.size()];
                                 String[] chip1 = new String[reviewsList.size()];
+                                String[] chip2 = new String[reviewsList.size()];
+                                String[] chip3 = new String[reviewsList.size()];
+                                String[] chip4 = new String[reviewsList.size()];
+                                String[] chip5 = new String[reviewsList.size()];
+                                String[] chip6 = new String[reviewsList.size()];
+                                String[] chip7 = new String[reviewsList.size()];
+                                String[] chip8= new String[reviewsList.size()];
+                                int chip1Counter = 0;
+                                int chip2Counter = 0;
+                                int chip3Counter = 0;
+                                int chip4Counter = 0;
+                                int chip5Counter = 0;
+                                int chip6Counter = 0;
+                                int chip7Counter = 0;
+                                int chip8Counter = 0;
                                 Double[] grades = new Double[reviewsList.size()];
                                 // puts data in the arrays
                                 int counterParkingGrade = 0;
@@ -292,6 +325,46 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
                                     chip1[counter]= (String) currMap.get("chip1");
+                                    chip2[counter]= (String) currMap.get("chip2");
+                                    chip3[counter]= (String) currMap.get("chip3");
+                                    chip4[counter]= (String) currMap.get("chip4");
+                                    chip5[counter]= (String) currMap.get("chip5");
+                                    chip6[counter]= (String) currMap.get("chip6");
+                                    chip7[counter]= (String) currMap.get("chip7");
+                                    chip8[counter]= (String) currMap.get("chip8");
+                                    if (currMap.containsKey("chip1")) {
+                                        chip1Counter++;
+                                        chip1Text.setText((String) currMap.get("chip1"));
+                                    }
+                                    if (currMap.containsKey("chip2")) {
+                                        chip2Counter++;
+                                        chip2Text.setText((String) currMap.get("chip2"));
+                                    }
+                                    if (currMap.containsKey("chip3")) {
+                                        chip3Counter++;
+                                        chip3Text.setText((String) currMap.get("chip3"));
+                                    }
+                                    if (currMap.containsKey("chip4")) {
+                                        chip4Counter++;
+                                        chip4Text.setText((String) currMap.get("chip4"));
+                                    }
+                                    if (currMap.containsKey("chip5")) {
+                                        chip5Counter++;
+                                        chip5Text.setText((String) currMap.get("chip5"));
+                                    }
+                                    if (currMap.containsKey("chip6")) {
+                                        chip6Counter++;
+                                        chip6Text.setText((String) currMap.get("chip6"));
+                                    }
+                                    if (currMap.containsKey("chip7")) {
+                                        chip7Counter++;
+                                        chip7Text.setText((String) currMap.get("chip7"));
+                                    }
+                                    if (currMap.containsKey("chip8")) {
+                                        chip8Counter++;
+                                        chip8Text.setText((String) currMap.get("chip8"));
+                                    }
+                        
                                     date[counter] = ((String) currMap.get("time")).substring(0, 10);
                                     
                                     
@@ -339,6 +412,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 pbToilet.setProgress(counterToiletGrade);
                                 pbService.setProgress(counterServiceGrade);
 
+                                
+
                                 //calculate grade for current place based on revires (if more than 3)
                                 if (reviewsList.size() - dontCount > 3) {
                                     //      avgGradeText.setVisibility(View.VISIBLE);
@@ -350,10 +425,19 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     else avgGradeText.setText(String.valueOf(finalGrade));*/
                                 }
                                 // uses the adapter to insert data to listView
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService, chip1  );
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService, chip1, chip2, chip3, chip4, chip5, chip6, chip7, chip8 );
                                 list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
 
+                          /*      // uses the adapter to insert data to listView
+                                MyChipsAdapter chipsAdapter = new MyChipsAdapter(ResultActivity.this,chip1, chip2, chip3, chip4, chip5, chip6, chip7, chip8 );
+                                chipsList = (ListView) findViewById(R.id.chipsList);
+                                chipsList.setAdapter(chipsAdapter);*/
+
+                               
+                          
+                          
+                          
                                 list.setOnScrollListener(new AbsListView.OnScrollListener() {
                                     @Override
                                     public void onScroll(AbsListView view, int firstVisibleItem,
