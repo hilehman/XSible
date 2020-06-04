@@ -131,16 +131,11 @@ public class AddReviewActivity extends AppCompatActivity {
         Chip chip3 =  addChip("ניתן להכניס כלב שירות", chipGroup);
         Chip chip4 =  addChip("קיים דלפק מונמך", chipGroup);
         Chip chip5 =  addChip("שולחנות מתאימים", chipGroup);
-        Chip chip6 =  addChip("תאורה נוחה", chipGroup);
+        Chip chip6 =  addChip("תאורה מאפשרת שיח", chipGroup);
         Chip chip7 =  addChip("עובדים סבלניים", chipGroup);
         Chip chip8 =  addChip("קדימות בתור בהצגת תעודה", chipGroup);
         //parking switch
-        com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton)
-                findViewById(R.id.parking_b);
-
-
-
-
+        com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton) findViewById(R.id.parking_b);
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {

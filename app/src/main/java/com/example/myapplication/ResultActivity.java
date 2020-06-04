@@ -102,6 +102,11 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
     private  TextView chip6Text;
     private  TextView chip7Text;
     private  TextView chip8Text;
+    private  TextView reviewsSum;
+    private  String reviewsSumCount= "";
+    TextView place_name;
+    TextView place_address;
+    Place chosenPlace;
 
 
 
@@ -120,37 +125,111 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
         getChosenId(savedInstanceState); //takes id from extra and initiate the field
 
+        place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
+        place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
+        parking_grade = (TextView) findViewById(R.id.parking_grade);
+        accessibility_grade = (TextView) findViewById(R.id.accessibility_grade);
+        toilet_grade = (TextView) findViewById(R.id.toilet_grade);
+        service_grade = (TextView) findViewById(R.id.service_grade);
+        pbParking = (ProgressBar) findViewById(R.id.progressBar_parking);
+        pbAccessibility = (ProgressBar) findViewById(R.id.progressBar_accessibility);
+        pbToilet = (ProgressBar) findViewById(R.id.progressBar_toilet);
+        pbService = (ProgressBar) findViewById(R.id.progressBar_service);
+        openGoogleMapText = (TextView) findViewById(R.id.open_google_map_text);
 
+        reviewsSum =  (TextView)  findViewById(R.id.reviews_sum_text);
+        chip1Text = (TextView) findViewById(R.id.chip1);
+        chip2Text  = (TextView) findViewById(R.id.chip2);
+        chip3Text  = (TextView) findViewById(R.id.chip3);
+        chip4Text  = (TextView) findViewById(R.id.chip4);
+        chip5Text  = (TextView) findViewById(R.id.chip5);
+        chip6Text  = (TextView) findViewById(R.id.chip6);
+        chip7Text  = (TextView) findViewById(R.id.chip7);
+        chip8Text  = (TextView) findViewById(R.id.chip8);
+
+        chip1Text.setVisibility(View.GONE);
+        chip2Text.setVisibility(View.GONE);
+        chip3Text.setVisibility(View.GONE);
+        chip4Text.setVisibility(View.GONE);
+        chip5Text.setVisibility(View.GONE);
+        chip6Text.setVisibility(View.GONE);
+        chip7Text.setVisibility(View.GONE);
+        chip8Text.setVisibility(View.GONE);
+        Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
+
+        //builds the floating button
+
+        // creates "new review" button
+        ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
+        add_review.extend(true);
+        //intent to add_review activity
+        Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
+        add_review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
+                toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
+                //todo does it takes care of back from adding review before posting a review
+                startActivity(toAddReview);
+            }
+        });
+        // creates "add pivcture" button
+        ExtendedFloatingActionButton add_picture = (ExtendedFloatingActionButton) findViewById(R.id.add_picture_icon_text);
+        add_picture.extend(true);
+
+        add_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View view) {
+                onLaunchCamera();
+            }
+        });
+
+        // creates "see picture" button
+        ExtendedFloatingActionButton see_picture = (ExtendedFloatingActionButton) findViewById(R.id.open_picture_icon_text);
+        see_picture.extend(true);
+        see_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toImagesGallery = new Intent(ResultActivity.this, ImagesGalleryActivity.class);
+                see_picture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        toImagesGallery.putExtra("chosenPlaceId", chosenPlaceId);
+                        startActivity(toImagesGallery);
+                    }
+                });
+
+
+            }
+        });
+
+        // creates "open map" button
+        final ImageButton open_map_intent = (ImageButton) findViewById(R.id.open_map_buttom);
+        Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
+        open_map_intent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(toOpenMap);
+            }
+        });
+        openGoogleMapText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(toOpenMap);
+            }
+        });
 
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS);
         FetchPlaceRequest request = FetchPlaceRequest.newInstance(chosenPlaceId, placeFields);
         final PlacesClient placesClient = Places.createClient(this);
         placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-            chip1Text = (TextView) findViewById(R.id.chip1);
-            chip2Text  = (TextView) findViewById(R.id.chip2);
-            chip3Text  = (TextView) findViewById(R.id.chip3);
-            chip4Text  = (TextView) findViewById(R.id.chip4);
-            chip5Text  = (TextView) findViewById(R.id.chip5);
-            chip6Text  = (TextView) findViewById(R.id.chip6);
-            chip7Text  = (TextView) findViewById(R.id.chip7);
-            chip8Text  = (TextView) findViewById(R.id.chip8);
+        chosenPlace = response.getPlace(); //gets Place object
+        chosenPlaceName = chosenPlace.getName();
+        chosenPlaceAddress = chosenPlace.getAddress();
+        getChosenPlacePhone = chosenPlace.getPhoneNumber();
 
-            parking_grade = (TextView) findViewById(R.id.parking_grade);
-            accessibility_grade = (TextView) findViewById(R.id.accessibility_grade);
-            toilet_grade = (TextView) findViewById(R.id.toilet_grade);
-            service_grade = (TextView) findViewById(R.id.service_grade);
-            pbParking = (ProgressBar) findViewById(R.id.progressBar_parking);
-            pbAccessibility = (ProgressBar) findViewById(R.id.progressBar_accessibility);
-            pbToilet = (ProgressBar) findViewById(R.id.progressBar_toilet);
-            pbService = (ProgressBar) findViewById(R.id.progressBar_service);
-            openGoogleMapText = (TextView) findViewById(R.id.open_google_map_text);
-            Place chosenPlace = response.getPlace(); //gets Place object
-            chosenPlaceName = chosenPlace.getName();
-            chosenPlaceAddress = chosenPlace.getAddress();
-            getChosenPlacePhone = chosenPlace.getPhoneNumber();
-            Map<String, Object> chosenPlaceMap = new HashMap<>(); //creates map with place's details
-            final TextView place_name = (TextView) findViewById(R.id.place_name); //get the id for TextView
-            final TextView place_address = (TextView) findViewById(R.id.place_address); //get the id for TextView
+
             //todo add phone number textview in XML and here
             docRef = db.collection("places").document(chosenPlaceId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -167,8 +246,8 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                             chosenPlaceMap.put("id", chosenPlace.getId());
                             chosenPlaceMap.put("name", chosenPlace.getName());
                             chosenPlaceMap.put("address", chosenPlace.getAddress());
-                            chosenPlaceMap.put("longitude", String.valueOf(chosenPlace.getLatLng().latitude)); //todo - bug here!
-                            chosenPlaceMap.put("latitude", String.valueOf(chosenPlace.getLatLng().latitude));
+/*                            chosenPlaceMap.put("longitude", String.valueOf(chosenPlace.getLatLng().latitude)); //todo - bug here!
+                            chosenPlaceMap.put("latitude", String.valueOf(chosenPlace.getLatLng().latitude));*/
                             chosenPlaceMap.put("phone", chosenPlace.getPhoneNumber());
                             chosenPlaceMap.put("link", "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlace.getId());
                             chosenPlaceMap.put("reviewsCounter", 0);
@@ -193,18 +272,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
         });
 
 
-        setContentView(R.layout.activity_result); //set the layout
-        getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
+
         ;
-        // creates "open map" button
-        final ImageButton open_map_intent = (ImageButton) findViewById(R.id.open_map_buttom);
-        Intent toOpenMap = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + chosenPlaceId));
-        open_map_intent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(toOpenMap);
-            }
-        });
+
+
 
 
         final TextView no_reviews_yet = (TextView) findViewById(R.id.no_reviews_yet);
@@ -223,52 +294,6 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        //builds the floating button
-
-                        // creates "new review" button
-                        ExtendedFloatingActionButton add_review = (ExtendedFloatingActionButton) findViewById(R.id.add_review_icon_text);
-                        add_review.extend(true);
-                        //intent to add_review activity
-                        Intent toAddReview = new Intent(ResultActivity.this, AddReviewActivity.class);
-                        add_review.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                toAddReview.putExtra("chosenPlaceId", chosenPlaceId);
-                                toAddReview.putExtra("reviewsCounter", Integer.toString(reviewsList.size()));
-                                //todo does it takes care of back from adding review before posting a review
-                                startActivity(toAddReview);
-                            }
-                        });
-                        // creates "add pivcture" button
-                        ExtendedFloatingActionButton add_picture = (ExtendedFloatingActionButton) findViewById(R.id.add_picture_icon_text);
-                        add_picture.extend(true);
-
-                        add_picture.setOnClickListener(new View.OnClickListener() {
-                            @Override
-
-                            public void onClick(View view) {
-                                onLaunchCamera();
-                           }
-                        });
-
-                        // creates "see picture" button
-                        ExtendedFloatingActionButton see_picture = (ExtendedFloatingActionButton) findViewById(R.id.open_picture_icon_text);
-                        see_picture.extend(true);
-                        see_picture.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent toImagesGallery = new Intent(ResultActivity.this, ImagesGalleryActivity.class);
-                                see_picture.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        toImagesGallery.putExtra("chosenPlaceId", chosenPlaceId);
-                                        startActivity(toImagesGallery);
-                                    }
-                                });
-
-
-                            }
-                        });
 
 
                         if (queryDocumentSnapshots.isEmpty()) {
@@ -276,6 +301,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
 
                             no_reviews_yet.setVisibility(View.VISIBLE);
                             no_reviews_yet.bringToFront();
+
                         } else {
                             no_reviews_yet.setVisibility(View.INVISIBLE);
 
@@ -298,14 +324,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 Integer[] imgAccessibility = new Integer[reviewsList.size()];
                                 Integer[] imgToilet = new Integer[reviewsList.size()];
                                 Integer[] imgService = new Integer[reviewsList.size()];
-                                String[] chip1 = new String[reviewsList.size()];
+             /*                   String[] chip1 = new String[reviewsList.size()];
                                 String[] chip2 = new String[reviewsList.size()];
                                 String[] chip3 = new String[reviewsList.size()];
                                 String[] chip4 = new String[reviewsList.size()];
                                 String[] chip5 = new String[reviewsList.size()];
                                 String[] chip6 = new String[reviewsList.size()];
                                 String[] chip7 = new String[reviewsList.size()];
-                                String[] chip8= new String[reviewsList.size()];
+                                String[] chip8= new String[reviewsList.size()]; */
                                 int chip1Counter = 0;
                                 int chip2Counter = 0;
                                 int chip3Counter = 0;
@@ -324,14 +350,14 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 int dontCount = 0;
                                 for (Map<String, Object> currMap : reviewsList) {
                                     extraInfo[counter] = (String) currMap.get("extraInfo");
-                                    chip1[counter]= (String) currMap.get("chip1");
+/*                                    chip1[counter]= (String) currMap.get("chip1");
                                     chip2[counter]= (String) currMap.get("chip2");
                                     chip3[counter]= (String) currMap.get("chip3");
                                     chip4[counter]= (String) currMap.get("chip4");
                                     chip5[counter]= (String) currMap.get("chip5");
                                     chip6[counter]= (String) currMap.get("chip6");
                                     chip7[counter]= (String) currMap.get("chip7");
-                                    chip8[counter]= (String) currMap.get("chip8");
+                                    chip8[counter]= (String) currMap.get("chip8");*/
                                     if (currMap.containsKey("chip1")) {
                                         chip1Counter++;
                                         chip1Text.setText((String) currMap.get("chip1"));
@@ -364,10 +390,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                         chip8Counter++;
                                         chip8Text.setText((String) currMap.get("chip8"));
                                     }
-                        
+
                                     date[counter] = ((String) currMap.get("time")).substring(0, 10);
-                                    
-                                    
+
+
                                     if ((Boolean) currMap.get("parking")){
                                         imgParking[counter] = R.drawable.v1;
                                         counterParkingGrade++;
@@ -391,13 +417,24 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                         counterServiceGrade++;
                                     }
                                     else imgService[counter] = R.drawable.x4;
-                                    
+
                                     Integer currGrade = Integer.valueOf(String.valueOf(currMap.get("rating")));
                                     if (currGrade != 0) summedGrade += currGrade;
                                     else dontCount++;
                                     counter++;
                                 }
+                                if (chip1Counter != 0) chip1Text.setVisibility(View.VISIBLE);
+                                if (chip2Counter != 0) chip2Text.setVisibility(View.VISIBLE);
+                                if (chip3Counter != 0) chip3Text.setVisibility(View.VISIBLE);
+                                if (chip4Counter != 0) chip4Text.setVisibility(View.VISIBLE);
+                                if (chip5Counter != 0) chip5Text.setVisibility(View.VISIBLE);
+                                if (chip6Counter != 0) chip6Text.setVisibility(View.VISIBLE);
+                                if (chip7Counter != 0) chip7Text.setVisibility(View.VISIBLE);
+                                if (chip8Counter != 0) chip8Text.setVisibility(View.VISIBLE);
 
+
+                                reviewsSumCount = "סיכום ביקורת משתמשים  " + "("+String.valueOf(counter)+")";
+                               if(reviewsSum != null) reviewsSum.setText(reviewsSumCount);
                                 pbParking.setMax(counter);
                                 pbAccessibility.setMax(counter);
                                 pbToilet.setMax(counter);
@@ -412,7 +449,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 pbToilet.setProgress(counterToiletGrade);
                                 pbService.setProgress(counterServiceGrade);
 
-                                
+
 
                                 //calculate grade for current place based on revires (if more than 3)
                                 if (reviewsList.size() - dontCount > 3) {
@@ -425,7 +462,7 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                     else avgGradeText.setText(String.valueOf(finalGrade));*/
                                 }
                                 // uses the adapter to insert data to listView
-                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService, chip1, chip2, chip3, chip4, chip5, chip6, chip7, chip8 );
+                                MyListAdapter adapter = new MyListAdapter(ResultActivity.this, extraInfo, date, imgParking, imgAccessibility, imgToilet, imgService);
                                 list = (ListView) findViewById(R.id.list);
                                 list.setAdapter(adapter);
 
@@ -434,10 +471,10 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
                                 chipsList = (ListView) findViewById(R.id.chipsList);
                                 chipsList.setAdapter(chipsAdapter);*/
 
-                               
-                          
-                          
-                          
+
+
+
+
                                 list.setOnScrollListener(new AbsListView.OnScrollListener() {
                                     @Override
                                     public void onScroll(AbsListView view, int firstVisibleItem,
@@ -549,19 +586,5 @@ public class ResultActivity extends AppCompatActivity implements Serializable {
             Places.initialize(getApplicationContext(), apiKey);
         }
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

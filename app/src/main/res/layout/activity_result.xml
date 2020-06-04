@@ -5,19 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7A28A0F3"
-    tools:context=".ResultActivity"><![CDATA[
-    app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.919"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497" />
-
-
-
-
-
-    ]]>
+    tools:context=".ResultActivity">
 
     <LinearLayout
         android:id="@+id/head"
@@ -89,7 +77,6 @@
                         android:layout_height="24dp"
                         android:layout_alignParentEnd="true"
                         android:layout_gravity="clip_horizontal|center|clip_vertical|start"
-                        android:layout_weight="0"
                         android:background="@drawable/com_facebook_auth_dialog_cancel_background"
                         android:backgroundTint="#00E8F3FF"
                         android:insetTop="0dp"
@@ -107,15 +94,24 @@
                         android:text="@string/open_map_button" />
                 </LinearLayout>
 
+
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="167dp"
+            android:layout_height="wrap_content"
             android:layout_weight="4"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reviews_sum_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingStart="8dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -150,9 +146,10 @@
                     android:layout_weight="0"
                     android:alpha="3"
                     android:indeterminate="false"
-                    android:max="11"
+
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
+
                     android:progressTint="#F2343C57" />
 
                 <TextView
@@ -194,8 +191,10 @@
                     android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
+
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
+
                     android:progressTint="#F2343C57" />
 
                 <TextView
@@ -239,9 +238,10 @@
                     android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
-                    android:max="11"
+
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
+
                     android:progressTint="#F2343C57" />
 
                 <TextView
@@ -250,6 +250,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0"
                     android:gravity="center_horizontal|center_vertical" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -284,9 +285,10 @@
                     android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
-                    android:max="111"
+
                     android:outlineAmbientShadowColor="#00B33131"
                     android:outlineSpotShadowColor="#00B82929"
+
                     android:progressTint="#F2343C57" />
 
                 <TextView
@@ -322,7 +324,7 @@
 
     <LinearLayout
         android:id="@+id/chips"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
@@ -332,7 +334,7 @@
 
 
         <TextView
-            android:id="@+id/chip1"
+            android:id="@+id/what_customers_said"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -341,7 +343,22 @@
             android:inputType="textCapSentences|textMultiLine"
             android:maxLength="2000"
             android:maxLines="30"
-            android:paddingEnd="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="horizontal"
+            android:text="מה משתמשים אמרו על המקום?"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d" />
+
+        <TextView
+            android:id="@+id/chip1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollbars="horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#4d4d4d"
@@ -355,10 +372,8 @@
             android:layout_marginTop="0dp"
             android:background="#ffffff"
             android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollbars="horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#4d4d4d"
@@ -372,78 +387,8 @@
             android:layout_marginTop="0dp"
             android:background="#ffffff"
             android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
-            android:scrollbars="horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#4d4d4d"
-            android:textStyle="bold|italic"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/chip4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
-            android:scrollbars="horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#4d4d4d"
-            android:textStyle="bold|italic"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/chip5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
-            android:scrollbars="horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#4d4d4d"
-            android:textStyle="bold|italic"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/chip6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
-            android:scrollbars="horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#4d4d4d"
-            android:textStyle="bold|italic"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/chip7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:background="#ffffff"
-            android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollbars="horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#4d4d4d"
@@ -457,15 +402,74 @@
             android:layout_marginTop="0dp"
             android:background="#ffffff"
             android:backgroundTint="#ffffff"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
-            android:maxLines="30"
-            android:paddingEnd="32dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollbars="horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#4d4d4d"
             android:textStyle="bold|italic"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/chip4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d"
+            android:textStyle="bold|italic"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/chip5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d"
+            android:textStyle="bold|italic"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/chip6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d"
+            android:textStyle="bold|italic"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/chip7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d"
+            android:textStyle="bold|italic"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </LinearLayout>
 
     <TextView
@@ -478,7 +482,7 @@
         android:textColor="#000000"
         android:textSize="0dp"
 
-        app:layout_constraintBottem_toTopOf="@+id/relativeLayout"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chips"
@@ -497,7 +501,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
         tools:context="com.example.test.listviewwithimage.MainActivity">
 
         <TextView
