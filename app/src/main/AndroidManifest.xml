@@ -22,7 +22,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
-        <activity android:name=".TestActivity"></activity>
         <activity android:name=".ImagesGalleryActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

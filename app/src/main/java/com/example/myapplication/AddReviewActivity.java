@@ -49,6 +49,10 @@ public class AddReviewActivity extends AppCompatActivity {
     private String reviewsCounter = "temp";
     private ChipGroup chipGroup;
     FrameLayout parkingFrame;
+    FrameLayout accessibleFrame;
+    FrameLayout toiletFrame;
+    FrameLayout serviceFrame;
+
 
     String TAG = "AddReviewActivity";
 
@@ -69,6 +73,7 @@ public class AddReviewActivity extends AppCompatActivity {
             }
         } else {
             chosenPlaceId = (String) savedInstanceState.getSerializable("chosenPlaceId");
+            reviewsCounter = (String) savedInstanceState.getSerializable("reviewsCounter");
         }
         String apiKey = getString(R.string.api_key);
         if (!Places.isInitialized()) {
@@ -81,6 +86,10 @@ public class AddReviewActivity extends AppCompatActivity {
         TextView service_t = findViewById(R.id.service_text);
 
         parkingFrame = findViewById(R.id.parking_frame);
+        accessibleFrame = findViewById(R.id.accessible_frame);
+        toiletFrame = findViewById(R.id.toilet_frame);
+        serviceFrame = findViewById(R.id.service_frame);
+
 
         ImageView parking_imageX = findViewById(R.id.parking_imageX);
         ImageView parking_imageV = findViewById(R.id.parking_imageV);
@@ -134,6 +143,10 @@ public class AddReviewActivity extends AppCompatActivity {
         Chip chip6 =  addChip("תאורה מאפשרת שיח", chipGroup);
         Chip chip7 =  addChip("עובדים סבלניים", chipGroup);
         Chip chip8 =  addChip("קדימות בתור בהצגת תעודה", chipGroup);
+
+        int updatedCounter = Integer.parseInt(reviewsCounter);
+        updatedCounter++;
+        reviewsCounter = String.valueOf(updatedCounter);
         //parking switch
         com.suke.widget.SwitchButton parking_b = (com.suke.widget.SwitchButton) findViewById(R.id.parking_b);
         parking_b.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
@@ -306,6 +319,69 @@ public class AddReviewActivity extends AppCompatActivity {
             }
         });
 
+        accessibleFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(AddReviewActivity.this)
+                        .setTitle("כניסה ומרחב")
+                        .setMessage("האם מתאפשרת הגעה למקום עם כיסא גלגלים? האם המקום מרווח, נוח, ומאפשר תנועה בקלות?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+        toiletFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(AddReviewActivity.this)
+                        .setTitle("שירותים")
+                        .setMessage("האם קיימים במקום שירותים נגישים? האם ישנן ידיות אחיזה, כיור גבוה, דלת רחבה מספיק?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+        serviceFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(AddReviewActivity.this)
+                        .setTitle("שירות")
+                        .setMessage("האם צוות המקום מסביר פנים ומתנהג באדיבות? נותני השירות מתייחסים בצורה הולמת? ישנה קדימות בתור בהצגת תעודה מתאימה?")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
     }
     @Override
     public void onBackPressed() {
@@ -396,6 +472,10 @@ public class AddReviewActivity extends AppCompatActivity {
         Chip chip = new Chip(this);
         chip.setText(text);
         chip.setCheckable(true);
+        chip.setTextColor(getResources().getColor(R.color.com_facebook_button_background_color));
+
+        chip.setBackgroundColor(getResources().getColor(R.color.quantum_googred200));
+
       /*  chip.setBackgroundColor(Color.parseColor("#7A28A0F3"));
         chip.setOutlineAmbientShadowColor(Color.parseColor("#7A28A0F3"));*/
         return chip;
