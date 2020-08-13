@@ -47,10 +47,10 @@ class AddReviewActivity : AppCompatActivity() {
     private var chosenPlaceId: String? = ""
     private var reviewsCounter: String? = "temp"
     private var chipGroup: ChipGroup? = null
-    internal var parkingFrame: FrameLayout
-    internal var accessibleFrame: FrameLayout
-    internal var toiletFrame: FrameLayout
-    internal var serviceFrame: FrameLayout
+    internal lateinit var parkingFrame: FrameLayout
+    internal lateinit var accessibleFrame: FrameLayout
+    internal lateinit var toiletFrame: FrameLayout
+    internal lateinit var serviceFrame: FrameLayout
 
 
 
@@ -264,21 +264,21 @@ class AddReviewActivity : AppCompatActivity() {
             }
         }
 
-        parkingFrame.setOnClickListener {
-            AlertDialog.Builder(this@AddReviewActivity)
-                    .setTitle("חנייה")
-                    .setMessage("האם קיימת חנייה נגישה בסמוך? האם הדרך מהחנייה למקום נגישה? האם מספר מקומות החנייה הנגישים מספק?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes) { dialog, which ->
-                        // Continue with delete operation
-                    }
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show()
-        }
+//        parkingFrame.setOnClickListener {
+//            AlertDialog.Builder(this@AddReviewActivity)
+//                    .setTitle("חנייה")
+//                    .setMessage("האם קיימת חנייה נגישה בסמוך? האם הדרך מהחנייה למקום נגישה? האם מספר מקומות החנייה הנגישים מספק?")
+//
+//                    // Specifying a listener allows you to take an action before dismissing the dialog.
+//                    // The dialog is automatically dismissed when a dialog button is clicked.
+//                    .setPositiveButton(android.R.string.yes) { dialog, which ->
+//                        // Continue with delete operation
+//                    }
+//
+//                    // A null listener allows the button to dismiss the dialog and take no further action.
+//                    .setIcon(android.R.drawable.ic_dialog_alert)
+//                    .show()
+//        }
 
         accessibleFrame.setOnClickListener {
             AlertDialog.Builder(this@AddReviewActivity)

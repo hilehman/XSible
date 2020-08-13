@@ -82,7 +82,7 @@ class ResultActivity : AppCompatActivity(), Serializable {
     internal var storageRef = storage.reference
     //internal var builder: AlertDialog.Builder? = null
     internal var builder = AlertDialog.Builder(this)
-    internal var progressDialog: AlertDialog
+    internal lateinit var progressDialog: AlertDialog
     private var parking_grade: TextView? = null
     private var accessibility_grade: TextView? = null
     private var toilet_grade: TextView? = null
@@ -102,9 +102,9 @@ class ResultActivity : AppCompatActivity(), Serializable {
     private var chip8Text: TextView? = null
     private var reviewsSum: TextView? = null
     private var reviewsSumCount = ""
-    internal var place_name: TextView
-    internal var place_address: TextView
-    internal var chosenPlace: Place
+    internal lateinit var place_name: TextView
+    internal lateinit var place_address: TextView
+    internal lateinit var chosenPlace: Place
 
     val dialogProgressBar: AlertDialog.Builder
         get() {
